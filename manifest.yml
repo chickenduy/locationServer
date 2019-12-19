@@ -1,0 +1,12 @@
+applications:
+- buildpacks:
+  - sdk-for-nodejs
+  command: npm run-script start
+  domain: null
+  host: null
+  instances: 1
+  memory: 256M
+  name: locationServer
+  routes:
+  - route: locationServer.eu-gb.mybluemix.net
+  timeout: 180
