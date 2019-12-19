@@ -24,7 +24,7 @@ exports.basicRequest = (req, res) => {
     });
     res.status(200)
         .send({
-        "test": "Hello World"
+        "test": "Successfully deployed"
     });
 };
 exports.startAggregationRequest = (req, res) => {

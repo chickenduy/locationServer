@@ -13,7 +13,7 @@ export let basicRequest = (req, res) => {
 	})
 	res.status(200)
 		.send({
-			"test":"Hello World"
+			"test":"Successfully deployed"
 		})
 }
 
