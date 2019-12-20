@@ -1,4 +1,4 @@
-import mongo from 'mongodb';
+import mongo, { MongoClient } from 'mongodb';
 
 const mongoClient = mongo.MongoClient
 
@@ -6,17 +6,29 @@ const uri = "mongodb+srv://chickenduy:LeAnh2000!@locationstorage-mlqqq.mongodb.n
 const DB = "data"
 
 let conn = null
-let db = null
+let db: mongo.Db = null
 
-export async function openDb () {
-	if (!conn) {
-		conn = mongoClient.connect(uri, {"useNewUrlParser":true,  "useUnifiedTopology": true,})
-	}
-	if (!db) {
-		return conn.then(conn => {
-			db = conn.db(DB)
-			return db
-		})
-	}
-	return Promise.resolve(db)
+export function openDb () {
+	return new Promise<mongo.Db>((resolve, reject) => {
+		if (conn) {
+			if (db) {
+				resolve(db)
+			}
+			else {
+				db = conn.db(DB)
+				resolve(db)
+			}
+		}
+		else {
+			mongoClient.connect(uri, {"useNewUrlParser":true})
+			.then((con) => {
+				conn = con
+				db = con.db(DB)
+				resolve(db)
+			})
+			.catch((err) => {
+				reject(err)
+			})
+		}
+	})
 }

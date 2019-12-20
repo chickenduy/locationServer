@@ -1,6 +1,5 @@
-import { createUserWithParam, insertUser } from "./model/users"
+import { createUserPromise } from "./model/users"
 import crypto from "crypto";
-import * as helpers from "./helpers"
 import Communication from "./communication";
 
 /**
@@ -42,24 +41,6 @@ export let startAggregationRequest = (req, res) => {
 		.send("start aggregation")
 }
 
-function createUser(publicKey) {
-	let random = crypto.randomBytes(36)
-	let password = crypto.createHash("sha256").update(random).digest().toString()
-	console.log(password)
-	let lastSeen = (new Date()).getTime()
-	let user = createUserWithParam(publicKey, lastSeen, password)
-
-	return insertUser(user).then(insertedUser => {
-		insertedUser.password = random
-		return Promise.resolve(insertedUser)
-	}).catch(() => {
-		err => {
-			console.log("ERROR handling inserting User")
-			console.log(err)
-		}
-	})
-}
-
 export let handleNewUserRequest = (req, res) => {
 	console.log(req.body)
 	let user = {
@@ -67,8 +48,8 @@ export let handleNewUserRequest = (req, res) => {
 		"publicKey": req.body.publicKey,
 		"lastSeen": Date.now()
 	}
-	helpers.createUser(user)
-	.then(() => {
+	createUserPromise(user)
+	.then((result) => {
 		let response = {
 			"status" : "success"
 		}
@@ -76,20 +57,11 @@ export let handleNewUserRequest = (req, res) => {
 	})
 	.catch((err) => {
 		let response = {
-			"status" : "failure"
+			"status" : "failure",
+			"reason" : err
 		}
-		res.status(500).json(response).send(err)
+		res.status(500).json(response).send()
 	})
-	// createUser(req.body.publicKey).then(user => {
-	// 	res.status(200).json({
-	// 		"publicKey": user.publicKey,
-	// 		"password": user.password
-	// 	})
-	// }).catch(err => {
-	// 	console.log("ERROR handling newUserRequest")
-	// 	console.log(err)
-	// 	res.status(400).end();
-	// })
 }
 
 export let testRoutePost = (req, res) => {

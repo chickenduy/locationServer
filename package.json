@@ -6,9 +6,8 @@
   "scripts": {
     "start": "node built/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "deploy" : "tsc && git add ."
-  },
+    "build": "tsc"
+    },
   "author": "Dinh Le Khanh Duy",
   "license": "ISC",
   "dependencies": {
