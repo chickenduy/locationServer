@@ -18,7 +18,7 @@ export let createUserPromise = (user) => {
                     if(!foundUser) {
                         db.collection(COLLECTION_CROWD).insertOne(user)
                         .then((result) => {
-                            resolve(result)
+                            resolve("Created user")
                         })
                         .catch((err) => {
                             reject(err)
@@ -49,7 +49,7 @@ export let getUserPromise = (token) => {
                 db.collection(COLLECTION_CROWD).findOne({"id" : token})
                 .then((foundUser) => {
                     if(foundUser) {
-                        resolve(foundUser)
+                        resolve("Found user")
                     }
                     else {
                         reject(`User ${token} is not registered`)

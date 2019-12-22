@@ -54,7 +54,8 @@ export let handleUserRequest = (req, res) => {
 			createUserPromise(user)
 				.then((result) => {
 					let response = {
-						"status": "success"
+						"status": "success",
+						"message" : result
 					}
 					res.status(200).json(response).send()
 				})
@@ -71,7 +72,8 @@ export let handleUserRequest = (req, res) => {
 			getUserPromise(token)
 				.then((result) => {
 					let response = {
-						"status": "success"
+						"status": "success",
+						"message" : result
 					}
 					res.status(200).json(response).send()
 				})
