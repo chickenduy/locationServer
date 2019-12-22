@@ -39,21 +39,21 @@ exports.createUserPromise = (user) => {
         }
     });
 };
-exports.getUserPromise = (user) => {
+exports.getUserPromise = (token) => {
     return new Promise((resolve, reject) => {
-        if (!user.id) {
-            return reject("Could not create user, missing required fields");
+        if (token) {
+            return reject("Could not find user, missing required fields");
         }
         else {
             dbconnector_1.openDb()
                 .then((db) => {
-                db.collection(COLLECTION_CROWD).findOne({ "id": user.id })
+                db.collection(COLLECTION_CROWD).findOne({ "id": token })
                     .then((foundUser) => {
-                    if (!foundUser) {
+                    if (foundUser) {
                         resolve(foundUser);
                     }
                     else {
-                        reject(`User ${user.publicKey} already present`);
+                        reject(`User ${token} is not registered`);
                     }
                 })
                     .catch((err) => {

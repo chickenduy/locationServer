@@ -40,27 +40,55 @@ exports.startAggregationRequest = (req, res) => {
     res.status(200)
         .send("start aggregation");
 };
-exports.handleNewUserRequest = (req, res) => {
+exports.handleUserRequest = (req, res) => {
     console.log(req.body);
-    let user = {
-        "id": req.body.id,
-        "publicKey": req.body.publicKey,
-        "lastSeen": Date.now()
-    };
-    users_1.createUserPromise(user)
-        .then((result) => {
-        let response = {
-            "status": "success"
-        };
-        res.status(200).json(response).send();
-    })
-        .catch((err) => {
-        let response = {
-            "status": "failure",
-            "reason": err
-        };
-        res.status(500).json(response).send();
-    });
+    let request = req.body.request;
+    switch (request) {
+        case "create":
+            let user = {
+                "id": req.body.id,
+                "publicKey": req.body.publicKey,
+                "lastSeen": Date.now()
+            };
+            users_1.createUserPromise(user)
+                .then((result) => {
+                let response = {
+                    "status": "success"
+                };
+                res.status(200).json(response).send();
+            })
+                .catch((err) => {
+                let response = {
+                    "status": "failure",
+                    "reason": err
+                };
+                res.status(500).json(response).send();
+            });
+            break;
+        case "find":
+            let token = req.body.token;
+            users_1.getUserPromise(token)
+                .then((result) => {
+                let response = {
+                    "status": "success"
+                };
+                res.status(200).json(response).send();
+            })
+                .catch((err) => {
+                let response = {
+                    "status": "failure",
+                    "reason": err
+                };
+                res.status(500).json(response).send();
+            });
+        default:
+            let response = {
+                "status": "undefined",
+                "message": "no request has been sent"
+            };
+            res.status(200).json(response).send();
+            return;
+    }
 };
 exports.handleGetUserRequest = (req, res) => {
     console.log(req.body);

@@ -39,20 +39,20 @@ export let createUserPromise = (user) => {
     })
 }
 
-export let getUserPromise = (user) => {
+export let getUserPromise = (token) => {
     return new Promise((resolve, reject) => {
-        if (!user.id) {
-            return reject("Could not create user, missing required fields")
+        if (token) {
+            return reject("Could not find user, missing required fields")
         } else {
             openDb()
             .then((db) => {
-                db.collection(COLLECTION_CROWD).findOne({"id" : user.id})
+                db.collection(COLLECTION_CROWD).findOne({"id" : token})
                 .then((foundUser) => {
-                    if(!foundUser) {
+                    if(foundUser) {
                         resolve(foundUser)
                     }
                     else {
-                        reject(`User ${user.publicKey} already present`)
+                        reject(`User ${token} is not registered`)
                     }
                 })
                 .catch((err) => {

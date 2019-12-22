@@ -12,7 +12,7 @@ export let basicRequest = (req, res) => {
 	})
 	res.status(200)
 		.send({
-			"test":"Successfully deployed"
+			"test": "Successfully deployed"
 		})
 }
 
@@ -41,70 +41,99 @@ export let startAggregationRequest = (req, res) => {
 		.send("start aggregation")
 }
 
-export let handleNewUserRequest = (req, res) => {
+export let handleUserRequest = (req, res) => {
 	console.log(req.body)
-	let user = {
-		"id" : req.body.id,
-		"publicKey": req.body.publicKey,
-		"lastSeen": Date.now()
+	let request = req.body.request
+	switch (request) {
+		case "create":
+			let user = {
+				"id": req.body.id,
+				"publicKey": req.body.publicKey,
+				"lastSeen": Date.now()
+			}
+			createUserPromise(user)
+				.then((result) => {
+					let response = {
+						"status": "success"
+					}
+					res.status(200).json(response).send()
+				})
+				.catch((err) => {
+					let response = {
+						"status": "failure",
+						"reason": err
+					}
+					res.status(500).json(response).send()
+				})
+			break
+		case "find":
+			let token = req.body.token
+			getUserPromise(token)
+				.then((result) => {
+					let response = {
+						"status": "success"
+					}
+					res.status(200).json(response).send()
+				})
+				.catch((err) => {
+					let response = {
+						"status": "failure",
+						"reason": err
+					}
+					res.status(500).json(response).send()
+				})
+		default:
+			let response = {
+				"status": "undefined",
+				"message": "no request has been sent"
+			}
+			res.status(200).json(response).send()
+			return
 	}
-	createUserPromise(user)
-	.then((result) => {
-		let response = {
-			"status" : "success"
-		}
-		res.status(200).json(response).send()
-	})
-	.catch((err) => {
-		let response = {
-			"status" : "failure",
-			"reason" : err
-		}
-		res.status(500).json(response).send()
-	})
+
 }
 
 export let handleGetUserRequest = (req, res) => {
 	console.log(req.body)
 	let user = {
-		"id" : req.body.id,
+		"id": req.body.id,
 	}
 	getUserPromise(user)
-	.then((result) => {
-		let response = {
-			"status" : "success"
-		}
-		res.status(200).json(response).send()
-	})
-	.catch((err) => {
-		let response = {
-			"status" : "failure",
-			"reason" : err
-		}
-		res.status(500).json(response).send()
-	})
+		.then((result) => {
+			let response = {
+				"status": "success"
+			}
+			res.status(200).json(response).send()
+		})
+		.catch((err) => {
+			let response = {
+				"status": "failure",
+				"reason": err
+			}
+			res.status(500).json(response).send()
+		})
 }
 
 export let testRoutePost = (req, res) => {
 	console.log(req.body)
 	let com = new Communication()
 	let data = {
-		"to" : "/topics/online",
+		"to": "/topics/online",
 		"data": {
-			"test" : false,
-			"value" : "Hello World"
+			"test": false,
+			"value": "Hello World"
 		}
 	}
 	com.sendPushNotificationPromise(data)
-	.then((result) => {
-		console.log(result)
-		let response = {
-			"status" : "success",
-			"result" : result
-		}
-		res.status(200).json(result).send()
-	})
-	.catch((err) => {
-		res.status(500).send(err)
-	})
+		.then((result) => {
+			console.log(result)
+			let response = {
+				"status": "success",
+				"result": result
+			}
+			res.status(200).json(result).send()
+		})
+		.catch((err) => {
+			res.status(500).send(err)
+		})
 }

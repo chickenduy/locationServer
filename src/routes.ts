@@ -19,9 +19,8 @@ export default class Router {
         app.get('/aggregations', RouteHandling.startAggregationRequest)
         app.get('/request', RouteHandling.basicRequest)
         app.get('/test', RouteHandling.testRoutePost)
-        app.get('/user', RouteHandling.testRoutePost)
-        
-        app.post('/user', RouteHandling.handleNewUserRequest)
+
+        app.post('/user', RouteHandling.handleUserRequest)
         app.post('/test', RouteHandling.testRoutePost)
         app.post('/admin/sampleRequest', RouteHandling.basicRequest)
 
