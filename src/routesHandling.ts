@@ -1,4 +1,4 @@
-import { createUserPromise } from "./model/users"
+import { createUserPromise, getUserPromise } from "./model/users"
 import crypto from "crypto";
 import Communication from "./communication";
 
@@ -64,6 +64,27 @@ export let handleNewUserRequest = (req, res) => {
 	})
 }
 
+export let handleGetUserRequest = (req, res) => {
+	console.log(req.body)
+	let user = {
+		"id" : req.body.id,
+	}
+	getUserPromise(user)
+	.then((result) => {
+		let response = {
+			"status" : "success"
+		}
+		res.status(200).json(response).send()
+	})
+	.catch((err) => {
+		let response = {
+			"status" : "failure",
+			"reason" : err
+		}
+		res.status(500).json(response).send()
+	})
+}
+
 export let testRoutePost = (req, res) => {
 	console.log(req.body)
 	let com = new Communication()
@@ -84,6 +105,6 @@ export let testRoutePost = (req, res) => {
 		res.status(200).json(result).send()
 	})
 	.catch((err) => {
-		res.status(200).send(err)
+		res.status(500).send(err)
 	})
 }
