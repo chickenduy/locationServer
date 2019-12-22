@@ -62,6 +62,26 @@ exports.handleNewUserRequest = (req, res) => {
         res.status(500).json(response).send();
     });
 };
+exports.handleGetUserRequest = (req, res) => {
+    console.log(req.body);
+    let user = {
+        "id": req.body.id,
+    };
+    users_1.getUserPromise(user)
+        .then((result) => {
+        let response = {
+            "status": "success"
+        };
+        res.status(200).json(response).send();
+    })
+        .catch((err) => {
+        let response = {
+            "status": "failure",
+            "reason": err
+        };
+        res.status(500).json(response).send();
+    });
+};
 exports.testRoutePost = (req, res) => {
     console.log(req.body);
     let com = new communication_1.default();
@@ -82,7 +102,7 @@ exports.testRoutePost = (req, res) => {
         res.status(200).json(result).send();
     })
         .catch((err) => {
-        res.status(200).send(err);
+        res.status(500).send(err);
     });
 };
 //# sourceMappingURL=routesHandling.js.map
