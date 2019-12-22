@@ -51,7 +51,7 @@ export let getUserPromise = (token) => {
                             if (foundUser) {
                                 db.collection(COLLECTION_CROWD).updateOne(
                                     { "id": token },
-                                    { $set: { "lastSeen": Date.now } })
+                                    { $set: { "lastSeen": Date.now() } })
                                     .then(() => {
                                         resolve("Found user and updated timestamp")
                                     })
