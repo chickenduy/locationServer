@@ -67,7 +67,7 @@ exports.handleUserRequest = (req, res) => {
             });
             break;
         case "find":
-            let token = req.body.token;
+            let token = req.body.id;
             users_1.getUserPromise(token)
                 .then((result) => {
                 let response = {
@@ -83,6 +83,7 @@ exports.handleUserRequest = (req, res) => {
                 };
                 res.status(500).json(response).send();
             });
+            break;
         default:
             let response = {
                 "status": "undefined",

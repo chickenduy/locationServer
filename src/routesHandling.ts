@@ -68,7 +68,7 @@ export let handleUserRequest = (req, res) => {
 				})
 			break
 		case "find":
-			let token = req.body.token
+			let token = req.body.id
 			getUserPromise(token)
 				.then((result) => {
 					let response = {
@@ -84,6 +84,7 @@ export let handleUserRequest = (req, res) => {
 					}
 					res.status(500).json(response).send()
 				})
+			break
 		default:
 			let response = {
 				"status": "undefined",
