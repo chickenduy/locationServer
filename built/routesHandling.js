@@ -63,7 +63,7 @@ exports.handleUserRequest = (req, res) => {
                     "status": "failure",
                     "reason": err
                 };
-                res.status(500).json(response).send();
+                res.status(200).json(response).send();
             });
             break;
         case "find":
@@ -81,7 +81,7 @@ exports.handleUserRequest = (req, res) => {
                     "status": "failure",
                     "reason": err
                 };
-                res.status(500).json(response).send();
+                res.status(200).json(response).send();
             });
             break;
         default:
