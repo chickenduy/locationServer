@@ -41,7 +41,7 @@ exports.createUserPromise = (user) => {
 };
 exports.getUserPromise = (token) => {
     return new Promise((resolve, reject) => {
-        if (token) {
+        if (!token) {
             return reject("Could not find user, missing required fields");
         }
         else {

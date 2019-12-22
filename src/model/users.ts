@@ -41,7 +41,7 @@ export let createUserPromise = (user) => {
 
 export let getUserPromise = (token) => {
     return new Promise((resolve, reject) => {
-        if (token) {
+        if (!token) {
             return reject("Could not find user, missing required fields")
         } else {
             openDb()
