@@ -50,7 +50,13 @@ exports.getUserPromise = (token) => {
                 db.collection(COLLECTION_CROWD).findOne({ "id": token })
                     .then((foundUser) => {
                     if (foundUser) {
-                        resolve("Found user");
+                        db.collection(COLLECTION_CROWD).updateOne({ "id": token }, { "lastSeen": Date.now })
+                            .then(() => {
+                            resolve("Found user and updated timestamp");
+                        })
+                            .catch((err) => {
+                            reject("Couldn't update timestamp");
+                        });
                     }
                     else {
                         reject(`User ${token} is not registered`);

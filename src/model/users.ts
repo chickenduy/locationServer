@@ -12,29 +12,29 @@ export let createUserPromise = (user) => {
             return reject("Could not create user, missing required fields")
         } else {
             openDb()
-            .then((db) => {
-                db.collection(COLLECTION_CROWD).findOne({"id" : user.id})
-                .then((foundUser) => {
-                    if(!foundUser) {
-                        db.collection(COLLECTION_CROWD).insertOne(user)
-                        .then((result) => {
-                            resolve("Created user")
+                .then((db) => {
+                    db.collection(COLLECTION_CROWD).findOne({ "id": user.id })
+                        .then((foundUser) => {
+                            if (!foundUser) {
+                                db.collection(COLLECTION_CROWD).insertOne(user)
+                                    .then((result) => {
+                                        resolve("Created user")
+                                    })
+                                    .catch((err) => {
+                                        reject(err)
+                                    })
+                            }
+                            else {
+                                reject(`User ${user.publicKey} already present`)
+                            }
                         })
                         .catch((err) => {
                             reject(err)
                         })
-                    }
-                    else {
-                        reject(`User ${user.publicKey} already present`)
-                    }
                 })
                 .catch((err) => {
                     reject(err)
                 })
-            })
-            .catch((err) => {
-                reject(err)
-            })
         }
     })
 }
@@ -45,23 +45,29 @@ export let getUserPromise = (token) => {
             return reject("Could not find user, missing required fields")
         } else {
             openDb()
-            .then((db) => {
-                db.collection(COLLECTION_CROWD).findOne({"id" : token})
-                .then((foundUser) => {
-                    if(foundUser) {
-                        resolve("Found user")
-                    }
-                    else {
-                        reject(`User ${token} is not registered`)
-                    }
+                .then((db) => {
+                    db.collection(COLLECTION_CROWD).findOne({ "id": token })
+                        .then((foundUser) => {
+                            if (foundUser) {
+                                db.collection(COLLECTION_CROWD).updateOne({ "id": token }, { "lastSeen": Date.now })
+                                    .then(() => {
+                                        resolve("Found user and updated timestamp")
+                                    })
+                                    .catch((err) => {
+                                        reject("Couldn't update timestamp")
+                                    })
+                            }
+                            else {
+                                reject(`User ${token} is not registered`)
+                            }
+                        })
+                        .catch((err) => {
+                            reject(err)
+                        })
                 })
                 .catch((err) => {
                     reject(err)
                 })
-            })
-            .catch((err) => {
-                reject(err)
-            })
         }
     })
 }
