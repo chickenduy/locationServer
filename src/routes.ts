@@ -7,7 +7,7 @@ export default class Router {
     */
     public requireUserAuthentication(app, routes) {
         routes.forEach(route => {
-            //app.use(route, Helper.authenticateUser)
+            app.use(route, RouteHandling.authenticateUser)
         })
     }
 

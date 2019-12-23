@@ -1,4 +1,5 @@
 import { getDb } from "../dbconnector";
+import crypto from "crypto";
 
 const COLLECTION_CROWD = "crowd"
 
@@ -126,5 +127,20 @@ export let getAllRecentUsersPromise = () => {
             .catch((err) => {
                 reject("Could not find DB" + err)
             })
+    })
+}
+
+export let authenticateUserPromise = (id, password) => {
+    return new Promise((resolve, reject) => {
+        getUserPromise(id)
+        .then((user) => {
+            let hash = crypto.createHash("sha256").update(password).digest().toString()
+            if (user.password === hash) {
+                resolve()
+            }
+            else {
+                reject()
+            }
+        }) 
     })
 }

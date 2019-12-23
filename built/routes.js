@@ -14,7 +14,7 @@ class Router {
     */
     requireUserAuthentication(app, routes) {
         routes.forEach(route => {
-            //app.use(route, Helper.authenticateUser)
+            app.use(route, RouteHandling.authenticateUser);
         });
     }
     /*

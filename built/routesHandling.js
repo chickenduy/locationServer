@@ -69,7 +69,7 @@ exports.handleCreateUserRequest = (req, res) => {
             "message": result,
             "id": user.id,
             "publicKey": user.publicKey,
-            "password": user.password,
+            "password": random,
             "lastSeen": user.lastSeen
         };
         res.status(200).json(response).send();
@@ -134,6 +134,29 @@ exports.testRoutePost = (req, res) => {
     })
         .catch((err) => {
         res.status(500).send(err);
+    });
+};
+exports.authenticateUser = (req, res, next) => {
+    let id;
+    let password;
+    if (req.method === "GET") {
+        id = req.query.publicKey;
+        password = req.query.password;
+    }
+    else {
+        id = req.body.publicKey;
+        password = req.body.password;
+    }
+    users_1.authenticateUserPromise(id, password)
+        .then(() => {
+        next();
+    })
+        .catch((err) => {
+        let result = {
+            "status": "failiure",
+            "message": "couldn't authenticate"
+        };
+        res.status(500).json(result).send();
     });
 };
 //# sourceMappingURL=routesHandling.js.map

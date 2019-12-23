@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const dbconnector_1 = require("../dbconnector");
+const crypto_1 = __importDefault(require("crypto"));
 const COLLECTION_CROWD = "crowd";
 class User {
 }
@@ -117,6 +121,20 @@ exports.getAllRecentUsersPromise = () => {
         })
             .catch((err) => {
             reject("Could not find DB" + err);
+        });
+    });
+};
+exports.authenticateUserPromise = (id, password) => {
+    return new Promise((resolve, reject) => {
+        exports.getUserPromise(id)
+            .then((user) => {
+            let hash = crypto_1.default.createHash("sha256").update(password).digest().toString();
+            if (user.password === hash) {
+                resolve();
+            }
+            else {
+                reject();
+            }
         });
     });
 };
