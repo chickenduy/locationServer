@@ -17,9 +17,11 @@ const port = process.env.PORT || 3000;
 app.use(express_1.default.json({ "type": "application/json" }));
 //Set routes that require user authentication.
 const routes = new routes_1.default();
-routes.requireUserAuthentication(app, [
-    '/request',
-]);
+// routes.requireUserAuthentication(app,
+// 	[
+// 		'/request',
+// 	]
+// )
 routes.setRoutes(app);
 app.set('port', process.env.PORT || port);
 dbconnector_1.getDb()

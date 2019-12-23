@@ -21,11 +21,11 @@ app.use(express.json({ "type": "application/json" }))
 //Set routes that require user authentication.
 const routes = new Routes()
 
-routes.requireUserAuthentication(app,
-	[
-		'/request',
-	]
-)
+// routes.requireUserAuthentication(app,
+// 	[
+// 		'/request',
+// 	]
+// )
 
 routes.setRoutes(app)
 

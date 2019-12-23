@@ -20,36 +20,49 @@ exports.basicRequest = (req, res) => {
     });
 };
 exports.handleAggregationRequest = (req, res) => {
+    let com = new communication_1.default();
+    let data = {
+        "to": "/topics/online",
+        "data": {
+            "request": "ping",
+        }
+    };
+    com.sendPushNotificationPromise(data);
     /**
-     * timepointA, timepointB: timeframe
+     * Wait for a while after pinging devices to get active devices
      */
-    let timeA = req.query.timeA;
-    let timeB = req.query.timeB;
-    /**
-     * request: position, steps, location, activity
-     */
-    let request = req.query.request;
-    /**
-     * activity: walk, run, bike, vehicle
-     */
-    let activity = req.query.activity;
-    let radius = req.query.activity;
-    //TODO: call aggregation function
-    users_1.getAllRecentUsersPromise()
-        .then((users) => {
-        let response = {
-            "status": "success",
-            "message": `We have ${users.length} participants`
-        };
-        res.status(200).json(response).send();
-    })
-        .catch((err) => {
-        let response = {
-            "status": "failure",
-            "message": err
-        };
-        res.status(500).json(response).send();
-    });
+    setTimeout(() => {
+        /**
+         * timepointA, timepointB: timeframe
+         */
+        let timeA = req.query.timeA;
+        let timeB = req.query.timeB;
+        /**
+         * request: position, steps, location, activity
+         */
+        let request = req.query.request;
+        /**
+         * activity: walk, run, bike, vehicle
+         */
+        let activity = req.query.activity;
+        let radius = req.query.activity;
+        //TODO: call aggregation function
+        users_1.getAllRecentUsersPromise()
+            .then((users) => {
+            let response = {
+                "status": "success",
+                "message": `We have ${users.length} participants`
+            };
+            res.status(200).json(response).send();
+        })
+            .catch((err) => {
+            let response = {
+                "status": "failure",
+                "message": err
+            };
+            res.status(500).json(response).send();
+        });
+    }, 1000 * 60);
 };
 exports.handleCreateUserRequest = (req, res) => {
     console.log(req.body);

@@ -17,6 +17,21 @@ export let basicRequest = (req, res) => {
 }
 
 export let handleAggregationRequest = (req, res) => {
+
+	let com = new Communication()
+	let data = {
+		"to": "/topics/online",
+		"data": {
+			"request": "ping",
+		}
+	}
+
+	com.sendPushNotificationPromise(data)
+	
+	/**
+	 * Wait for a while after pinging devices to get active devices
+	 */
+	setTimeout(() => {
 	/**
 	 * timepointA, timepointB: timeframe
 	 */
@@ -48,6 +63,9 @@ export let handleAggregationRequest = (req, res) => {
 			}
 			res.status(500).json(response).send()
 		})
+	}, 1000*60)
+
+
 }
 
 export let handleCreateUserRequest = (req, res) => {
