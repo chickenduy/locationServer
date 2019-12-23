@@ -87,11 +87,11 @@ export let getAllRecentUsersPromise = () => {
                             reject("Either no users online since last week or something went wrong.")
                     })
                     .catch((err) => {
-                        reject(err)
+                        reject("Could not find users" + err)
                     })
             })
             .catch((err) => {
-                reject(err)
+                reject("Could not find DB" + err)
             })
     })
 }

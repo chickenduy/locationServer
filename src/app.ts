@@ -5,6 +5,7 @@ import Communcation from './communication';
 import Routes from './routes';
 import bodyParser from 'body-parser';
 import fs from 'fs';
+import { getDb } from './dbconnector';
 
 const com = new Communcation()
 
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 3000
 
 //Parse json body into req.body
-app.use(express.json({"type": "application/json"}))
+app.use(express.json({ "type": "application/json" }))
 
 //Set routes that require user authentication.
 const routes = new Routes()
@@ -24,6 +25,10 @@ routes.setRoutes(app)
 
 app.set('port', process.env.PORT || port);
 
-app.listen(app.get('port'), function () {
-	console.log("Server listening on port " + port)
-})
+
+getDb()
+	.then(() => {
+		app.listen(app.get('port'), function () {
+			console.log("Server listening on port " + port)
+		})
+	})
