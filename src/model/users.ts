@@ -75,7 +75,7 @@ export let getUserPromise = (token) => {
 }
 
 export let getAllRecentUsersPromise = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise<Array<Object>>((resolve, reject) => {
         let lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).getTime()
         getDb()
             .then((db) => {
