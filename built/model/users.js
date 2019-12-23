@@ -105,7 +105,7 @@ exports.patchUserPromise = (token) => {
 };
 exports.getAllRecentUsersPromise = () => {
     return new Promise((resolve, reject) => {
-        let lastWeek = new Date(new Date().setDate(new Date().getHours() - 1)).getTime();
+        let lastWeek = new Date(new Date().setDate(new Date().getSeconds() - 10)).getTime();
         dbconnector_1.getDb()
             .then((db) => {
             db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: lastWeek } }).toArray()
