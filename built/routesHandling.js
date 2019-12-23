@@ -18,7 +18,7 @@ exports.basicRequest = (req, res) => {
         "test": "Successfully deployed"
     });
 };
-exports.startAggregationRequest = (req, res) => {
+exports.handleAggregationRequest = (req, res) => {
     /**
      * timepointA, timepointB: timeframe
      */

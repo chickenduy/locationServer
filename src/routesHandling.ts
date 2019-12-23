@@ -16,7 +16,7 @@ export let basicRequest = (req, res) => {
 		})
 }
 
-export let startAggregationRequest = (req, res) => {
+export let handleAggregationRequest = (req, res) => {
 	/**
 	 * timepointA, timepointB: timeframe
 	 */
