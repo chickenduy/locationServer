@@ -130,11 +130,14 @@ exports.authenticateUserPromise = (id, password) => {
             .then((user) => {
             let hash = crypto_1.default.createHash("sha256").update(password).digest().toString();
             if (user.password === hash) {
-                resolve();
+                resolve(user);
             }
             else {
                 reject();
             }
+        })
+            .catch((err) => {
+            reject();
         });
     });
 };

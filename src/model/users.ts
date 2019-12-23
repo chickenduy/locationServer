@@ -131,16 +131,19 @@ export let getAllRecentUsersPromise = () => {
 }
 
 export let authenticateUserPromise = (id, password) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<User>((resolve, reject) => {
         getUserPromise(id)
-        .then((user) => {
-            let hash = crypto.createHash("sha256").update(password).digest().toString()
-            if (user.password === hash) {
-                resolve()
-            }
-            else {
+            .then((user) => {
+                let hash = crypto.createHash("sha256").update(password).digest().toString()
+                if (user.password === hash) {
+                    resolve(user)
+                }
+                else {
+                    reject()
+                }
+            })
+            .catch((err) => {
                 reject()
-            }
-        }) 
+            })
     })
 }

@@ -86,12 +86,12 @@ export let handleCreateUserRequest = (req, res) => {
 
 export let handleUpdateUserRequest = (req, res) => {
 	console.log(req.body)
-	let token = req.body.id
+	let id = req.body.id
 	let password = req.body.password
 
-	getUserPromise(token).then((user) => {
-		if (user.password == password) {
-			patchUserPromise(token)
+	authenticateUserPromise(id, password)
+		.then((user) => {
+			patchUserPromise(id)
 				.then((result) => {
 					let response = {
 						"status": "success",
@@ -106,17 +106,15 @@ export let handleUpdateUserRequest = (req, res) => {
 					}
 					res.status(500).json(response).send()
 				})
-		}
-		else {
+		})
+		.catch((err) => {
 			let response = {
 				"status": "failure",
-				"reason": "password incorrect"
+				"reason": err
 			}
-			res.status(500).json().send()
-		}
-	})
+			res.status(500).json(response).send()
+		})
 }
-
 
 export let testRoutePost = (req, res) => {
 	console.log(req.body)
@@ -160,8 +158,8 @@ export let authenticateUser = (req, res, next) => {
 		})
 		.catch((err) => {
 			let result = {
-				"status" : "failiure",
-				"message" : "couldn't authenticate"
+				"status": "failiure",
+				"message": "couldn't authenticate"
 			}
 			res.status(500).json(result).send()
 		})

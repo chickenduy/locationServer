@@ -84,33 +84,32 @@ exports.handleCreateUserRequest = (req, res) => {
 };
 exports.handleUpdateUserRequest = (req, res) => {
     console.log(req.body);
-    let token = req.body.id;
+    let id = req.body.id;
     let password = req.body.password;
-    users_1.getUserPromise(token).then((user) => {
-        if (user.password == password) {
-            users_1.patchUserPromise(token)
-                .then((result) => {
-                let response = {
-                    "status": "success",
-                    "message": result
-                };
-                res.status(200).json(response).send();
-            })
-                .catch((err) => {
-                let response = {
-                    "status": "failure",
-                    "reason": err
-                };
-                res.status(500).json(response).send();
-            });
-        }
-        else {
+    users_1.authenticateUserPromise(id, password)
+        .then((user) => {
+        users_1.patchUserPromise(id)
+            .then((result) => {
+            let response = {
+                "status": "success",
+                "message": result
+            };
+            res.status(200).json(response).send();
+        })
+            .catch((err) => {
             let response = {
                 "status": "failure",
-                "reason": "password incorrect"
+                "reason": err
             };
-            res.status(500).json().send();
-        }
+            res.status(500).json(response).send();
+        });
+    })
+        .catch((err) => {
+        let response = {
+            "status": "failure",
+            "reason": err
+        };
+        res.status(500).json(response).send();
     });
 };
 exports.testRoutePost = (req, res) => {
