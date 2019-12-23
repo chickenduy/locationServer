@@ -37,7 +37,7 @@ export let handleAggregationRequest = (req, res) => {
 		.then((users) => {
 			let response = {
 				"status": "success",
-				"message": users
+				"message": users.toString()
 			}
 			res.status(200).json(response).send()
 		})
