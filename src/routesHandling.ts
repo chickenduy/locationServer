@@ -27,43 +27,49 @@ export let handleAggregationRequest = (req, res) => {
 	}
 
 	com.sendPushNotificationPromise(data)
-	
-	/**
-	 * Wait for a while after pinging devices to get active devices
-	 */
-	setTimeout(() => {
-	/**
-	 * timepointA, timepointB: timeframe
-	 */
-	let timeA = req.query.timeA
-	let timeB = req.query.timeB
-	/**
-	 * request: position, steps, location, activity
-	 */
-	let request = req.query.request
-	/**
-	 * activity: walk, run, bike, vehicle
-	 */
-	let activity = req.query.activity
-	let radius = req.query.activity
+		.then(() => {
 
-	//TODO: call aggregation function
-	getAllRecentUsersPromise()
-		.then((users) => {
-			let response = {
-				"status": "success",
-				"message": `We have ${users.length} participants`
-			}
-			res.status(200).json(response).send()
+			/**
+			 * Wait for a while after pinging devices to get active devices
+			 */
+			setTimeout(() => {
+				/**
+				 * timepointA, timepointB: timeframe
+				 */
+				let timeA = req.query.timeA
+				let timeB = req.query.timeB
+				/**
+				 * request: position, steps, location, activity
+				 */
+				let request = req.query.request
+				/**
+				 * activity: walk, run, bike, vehicle
+				 */
+				let activity = req.query.activity
+				let radius = req.query.activity
+
+				//TODO: call aggregation function
+				getAllRecentUsersPromise()
+					.then((users) => {
+						let response = {
+							"status": "success",
+							"message": `We have ${users.length} participants`
+						}
+						res.status(200).json(response).send()
+					})
+					.catch((err) => {
+						let response = {
+							"status": "failure",
+							"message": err
+						}
+						res.status(500).json(response).send()
+					})
+			}, 1000 * 10)
 		})
 		.catch((err) => {
-			let response = {
-				"status": "failure",
-				"message": err
-			}
-			res.status(500).json(response).send()
+			res.status(500).send(err)
 		})
-	}, 1000*60)
+
 
 
 }
