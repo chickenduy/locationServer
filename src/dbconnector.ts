@@ -8,7 +8,7 @@ const DB = "data"
 let conn = null
 let db: mongo.Db = null
 
-export function openDb () {
+function openDb() {
 	return new Promise<mongo.Db>((resolve, reject) => {
 		if (conn) {
 			if (db) {
@@ -20,15 +20,30 @@ export function openDb () {
 			}
 		}
 		else {
-			mongoClient.connect(uri, {"useNewUrlParser":true})
-			.then((con) => {
-				conn = con
-				db = con.db(DB)
-				resolve(db)
-			})
-			.catch((err) => {
-				reject(err)
-			})
+			mongoClient.connect(uri, { "useNewUrlParser": true })
+				.then((con) => {
+					conn = con
+					db = con.db(DB)
+					resolve(db)
+				})
+				.catch((err) => {
+					reject(err)
+				})
 		}
+	})
+}
+
+export function getDb() {
+	return new Promise<mongo.Db>((resolve, reject) => {
+		if (!db) {
+			openDb()
+				.then((db) => {
+					resolve(db)
+				})
+				.catch((err) => {
+					reject(err)
+				})
+		}
+		resolve(db)
 	})
 }

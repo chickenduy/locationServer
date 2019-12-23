@@ -9,10 +9,10 @@ const COLLECTION_CROWD = "crowd";
 exports.createUserPromise = (user) => {
     return new Promise((resolve, reject) => {
         if (!user.id || !user.publicKey || !user.lastSeen) {
-            return reject("Could not create user, missing required fields");
+            reject("Could not create user, missing required fields");
         }
         else {
-            dbconnector_1.openDb()
+            dbconnector_1.getDb()
                 .then((db) => {
                 db.collection(COLLECTION_CROWD).findOne({ "id": user.id })
                     .then((foundUser) => {
@@ -45,7 +45,7 @@ exports.getUserPromise = (token) => {
             return reject("Could not find user, missing required fields");
         }
         else {
-            dbconnector_1.openDb()
+            dbconnector_1.getDb()
                 .then((db) => {
                 db.collection(COLLECTION_CROWD).findOne({ "id": token })
                     .then((foundUser) => {
@@ -70,6 +70,27 @@ exports.getUserPromise = (token) => {
                 reject(err);
             });
         }
+    });
+};
+exports.getAllRecentUsersPromise = () => {
+    return new Promise((resolve, reject) => {
+        let lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).getTime();
+        dbconnector_1.getDb()
+            .then((db) => {
+            db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: lastWeek } }).toArray()
+                .then((users) => {
+                if (users.length != 0)
+                    resolve(users);
+                else
+                    reject("Either no users online since last week or something went wrong.");
+            })
+                .catch((err) => {
+                reject("Something went wrong");
+            });
+        })
+            .catch((err) => {
+            reject(err);
+        });
     });
 };
 //# sourceMappingURL=users.js.map

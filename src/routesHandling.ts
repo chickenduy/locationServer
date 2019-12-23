@@ -1,4 +1,4 @@
-import { createUserPromise, getUserPromise } from "./model/users"
+import { createUserPromise, getUserPromise, getAllRecentUsersPromise } from "./model/users"
 import crypto from "crypto";
 import Communication from "./communication";
 
@@ -33,12 +33,21 @@ export let startAggregationRequest = (req, res) => {
 	let radius = req.query.activity
 
 	//TODO: call aggregation function
-
-	res.set({
-		'Content-Type': 'text/plain'
-	})
-	res.status(200)
-		.send("start aggregation")
+	getAllRecentUsersPromise()
+		.then((users) => {
+			let response = {
+				"status": "failure",
+				"message": users
+			}
+			res.status(200).json(response).send()
+		})
+		.catch((err) => {
+			let response = {
+				"status": "failure",
+				"message": err
+			}
+			res.status(200).json(response).send()
+		})
 }
 
 export let handleUserRequest = (req, res) => {
@@ -55,7 +64,7 @@ export let handleUserRequest = (req, res) => {
 				.then((result) => {
 					let response = {
 						"status": "success",
-						"message" : result
+						"message": result
 					}
 					res.status(200).json(response).send()
 				})
@@ -73,7 +82,7 @@ export let handleUserRequest = (req, res) => {
 				.then((result) => {
 					let response = {
 						"status": "success",
-						"message" : result
+						"message": result
 					}
 					res.status(200).json(response).send()
 				})
@@ -98,10 +107,8 @@ export let handleUserRequest = (req, res) => {
 
 export let handleGetUserRequest = (req, res) => {
 	console.log(req.body)
-	let user = {
-		"id": req.body.id,
-	}
-	getUserPromise(user)
+	let token = req.body.id
+	getUserPromise(token)
 		.then((result) => {
 			let response = {
 				"status": "success"

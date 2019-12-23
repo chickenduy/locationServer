@@ -1,4 +1,4 @@
-import { openDb } from "../dbconnector";
+import { getDb } from "../dbconnector";
 
 const COLLECTION_CROWD = "crowd"
 
@@ -9,9 +9,9 @@ const COLLECTION_CROWD = "crowd"
 export let createUserPromise = (user) => {
     return new Promise((resolve, reject) => {
         if (!user.id || !user.publicKey || !user.lastSeen) {
-            return reject("Could not create user, missing required fields")
+            reject("Could not create user, missing required fields")
         } else {
-            openDb()
+            getDb()
                 .then((db) => {
                     db.collection(COLLECTION_CROWD).findOne({ "id": user.id })
                         .then((foundUser) => {
@@ -44,7 +44,7 @@ export let getUserPromise = (token) => {
         if (!token) {
             return reject("Could not find user, missing required fields")
         } else {
-            openDb()
+            getDb()
                 .then((db) => {
                     db.collection(COLLECTION_CROWD).findOne({ "id": token })
                         .then((foundUser) => {
@@ -71,5 +71,27 @@ export let getUserPromise = (token) => {
                     reject(err)
                 })
         }
+    })
+}
+
+export let getAllRecentUsersPromise = () => {
+    return new Promise((resolve, reject) => {
+        let lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).getTime()
+        getDb()
+            .then((db) => {
+                db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: lastWeek } }).toArray()
+                    .then((users) => {
+                        if (users.length != 0)
+                            resolve(users)
+                        else
+                            reject("Either no users online since last week or something went wrong.")
+                    })
+                    .catch((err) => {
+                        reject("Something went wrong")
+                    })
+            })
+            .catch((err) => {
+                reject(err)
+            })
     })
 }

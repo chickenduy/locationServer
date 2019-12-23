@@ -33,5 +33,19 @@ function openDb() {
         }
     });
 }
-exports.openDb = openDb;
+function getDb() {
+    return new Promise((resolve, reject) => {
+        if (!db) {
+            openDb()
+                .then((db) => {
+                resolve(db);
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        }
+        resolve(db);
+    });
+}
+exports.getDb = getDb;
 //# sourceMappingURL=dbconnector.js.map

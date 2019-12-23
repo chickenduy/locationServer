@@ -34,11 +34,21 @@ exports.startAggregationRequest = (req, res) => {
     let activity = req.query.activity;
     let radius = req.query.activity;
     //TODO: call aggregation function
-    res.set({
-        'Content-Type': 'text/plain'
+    users_1.getAllRecentUsersPromise()
+        .then((users) => {
+        let response = {
+            "status": "failure",
+            "message": users
+        };
+        res.status(200).json(response).send();
+    })
+        .catch((err) => {
+        let response = {
+            "status": "failure",
+            "message": err
+        };
+        res.status(200).json(response).send();
     });
-    res.status(200)
-        .send("start aggregation");
 };
 exports.handleUserRequest = (req, res) => {
     console.log(req.body);
@@ -95,10 +105,8 @@ exports.handleUserRequest = (req, res) => {
 };
 exports.handleGetUserRequest = (req, res) => {
     console.log(req.body);
-    let user = {
-        "id": req.body.id,
-    };
-    users_1.getUserPromise(user)
+    let token = req.body.id;
+    users_1.getUserPromise(token)
         .then((result) => {
         let response = {
             "status": "success"
