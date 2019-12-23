@@ -36,7 +36,7 @@ export let handleAggregationRequest = (req, res) => {
 	getAllRecentUsersPromise()
 		.then((users) => {
 			let response = {
-				"status": "failure",
+				"status": "success",
 				"message": users
 			}
 			res.status(200).json(response).send()
