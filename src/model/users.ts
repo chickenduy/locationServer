@@ -2,15 +2,23 @@ import { getDb } from "../dbconnector";
 
 const COLLECTION_CROWD = "crowd"
 
+class User {
+    id: String
+    publicKey: String
+    password: String
+    lastSeen: number
+}
+
 /**
  * Creates a user according to the user model or return null if the model is not satisfied.
  * @param user 
  */
 export let createUserPromise = (user) => {
     return new Promise((resolve, reject) => {
-        if (!user.id || !user.publicKey || !user.lastSeen) {
+        if (!user.id || !user.publicKey || !user.password || !user.lastSeen) {
             reject("Could not create user, missing required fields")
-        } else {
+        }
+        else {
             getDb()
                 .then((db) => {
                     db.collection(COLLECTION_CROWD).findOne({ "id": user.id })
@@ -25,7 +33,7 @@ export let createUserPromise = (user) => {
                                     })
                             }
                             else {
-                                reject(`User ${user.publicKey} already present`)
+                                reject(`User ${user.id} already present`)
                             }
                         })
                         .catch((err) => {
@@ -40,6 +48,31 @@ export let createUserPromise = (user) => {
 }
 
 export let getUserPromise = (token) => {
+    return new Promise<User>((resolve, reject) => {
+        if (!token) {
+            return reject("Could not find user, missing required fields")
+        } else {
+            getDb()
+                .then((db) => {
+                    db.collection(COLLECTION_CROWD).findOne({ "id": token })
+                        .then((foundUser) => {
+                            if (foundUser)
+                                resolve(foundUser)
+                            else
+                                reject("No user found")
+                        })
+                        .catch((err) => {
+                            reject(err)
+                        })
+                })
+                .catch((err) => {
+                    reject(err)
+                })
+        }
+    })
+}
+
+export let patchUserPromise = (token) => {
     return new Promise((resolve, reject) => {
         if (!token) {
             return reject("Could not find user, missing required fields")
@@ -75,8 +108,8 @@ export let getUserPromise = (token) => {
 }
 
 export let getAllRecentUsersPromise = () => {
-    return new Promise<Array<Object>>((resolve, reject) => {
-        let lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).getTime()
+    return new Promise<Array<User>>((resolve, reject) => {
+        let lastWeek = new Date(new Date().setDate(new Date().getDate() - 1)).getTime()
         getDb()
             .then((db) => {
                 db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: lastWeek } }).toArray()

@@ -2,13 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const dbconnector_1 = require("../dbconnector");
 const COLLECTION_CROWD = "crowd";
+class User {
+}
 /**
  * Creates a user according to the user model or return null if the model is not satisfied.
  * @param user
  */
 exports.createUserPromise = (user) => {
     return new Promise((resolve, reject) => {
-        if (!user.id || !user.publicKey || !user.lastSeen) {
+        if (!user.id || !user.publicKey || !user.password || !user.lastSeen) {
             reject("Could not create user, missing required fields");
         }
         else {
@@ -26,7 +28,7 @@ exports.createUserPromise = (user) => {
                         });
                     }
                     else {
-                        reject(`User ${user.publicKey} already present`);
+                        reject(`User ${user.id} already present`);
                     }
                 })
                     .catch((err) => {
@@ -40,6 +42,31 @@ exports.createUserPromise = (user) => {
     });
 };
 exports.getUserPromise = (token) => {
+    return new Promise((resolve, reject) => {
+        if (!token) {
+            return reject("Could not find user, missing required fields");
+        }
+        else {
+            dbconnector_1.getDb()
+                .then((db) => {
+                db.collection(COLLECTION_CROWD).findOne({ "id": token })
+                    .then((foundUser) => {
+                    if (foundUser)
+                        resolve(foundUser);
+                    else
+                        reject("No user found");
+                })
+                    .catch((err) => {
+                    reject(err);
+                });
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        }
+    });
+};
+exports.patchUserPromise = (token) => {
     return new Promise((resolve, reject) => {
         if (!token) {
             return reject("Could not find user, missing required fields");
@@ -74,7 +101,7 @@ exports.getUserPromise = (token) => {
 };
 exports.getAllRecentUsersPromise = () => {
     return new Promise((resolve, reject) => {
-        let lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).getTime();
+        let lastWeek = new Date(new Date().setDate(new Date().getDate() - 1)).getTime();
         dbconnector_1.getDb()
             .then((db) => {
             db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: lastWeek } }).toArray()

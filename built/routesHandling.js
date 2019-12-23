@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const users_1 = require("./model/users");
+const crypto_1 = __importDefault(require("crypto"));
 const communication_1 = __importDefault(require("./communication"));
 /**
  * This is a basic function that returns a plaintext "Hello world!"
@@ -47,69 +48,29 @@ exports.handleAggregationRequest = (req, res) => {
             "status": "failure",
             "message": err
         };
-        res.status(200).json(response).send();
+        res.status(500).json(response).send();
     });
 };
-exports.handleUserRequest = (req, res) => {
+exports.handleCreateUserRequest = (req, res) => {
     console.log(req.body);
     let request = req.body.request;
-    switch (request) {
-        case "create":
-            let user = {
-                "id": req.body.id,
-                "publicKey": req.body.publicKey,
-                "lastSeen": Date.now()
-            };
-            users_1.createUserPromise(user)
-                .then((result) => {
-                let response = {
-                    "status": "success",
-                    "message": result
-                };
-                res.status(200).json(response).send();
-            })
-                .catch((err) => {
-                let response = {
-                    "status": "failure",
-                    "reason": err
-                };
-                res.status(200).json(response).send();
-            });
-            break;
-        case "find":
-            let token = req.body.id;
-            users_1.getUserPromise(token)
-                .then((result) => {
-                let response = {
-                    "status": "success",
-                    "message": result
-                };
-                res.status(200).json(response).send();
-            })
-                .catch((err) => {
-                let response = {
-                    "status": "failure",
-                    "reason": err
-                };
-                res.status(200).json(response).send();
-            });
-            break;
-        default:
-            let response = {
-                "status": "undefined",
-                "message": "no request has been sent"
-            };
-            res.status(200).json(response).send();
-            return;
-    }
-};
-exports.handleGetUserRequest = (req, res) => {
-    console.log(req.body);
-    let token = req.body.id;
-    users_1.getUserPromise(token)
+    let random = Math.random().toString(36);
+    let password = crypto_1.default.createHash("sha256").update(random).digest().toString();
+    let user = {
+        "id": req.body.id,
+        "publicKey": req.body.publicKey,
+        "password": password,
+        "lastSeen": Date.now()
+    };
+    users_1.createUserPromise(user)
         .then((result) => {
         let response = {
-            "status": "success"
+            "status": "success",
+            "message": result,
+            "id": user.id,
+            "publicKey": user.publicKey,
+            "password": user.password,
+            "lastSeen": user.lastSeen
         };
         res.status(200).json(response).send();
     })
@@ -119,6 +80,37 @@ exports.handleGetUserRequest = (req, res) => {
             "reason": err
         };
         res.status(500).json(response).send();
+    });
+};
+exports.handleUpdateUserRequest = (req, res) => {
+    console.log(req.body);
+    let token = req.body.id;
+    let password = req.body.password;
+    users_1.getUserPromise(token).then((user) => {
+        if (user.password == password) {
+            users_1.patchUserPromise(token)
+                .then((result) => {
+                let response = {
+                    "status": "success",
+                    "message": result
+                };
+                res.status(200).json(response).send();
+            })
+                .catch((err) => {
+                let response = {
+                    "status": "failure",
+                    "reason": err
+                };
+                res.status(500).json(response).send();
+            });
+        }
+        else {
+            let response = {
+                "status": "failure",
+                "reason": "password incorrect"
+            };
+            res.status(500).json().send();
+        }
     });
 };
 exports.testRoutePost = (req, res) => {

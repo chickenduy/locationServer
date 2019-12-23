@@ -16,12 +16,11 @@ export default class Router {
     */
     public setRoutes(app) {
         app.get('/', RouteHandling.basicRequest)
-        app.get('/test', RouteHandling.testRoutePost)
 
-        app.post('/user', RouteHandling.handleUserRequest)
-        app.post('/test', RouteHandling.testRoutePost)
+        app.post('/user', RouteHandling.handleCreateUserRequest)
         app.post('/request', RouteHandling.handleAggregationRequest)
-        app.post('/admin/sampleRequest', RouteHandling.basicRequest)
+
+        app.patch('/user', RouteHandling.handleUpdateUserRequest)
 
         app.all('*', RouteHandling.basicRequest)
     }

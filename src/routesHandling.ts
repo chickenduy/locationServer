@@ -1,4 +1,4 @@
-import { createUserPromise, getUserPromise, getAllRecentUsersPromise } from "./model/users"
+import { createUserPromise, patchUserPromise, getAllRecentUsersPromise, getUserPromise } from "./model/users"
 import crypto from "crypto";
 import Communication from "./communication";
 
@@ -46,72 +46,32 @@ export let handleAggregationRequest = (req, res) => {
 				"status": "failure",
 				"message": err
 			}
-			res.status(200).json(response).send()
+			res.status(500).json(response).send()
 		})
 }
 
-export let handleUserRequest = (req, res) => {
+export let handleCreateUserRequest = (req, res) => {
 	console.log(req.body)
 	let request = req.body.request
-	switch (request) {
-		case "create":
-			let user = {
-				"id": req.body.id,
-				"publicKey": req.body.publicKey,
-				"lastSeen": Date.now()
-			}
-			createUserPromise(user)
-				.then((result) => {
-					let response = {
-						"status": "success",
-						"message": result
-					}
-					res.status(200).json(response).send()
-				})
-				.catch((err) => {
-					let response = {
-						"status": "failure",
-						"reason": err
-					}
-					res.status(200).json(response).send()
-				})
-			break
-		case "find":
-			let token = req.body.id
-			getUserPromise(token)
-				.then((result) => {
-					let response = {
-						"status": "success",
-						"message": result
-					}
-					res.status(200).json(response).send()
-				})
-				.catch((err) => {
-					let response = {
-						"status": "failure",
-						"reason": err
-					}
-					res.status(200).json(response).send()
-				})
-			break
-		default:
-			let response = {
-				"status": "undefined",
-				"message": "no request has been sent"
-			}
-			res.status(200).json(response).send()
-			return
+
+	let random = Math.random().toString(36)
+	let password = crypto.createHash("sha256").update(random).digest().toString()
+
+	let user = {
+		"id": req.body.id,
+		"publicKey": req.body.publicKey,
+		"password": password,
+		"lastSeen": Date.now()
 	}
-
-}
-
-export let handleGetUserRequest = (req, res) => {
-	console.log(req.body)
-	let token = req.body.id
-	getUserPromise(token)
+	createUserPromise(user)
 		.then((result) => {
 			let response = {
-				"status": "success"
+				"status": "success",
+				"message": result,
+				"id": user.id,
+				"publicKey": user.publicKey,
+				"password": user.password,
+				"lastSeen": user.lastSeen
 			}
 			res.status(200).json(response).send()
 		})
@@ -123,6 +83,40 @@ export let handleGetUserRequest = (req, res) => {
 			res.status(500).json(response).send()
 		})
 }
+
+export let handleUpdateUserRequest = (req, res) => {
+	console.log(req.body)
+	let token = req.body.id
+	let password = req.body.password
+
+	getUserPromise(token).then((user) => {
+		if (user.password == password) {
+			patchUserPromise(token)
+				.then((result) => {
+					let response = {
+						"status": "success",
+						"message": result
+					}
+					res.status(200).json(response).send()
+				})
+				.catch((err) => {
+					let response = {
+						"status": "failure",
+						"reason": err
+					}
+					res.status(500).json(response).send()
+				})
+		}
+		else {
+			let response = {
+				"status": "failure",
+				"reason": "password incorrect"
+			}
+			res.status(500).json().send()
+		}
+	})
+}
+
 
 export let testRoutePost = (req, res) => {
 	console.log(req.body)
