@@ -22,10 +22,10 @@ class Router {
     */
     setRoutes(app) {
         app.get('/', RouteHandling.basicRequest);
-        app.get('/request', RouteHandling.handleAggregationRequest);
         app.get('/test', RouteHandling.testRoutePost);
         app.post('/user', RouteHandling.handleUserRequest);
         app.post('/test', RouteHandling.testRoutePost);
+        app.post('/request', RouteHandling.handleAggregationRequest);
         app.post('/admin/sampleRequest', RouteHandling.basicRequest);
         app.all('*', RouteHandling.basicRequest);
     }
