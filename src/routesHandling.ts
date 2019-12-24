@@ -1,6 +1,7 @@
-import { createUserPromise, patchUserPromise, getAllRecentUsersPromise, getUserPromise, authenticateUserPromise } from "./model/users"
 import crypto from "crypto";
+import { createUserPromise, patchUserPromise, getAllRecentUsersPromise, getUserPromise, authenticateUserPromise } from "./model/users"
 import Communication from "./communication";
+import { shuffleFisherYates } from "./helpers";
 
 /**
  * This is a basic function that returns a plaintext "Hello world!"
@@ -48,7 +49,9 @@ export let handleAggregationRequest = (req, res) => {
 				let activity = req.query.activity
 				let radius = req.query.activity
 
-				//TODO: call aggregation function
+				/**
+				 * get all active devices
+				 */
 				getAllRecentUsersPromise()
 					.then((users) => {
 						let response = {
@@ -56,6 +59,28 @@ export let handleAggregationRequest = (req, res) => {
 							"message": `We have ${users.length} participants`
 						}
 						res.status(200).json(response).send()
+
+						//TODO: call aggregation function
+						/**
+						 * start actual aggregation request
+						 */
+						users.forEach((user) => {
+							let request = {
+								"to": user.id,
+								"data": {
+									"request": "request",
+									"users": shuffleFisherYates(users)
+								}
+							}
+							com.sendPushNotificationPromise(request)
+								.then(() => {
+									console.log(`Send request to ${user.id}`)
+								})
+								.catch((err) => {
+									console.log(err)
+								})
+						})
+
 					})
 					.catch((err) => {
 						let response = {
@@ -64,7 +89,7 @@ export let handleAggregationRequest = (req, res) => {
 						}
 						res.status(500).json(response).send()
 					})
-			}, 1000 * 10)
+			}, 1000 * 30)
 		})
 		.catch((err) => {
 			res.status(500).send(err)

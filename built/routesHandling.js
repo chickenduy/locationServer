@@ -3,9 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const users_1 = require("./model/users");
 const crypto_1 = __importDefault(require("crypto"));
+const users_1 = require("./model/users");
 const communication_1 = __importDefault(require("./communication"));
+const helpers_1 = require("./helpers");
 /**
  * This is a basic function that returns a plaintext "Hello world!"
  * @param res Response of the function
@@ -47,7 +48,9 @@ exports.handleAggregationRequest = (req, res) => {
              */
             let activity = req.query.activity;
             let radius = req.query.activity;
-            //TODO: call aggregation function
+            /**
+             * get all active devices
+             */
             users_1.getAllRecentUsersPromise()
                 .then((users) => {
                 let response = {
@@ -55,6 +58,26 @@ exports.handleAggregationRequest = (req, res) => {
                     "message": `We have ${users.length} participants`
                 };
                 res.status(200).json(response).send();
+                //TODO: call aggregation function
+                /**
+                 * start actual aggregation request
+                 */
+                users.forEach((user) => {
+                    let request = {
+                        "to": user.id,
+                        "data": {
+                            "request": "request",
+                            "users": helpers_1.shuffleFisherYates(users)
+                        }
+                    };
+                    com.sendPushNotificationPromise(request)
+                        .then(() => {
+                        console.log(`Send request to ${user.id}`);
+                    })
+                        .catch((err) => {
+                        console.log(err);
+                    });
+                });
             })
                 .catch((err) => {
                 let response = {
@@ -63,7 +86,7 @@ exports.handleAggregationRequest = (req, res) => {
                 };
                 res.status(500).json(response).send();
             });
-        }, 1000 * 10);
+        }, 1000 * 30);
     })
         .catch((err) => {
         res.status(500).send(err);

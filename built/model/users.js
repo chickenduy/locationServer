@@ -110,10 +110,19 @@ exports.getAllRecentUsersPromise = () => {
             .then((db) => {
             db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: lastWeek } }).toArray()
                 .then((users) => {
-                if (users.length != 0)
-                    resolve(users);
-                else
+                if (users.length != 0) {
+                    let essentialUsers = [];
+                    users.forEach((user) => {
+                        essentialUsers.push({
+                            "id": user.id,
+                            "publicKey": user.publicKey
+                        });
+                    });
+                    resolve(essentialUsers);
+                }
+                else {
                     reject("Either no users online since last week or something went wrong.");
+                }
             })
                 .catch((err) => {
                 reject("Could not find users" + err);
