@@ -25,6 +25,7 @@ class Router {
         app.post('/user', RouteHandling.handleCreateUserRequest);
         app.post('/request', RouteHandling.handleAggregationRequest);
         app.patch('/user', RouteHandling.handleUpdateUserRequest);
+        app.patch('/user/ping', RouteHandling.handleUpdateUserRequest);
         app.all('*', RouteHandling.basicRequest);
     }
 }

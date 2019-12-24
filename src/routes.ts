@@ -21,6 +21,7 @@ export default class Router {
         app.post('/request', RouteHandling.handleAggregationRequest)
 
         app.patch('/user', RouteHandling.handleUpdateUserRequest)
+        app.patch('/user/ping', RouteHandling.handleUpdateUserRequest)
 
         app.all('*', RouteHandling.basicRequest)
     }

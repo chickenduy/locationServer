@@ -30,67 +30,68 @@ exports.handleAggregationRequest = (req, res) => {
     };
     com.sendPushNotificationPromise(data)
         .then(() => {
-        /**
-         * Wait for a while after pinging devices to get active devices
-         */
-        setTimeout(() => {
-            /**
-             * timepointA, timepointB: timeframe
-             */
-            let timeA = req.query.timeA;
-            let timeB = req.query.timeB;
-            /**
-             * request: position, steps, location, activity
-             */
-            let request = req.query.request;
-            /**
-             * activity: walk, run, bike, vehicle
-             */
-            let activity = req.query.activity;
-            let radius = req.query.activity;
-            /**
-             * get all active devices
-             */
-            users_1.getAllRecentUsersPromise()
-                .then((users) => {
-                let response = {
-                    "status": "success",
-                    "message": `We have ${users.length} participants`
-                };
-                res.status(200).json(response).send();
-                //TODO: call aggregation function
-                /**
-                 * start actual aggregation request
-                 */
-                users.forEach((user) => {
-                    let request = {
-                        "to": user.id,
-                        "data": {
-                            "request": "request",
-                            "users": helpers_1.shuffleFisherYates(users)
-                        }
-                    };
-                    com.sendPushNotificationPromise(request)
-                        .then(() => {
-                        console.log(`Send request to ${user.id}`);
-                    })
-                        .catch((err) => {
-                        console.log(err);
-                    });
-                });
-            })
-                .catch((err) => {
-                let response = {
-                    "status": "failure",
-                    "message": err
-                };
-                res.status(500).json(response).send();
-            });
-        }, 1000 * 60);
+        res.status(200).send();
     })
         .catch((err) => {
         res.status(500).send(err);
     });
+    /**
+     * Wait for a while after pinging devices to get active devices
+     */
+    setTimeout(() => {
+        /**
+         * timepointA, timepointB: timeframe
+         */
+        let timeA = req.query.timeA;
+        let timeB = req.query.timeB;
+        /**
+         * request: position, steps, location, activity
+         */
+        let request = req.query.request;
+        /**
+         * activity: walk, run, bike, vehicle
+         */
+        let activity = req.query.activity;
+        let radius = req.query.activity;
+        /**
+         * get all active devices
+         */
+        users_1.getAllRecentUsersPromise()
+            .then((users) => {
+            let response = {
+                "status": "success",
+                "message": `We have ${users.length} participants`
+            };
+            res.status(200).json(response).send();
+            //TODO: call aggregation function
+            /**
+             * start actual aggregation request
+             */
+            users.forEach((user) => {
+                let request = {
+                    "to": user.id,
+                    "data": {
+                        "request": "request",
+                        "users": helpers_1.shuffleFisherYates(users)
+                    }
+                };
+                com.sendPushNotificationPromise(request)
+                    .then(() => {
+                    console.log(`Send request to ${user.id}`);
+                })
+                    .catch((err) => {
+                    console.log(err);
+                });
+            });
+        })
+            .catch((err) => {
+            let response = {
+                "status": "failure",
+                "message": err
+            };
+            res.status(500).json(response).send();
+        });
+    }, 1000 * 60);
 };
 exports.handleCreateUserRequest = (req, res) => {
     console.log(req.body);
@@ -124,6 +125,36 @@ exports.handleCreateUserRequest = (req, res) => {
     });
 };
 exports.handleUpdateUserRequest = (req, res) => {
+    console.log(req.body);
+    let id = req.body.id;
+    let password = req.body.password;
+    users_1.authenticateUserPromise(id, password)
+        .then((user) => {
+        users_1.patchUserPromise(id)
+            .then((result) => {
+            let response = {
+                "status": "success",
+                "message": result
+            };
+            res.status(200).json(response).send();
+        })
+            .catch((err) => {
+            let response = {
+                "status": "failure",
+                "reason": err
+            };
+            res.status(500).json(response).send();
+        });
+    })
+        .catch((err) => {
+        let response = {
+            "status": "failure",
+            "reason": err
+        };
+        res.status(500).json(response).send();
+    });
+};
+exports.handlePingedUserRequest = (req, res) => {
     console.log(req.body);
     let id = req.body.id;
     let password = req.body.password;
