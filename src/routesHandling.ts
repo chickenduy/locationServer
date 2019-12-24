@@ -29,7 +29,6 @@ export let handleAggregationRequest = (req, res) => {
 
 	com.sendPushNotificationPromise(data)
 		.then(() => {
-
 			/**
 			 * Wait for a while after pinging devices to get active devices
 			 */
