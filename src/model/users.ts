@@ -10,6 +10,11 @@ class User {
     lastSeen: number
 }
 
+class LimitedUser {
+    id: String
+    publicKey: String
+}
+
 /**
  * Creates a user according to the user model or return null if the model is not satisfied.
  * @param user 
@@ -109,32 +114,32 @@ export let patchUserPromise = (token) => {
 }
 
 export let getAllRecentUsersPromise = () => {
-    return new Promise<Array<User>>((resolve, reject) => {
-        let lastWeek = new Date(new Date().setDate(new Date().getMinutes() - 5)).getTime()
+    return new Promise<Array<LimitedUser>>((resolve, reject) => {
+        let activeTimeFrame = new Date(new Date().setDate(new Date().getMinutes() - 5)).getTime()
         getDb()
             .then((db) => {
-                db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: lastWeek } }).toArray()
-                    .then((users) => {
-                        if (users.length != 0) {
-                            let essentialUsers = []
-                            users.forEach((user) => {
-                                essentialUsers.push({
-                                    "id" : user.id,
-                                    "publicKey" : user.publicKey
-                                })
+                db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: activeTimeFrame } }).toArray()
+                .then((users) => {
+                    if (users.length > 0) {
+                        let essentialUsers = []
+                        users.forEach((user) => {
+                            essentialUsers.push({
+                                "id" : user.id,
+                                "publicKey" : user.publicKey
                             })
-                            resolve(essentialUsers)
-                        }
-                        else {
-                            reject("Either no users online since last week or something went wrong.")
-                        }
-                    })
-                    .catch((err) => {
-                        reject("Could not find users" + err)
-                    })
+                        })
+                        resolve(essentialUsers)
+                    }
+                    else {
+                        reject("No users online.")
+                    }
+                })
+                .catch((err) => {
+                    reject(err)
+                })
             })
             .catch((err) => {
-                reject("Could not find DB" + err)
+                reject(err)
             })
     })
 }

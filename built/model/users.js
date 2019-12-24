@@ -8,6 +8,8 @@ const crypto_1 = __importDefault(require("crypto"));
 const COLLECTION_CROWD = "crowd";
 class User {
 }
+class LimitedUser {
+}
 /**
  * Creates a user according to the user model or return null if the model is not satisfied.
  * @param user
@@ -105,12 +107,12 @@ exports.patchUserPromise = (token) => {
 };
 exports.getAllRecentUsersPromise = () => {
     return new Promise((resolve, reject) => {
-        let lastWeek = new Date(new Date().setDate(new Date().getMinutes() - 5)).getTime();
+        let activeTimeFrame = new Date(new Date().setDate(new Date().getMinutes() - 5)).getTime();
         dbconnector_1.getDb()
             .then((db) => {
-            db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: lastWeek } }).toArray()
+            db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: activeTimeFrame } }).toArray()
                 .then((users) => {
-                if (users.length != 0) {
+                if (users.length > 0) {
                     let essentialUsers = [];
                     users.forEach((user) => {
                         essentialUsers.push({
@@ -121,15 +123,15 @@ exports.getAllRecentUsersPromise = () => {
                     resolve(essentialUsers);
                 }
                 else {
-                    reject("Either no users online since last week or something went wrong.");
+                    reject("No users online.");
                 }
             })
                 .catch((err) => {
-                reject("Could not find users" + err);
+                reject(err);
             });
         })
             .catch((err) => {
-            reject("Could not find DB" + err);
+            reject(err);
         });
     });
 };
