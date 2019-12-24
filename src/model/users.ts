@@ -131,7 +131,7 @@ export let getAllRecentUsersPromise = () => {
                         resolve(essentialUsers)
                     }
                     else {
-                        reject("No users online.")
+                        reject(`No users online since ${activeTimeFrame}`)
                     }
                 })
                 .catch((err) => {
