@@ -86,7 +86,7 @@ exports.handleAggregationRequest = (req, res) => {
                 };
                 res.status(500).json(response).send();
             });
-        }, 1000 * 30);
+        }, 1000 * 60);
     })
         .catch((err) => {
         res.status(500).send(err);
