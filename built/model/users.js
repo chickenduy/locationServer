@@ -107,7 +107,7 @@ exports.patchUserPromise = (token) => {
 };
 exports.getAllRecentUsersPromise = () => {
     return new Promise((resolve, reject) => {
-        let activeTimeFrame = new Date(Date.now() - (5 * 60 * 1000));
+        let activeTimeFrame = new Date(Date.now() - (5 * 60 * 1000)).getTime();
         dbconnector_1.getDb()
             .then((db) => {
             db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: activeTimeFrame } }).toArray()
