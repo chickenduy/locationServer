@@ -115,7 +115,7 @@ export let patchUserPromise = (token) => {
 
 export let getAllRecentUsersPromise = () => {
     return new Promise<Array<LimitedUser>>((resolve, reject) => {
-        let activeTimeFrame = new Date(new Date().setDate(new Date().getMinutes() - 5)).getTime()
+        let activeTimeFrame = new Date(Date.now() - (5*60*1000))
         getDb()
             .then((db) => {
                 db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: activeTimeFrame } }).toArray()
