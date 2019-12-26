@@ -26,7 +26,8 @@ exports.handleAggregationRequest = (req, res) => {
         "to": "/topics/online",
         "data": {
             "request": "ping",
-        }
+        },
+        "time_to_live ": 120
     };
     com.sendPushNotificationPromise(data)
         .catch((err) => {
@@ -70,7 +71,8 @@ exports.handleAggregationRequest = (req, res) => {
                     "data": {
                         "request": "request",
                         "users": helpers_1.shuffleFisherYates(users)
-                    }
+                    },
+                    "time_to_live ": 120
                 };
                 com.sendPushNotificationPromise(request)
                     .then(() => {

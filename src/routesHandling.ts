@@ -24,7 +24,8 @@ export let handleAggregationRequest = (req, res) => {
 		"to": "/topics/online",
 		"data": {
 			"request": "ping",
-		}
+		},
+		"time_to_live " : 120
 	}
 	com.sendPushNotificationPromise(data)
 		.catch((err) => {
@@ -61,6 +62,8 @@ export let handleAggregationRequest = (req, res) => {
 				}
 				res.status(200).json(response).send()
 
+
+
 				//TODO: call aggregation function
 				/**
 				 * start actual aggregation request
@@ -71,7 +74,8 @@ export let handleAggregationRequest = (req, res) => {
 						"data": {
 							"request": "request",
 							"users": shuffleFisherYates(users)
-						}
+						},
+						"time_to_live " : 120
 					}
 					com.sendPushNotificationPromise(request)
 						.then(() => {
