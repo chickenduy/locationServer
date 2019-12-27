@@ -45,12 +45,12 @@ exports.handleAggregationRequest = (req, res) => {
         };
         com.getPresence(data)
             .then((result) => {
-            let users = result["presence"];
             let onlineUsers = [];
+            let users = result["presence"];
             users.forEach(user => {
                 if (user.online) {
                     onlineUsers.push(user.id);
-                    users_1.patchUserPromise(user.id);
+                    //patchUserPromise(user.id)
                 }
             });
             onlineUsers = helpers_1.shuffleFisherYates(onlineUsers);
@@ -58,9 +58,14 @@ exports.handleAggregationRequest = (req, res) => {
             let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE);
             let groups = [];
             let start = 0;
+            let end = GROUP_SIZE;
             for (let i = 0; i < numberOfGroups; i++) {
-                groups[i].push(onlineUsers.slice(start, GROUP_SIZE));
-                start = +GROUP_SIZE;
+                groups[i].push(onlineUsers.slice(start, end));
+                start = start + GROUP_SIZE;
+                end = end + GROUP_SIZE;
+                if (end > onlineUsers.length) {
+                    end = onlineUsers.length;
+                }
             }
             let response = {
                 "onlineUsers": onlineUsers,
