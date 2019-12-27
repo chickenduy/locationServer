@@ -54,7 +54,7 @@ class Communication {
             };
             request_promise_1.default.post(options)
                 .then((body) => {
-                resolve(JSON.parse(body));
+                resolve(body);
             })
                 .catch((err) => {
                 reject(`post request failed on url: ${this.address}/devices/presence?api_key=${this.fake_api_key}`);
