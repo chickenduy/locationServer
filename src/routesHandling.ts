@@ -38,7 +38,7 @@ export let handleAggregationRequest = (req, res) => {
 
 	getAllUsersPromise()
 		.then((users) => {
-			let tokens = Array<String>()
+			let tokens = []
 			users.forEach((user) => {
 				tokens.push(user.id)
 			})
@@ -59,14 +59,14 @@ export let handleAggregationRequest = (req, res) => {
 					let groups = []
 					let start = 0
 					let end = GROUP_SIZE
-					for (let i = 0; i < numberOfGroups; i++) {
-						groups[i].push(onlineUsers.slice(start, end))
-						start = start + GROUP_SIZE
-						end = end + GROUP_SIZE
-						if (end > onlineUsers.length) {
-							end = onlineUsers.length
-						}
-					}
+					// for (let i = 0; i < numberOfGroups; i++) {
+					// 	groups[i].push(onlineUsers.slice(start, end))
+					// 	start = start + GROUP_SIZE
+					// 	end = end + GROUP_SIZE
+					// 	if (end > onlineUsers.length) {
+					// 		end = onlineUsers.length
+					// 	}
+					// }
 					let response = {
 						"onlineUsers": onlineUsers,
 						//"groups": groups

@@ -36,7 +36,7 @@ exports.handleAggregationRequest = (req, res) => {
     // let radius = req.query.activity
     users_1.getAllUsersPromise()
         .then((users) => {
-        let tokens = Array();
+        let tokens = [];
         users.forEach((user) => {
             tokens.push(user.id);
         });
@@ -56,14 +56,14 @@ exports.handleAggregationRequest = (req, res) => {
             let groups = [];
             let start = 0;
             let end = GROUP_SIZE;
-            for (let i = 0; i < numberOfGroups; i++) {
-                groups[i].push(onlineUsers.slice(start, end));
-                start = start + GROUP_SIZE;
-                end = end + GROUP_SIZE;
-                if (end > onlineUsers.length) {
-                    end = onlineUsers.length;
-                }
-            }
+            // for (let i = 0; i < numberOfGroups; i++) {
+            // 	groups[i].push(onlineUsers.slice(start, end))
+            // 	start = start + GROUP_SIZE
+            // 	end = end + GROUP_SIZE
+            // 	if (end > onlineUsers.length) {
+            // 		end = onlineUsers.length
+            // 	}
+            // }
             let response = {
                 "onlineUsers": onlineUsers,
             };
