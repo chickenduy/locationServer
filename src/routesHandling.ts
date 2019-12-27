@@ -45,20 +45,20 @@ export let handleAggregationRequest = (req, res) => {
 			com.getPresence(tokens)
 				.then((result) => {
 					let onlineUsers = []
-					let users = result["presence"]
-					users.forEach(user => {
-						if (user.online) {
-							onlineUsers.push(user.id)
-							//patchUserPromise(user.id)
-						}
-					})
-					onlineUsers = shuffleFisherYates(onlineUsers)
+					// let users = result["presence"]
+					// users.forEach(user => {
+					// 	if (user.online) {
+					// 		onlineUsers.push(user.id)
+					// 		//patchUserPromise(user.id)
+					// 	}
+					// })
+					// onlineUsers = shuffleFisherYates(onlineUsers)
 
-					// TODO: Start aggregation
-					let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE)
-					let groups = []
-					let start = 0
-					let end = GROUP_SIZE
+					// // TODO: Start aggregation
+					// let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE)
+					// let groups = []
+					// let start = 0
+					// let end = GROUP_SIZE
 					// for (let i = 0; i < numberOfGroups; i++) {
 					// 	groups[i].push(onlineUsers.slice(start, end))
 					// 	start = start + GROUP_SIZE
@@ -68,7 +68,7 @@ export let handleAggregationRequest = (req, res) => {
 					// 	}
 					// }
 					let response = {
-						"onlineUsers": onlineUsers,
+						"onlineUsers": result,
 						//"groups": groups
 					}
 					res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)

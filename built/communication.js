@@ -13,7 +13,7 @@ class Communication {
     /**
      * This is a function to send data to a specific mobile phone over the Pushy Server
      * and resolves or rejects the depending on the REST request.
-     * @param data in JSON
+     * @param notification in JSON
      * {
      *  to: <Pushy Token>
      *  data: {
@@ -49,7 +49,8 @@ class Communication {
                 },
                 body: {
                     "tokens": tokens
-                }
+                },
+                json: true
             };
             request_promise_1.default.post(options)
                 .then((body) => {
