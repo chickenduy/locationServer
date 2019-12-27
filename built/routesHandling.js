@@ -52,17 +52,11 @@ exports.handleAggregationRequest = (req, res) => {
             });
             onlineUsers = helpers_1.shuffleFisherYates(onlineUsers);
             // TODO: Start aggregation
-            let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE);
-            let groups = [];
-            let start = 0;
-            let end = GROUP_SIZE;
-            for (let i = 0; i < numberOfGroups; i++) {
-                groups[i].push(onlineUsers.slice(start, end));
-                start = start + GROUP_SIZE;
-                end = end + GROUP_SIZE;
-                if (end > onlineUsers.length) {
-                    end = onlineUsers.length;
-                }
+            let counter = 0;
+            let groups = [[]];
+            while (onlineUsers.length) {
+                groups[counter] = onlineUsers.splice(0, 1);
+                counter++;
             }
             let response = {
                 "onlineUsers": onlineUsers,
