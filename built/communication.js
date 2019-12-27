@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const request_1 = __importDefault(require("request"));
+const request_promise_1 = __importDefault(require("request-promise"));
 class Communication {
     constructor() {
         this.api_key = "?api_key=cfd5f664afd97266ed8ec89ac697b9dcded0afced39635320fc5bfb7a950c705";
@@ -29,30 +29,13 @@ class Communication {
                 },
                 body: JSON.stringify(data)
             };
-            request_1.default.post(options, (error, res, body) => {
-                if (error) {
-                    console.error(error);
-                    reject(error);
-                }
+            request_promise_1.default.post(options)
+                .then((body) => {
                 resolve(JSON.parse(body));
+            })
+                .catch((err) => {
+                reject(err);
             });
-        });
-    }
-    sendNotification(data) {
-        let options = {
-            url: `${this.address}push${this.api_key}`,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        };
-        request_1.default.post(options, (error, res, body) => {
-            if (error) {
-                console.error(error);
-                return;
-            }
-            console.log(`statusCode: ${res.statusCode}`);
-            console.log(body);
         });
     }
     getPresence(data) {
@@ -64,11 +47,12 @@ class Communication {
                 },
                 body: JSON.stringify(data)
             };
-            request_1.default.post(options, (error, res, body) => {
-                if (error) {
-                    reject(error);
-                }
+            request_promise_1.default.post(options)
+                .then((body) => {
                 resolve(JSON.parse(body));
+            })
+                .catch((err) => {
+                reject(err);
             });
         });
     }

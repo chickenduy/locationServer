@@ -1,4 +1,4 @@
-import request from 'request'
+import request from 'request-promise'
 
 export default class Communication {
     api_key = "?api_key=cfd5f664afd97266ed8ec89ac697b9dcded0afced39635320fc5bfb7a950c705"
@@ -25,33 +25,15 @@ export default class Communication {
                 },
                 body: JSON.stringify(data)
             }
-            request.post(options, (error, res, body) => {
-                if (error) {
-                    console.error(error)
-                    reject(error)
-                }
-                resolve(JSON.parse(body))
-            })
-        });
-    }
 
-    sendNotification(data) {
-        let options =
-        {
-            url: `${this.address}push${this.api_key}`,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }
-        request.post(options, (error, res, body) => {
-            if (error) {
-                console.error(error)
-                return
-            }
-            console.log(`statusCode: ${res.statusCode}`)
-            console.log(body)
-        })
+            request.post(options)
+                .then((body) => {
+                    resolve(JSON.parse(body))
+                })
+                .catch((err) => {
+                    reject(err)
+                })
+        });
     }
 
     getPresence(data) {
@@ -64,12 +46,14 @@ export default class Communication {
                 },
                 body: JSON.stringify(data)
             }
-            request.post(options, (error, res, body) => {
-                if (error) {
-                    reject(error)
-                }
-                resolve(JSON.parse(body))
-            })
+
+            request.post(options)
+                .then((body) => {
+                    resolve(JSON.parse(body))
+                })
+                .catch((err) => {
+                    reject(err)
+                })
         })
     }
 }
