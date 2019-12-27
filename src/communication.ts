@@ -1,7 +1,8 @@
 import request from 'request'
 
 export default class Communication {
-    address = "https://api.pushy.me/push?api_key=cfd5f664afd97266ed8ec89ac697b9dcded0afced39635320fc5bfb7a950c705"
+    api_key = "?api_key=cfd5f664afd97266ed8ec89ac697b9dcded0afced39635320fc5bfb7a950c705"
+    address = "https://api.pushy.me/"
 
     /**
      * This is a function to send data to a specific mobile phone over the Pushy Server
@@ -14,11 +15,11 @@ export default class Communication {
      *  }
      * } 
      */
-    sendPushNotificationPromise(data) {
+    sendNotificationPromise(data) {
         return new Promise((resolve, reject) => {
-            let options = 
+            let options =
             {
-                url: this.address,
+                url: `${this.address}push${this.api_key}`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -34,10 +35,10 @@ export default class Communication {
         });
     }
 
-    sendPushNotification(data) {
-        let options = 
+    sendNotification(data) {
+        let options =
         {
-            url: this.address,
+            url: `${this.address}push${this.api_key}`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -50,6 +51,26 @@ export default class Communication {
             }
             console.log(`statusCode: ${res.statusCode}`)
             console.log(body)
+        })
+    }
+
+    getPresence(data) {
+        return new Promise((resolve, reject) => {
+            let options =
+            {
+                url: `${this.address}presence${this.api_key}`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+            request.post(options, (error, res, body) => {
+                if (error) {
+                    console.error(error)
+                    reject(error)
+                }
+                resolve(JSON.parse(body))
+            })
         })
     }
 }

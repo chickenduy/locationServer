@@ -11,6 +11,35 @@ class User {
 class LimitedUser {
 }
 /**
+ * Get all online users with PushyAPI
+ */
+exports.getAllUsersPromise = () => {
+    return new Promise((resolve, reject) => {
+        dbconnector_1.getDb()
+            .then((db) => {
+            db.collection(COLLECTION_CROWD).find().toArray()
+                .then((users) => {
+                let allTokens = Array();
+                if (users.length > 0) {
+                    users.forEach((user) => {
+                        allTokens.push(user.id);
+                    });
+                    resolve(allTokens);
+                }
+                else {
+                    reject(`No users online`);
+                }
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        })
+            .catch((err) => {
+            reject(err);
+        });
+    });
+};
+/**
  * Creates a user according to the user model or return null if the model is not satisfied.
  * @param user
  */
@@ -105,6 +134,9 @@ exports.patchUserPromise = (token) => {
         }
     });
 };
+/**
+ * Gets all users that where last seen in a certain timeframe
+ */
 exports.getAllRecentUsersPromise = () => {
     return new Promise((resolve, reject) => {
         let activeTimeFrame = new Date(Date.now() - (5 * 60 * 1000)).getTime();

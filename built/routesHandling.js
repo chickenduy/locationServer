@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = __importDefault(require("crypto"));
 const users_1 = require("./model/users");
 const communication_1 = __importDefault(require("./communication"));
-const helpers_1 = require("./helpers");
 /**
  * This is a basic function that returns a plaintext "Hello world!"
  * @param res Response of the function
@@ -22,66 +21,35 @@ exports.basicRequest = (req, res) => {
 };
 exports.handleAggregationRequest = (req, res) => {
     let com = new communication_1.default();
-    let data = {
-        "to": "/topics/online",
-        "data": {
-            "request": "ping",
-        },
-        "time_to_live ": 120
-    };
-    com.sendPushNotificationPromise(data)
-        .catch((err) => {
-        res.status(500).send(err);
-    });
+    let timeA = req.query.timeA;
+    let timeB = req.query.timeB;
     /**
-     * Wait for a while after pinging devices to get active devices
+     * request: position, steps, location, activity
      */
-    setTimeout(() => {
-        /**
-         * timepointA, timepointB: timeframe
-         */
-        let timeA = req.query.timeA;
-        let timeB = req.query.timeB;
-        /**
-         * request: position, steps, location, activity
-         */
-        let request = req.query.request;
-        /**
-         * activity: walk, run, bike, vehicle
-         */
-        let activity = req.query.activity;
-        let radius = req.query.activity;
-        /**
-         * get all active devices
-         */
-        users_1.getAllRecentUsersPromise()
-            .then((users) => {
-            let response = {
-                "status": "success",
-                "message": `We have ${users.length} participants`
-            };
-            res.status(200).json(response).send();
-            //TODO: call aggregation function
-            /**
-             * start actual aggregation request
-             */
-            users.forEach((user) => {
-                let request = {
-                    "to": user.id,
-                    "data": {
-                        "request": "request",
-                        "users": helpers_1.shuffleFisherYates(users)
-                    },
-                    "time_to_live ": 120
-                };
-                com.sendPushNotificationPromise(request)
-                    .then(() => {
-                    console.log(`Send request to ${user.id}`);
-                })
-                    .catch((err) => {
-                    console.log(err);
-                });
+    let request = req.query.request;
+    /**
+     * activity: walk, run, bike, vehicle
+     */
+    let activity = req.query.activity;
+    let radius = req.query.activity;
+    users_1.getAllUsersPromise()
+        .then((tokens) => {
+        let data = {
+            "tokens": tokens
+        };
+        com.getPresence(data)
+            .then((result) => {
+            let users = result["presence"];
+            let onlineUsers = [];
+            users.forEach(user => {
+                if (user.online) {
+                    onlineUsers.push(user);
+                }
             });
+            let response = {
+                "onlineUsers": onlineUsers
+            };
+            res.status(500).json(response).send();
         })
             .catch((err) => {
             let response = {
@@ -90,7 +58,14 @@ exports.handleAggregationRequest = (req, res) => {
             };
             res.status(500).json(response).send();
         });
-    }, 1000 * 60);
+    })
+        .catch((err) => {
+        let response = {
+            "status": "failure",
+            "message": err
+        };
+        res.status(500).json(response).send();
+    });
 };
 exports.handleCreateUserRequest = (req, res) => {
     console.log(req.body);
@@ -193,7 +168,7 @@ exports.testRoutePost = (req, res) => {
             "value": "Hello World"
         }
     };
-    com.sendPushNotificationPromise(data)
+    com.sendNotificationPromise(data)
         .then((result) => {
         console.log(result);
         let response = {

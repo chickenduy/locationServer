@@ -16,6 +16,36 @@ class LimitedUser {
 }
 
 /**
+ * Get all online users with PushyAPI
+ */
+export let getAllUsersPromise = () => {
+    return new Promise((resolve, reject) => {
+        getDb()
+            .then((db) => {
+                db.collection(COLLECTION_CROWD).find().toArray()
+                    .then((users) => {
+                        let allTokens = Array<String>()
+                        if (users.length > 0) {
+                            users.forEach((user) => {
+                                allTokens.push(user.id)
+                            })
+                            resolve(allTokens)
+                        }
+                        else {
+                            reject(`No users online`)
+                        }
+                    })
+                    .catch((err) => {
+                        reject(err)
+                    })
+            })
+            .catch((err) => {
+                reject(err)
+            })
+    })
+}
+
+/**
  * Creates a user according to the user model or return null if the model is not satisfied.
  * @param user 
  */
@@ -113,30 +143,33 @@ export let patchUserPromise = (token) => {
     })
 }
 
+/**
+ * Gets all users that where last seen in a certain timeframe
+ */
 export let getAllRecentUsersPromise = () => {
     return new Promise<Array<LimitedUser>>((resolve, reject) => {
-        let activeTimeFrame = new Date(Date.now() - (5*60*1000)).getTime()
+        let activeTimeFrame = new Date(Date.now() - (5 * 60 * 1000)).getTime()
         getDb()
             .then((db) => {
                 db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: activeTimeFrame } }).toArray()
-                .then((users) => {
-                    if (users.length > 0) {
-                        let essentialUsers = []
-                        users.forEach((user) => {
-                            essentialUsers.push({
-                                "id" : user.id,
-                                "publicKey" : user.publicKey
+                    .then((users) => {
+                        if (users.length > 0) {
+                            let essentialUsers = []
+                            users.forEach((user) => {
+                                essentialUsers.push({
+                                    "id": user.id,
+                                    "publicKey": user.publicKey
+                                })
                             })
-                        })
-                        resolve(essentialUsers)
-                    }
-                    else {
-                        reject(`No users online since ${activeTimeFrame}`)
-                    }
-                })
-                .catch((err) => {
-                    reject(err)
-                })
+                            resolve(essentialUsers)
+                        }
+                        else {
+                            reject(`No users online since ${activeTimeFrame}`)
+                        }
+                    })
+                    .catch((err) => {
+                        reject(err)
+                    })
             })
             .catch((err) => {
                 reject(err)
