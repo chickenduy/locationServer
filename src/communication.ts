@@ -1,8 +1,9 @@
 import request from 'request-promise'
 
 export default class Communication {
-    api_key = "?api_key=cfd5f664afd97266ed8ec89ac697b9dcded0afced39635320fc5bfb7a950c705"
-    address = "https://api.pushy.me/"
+    api_key = "cfd5f664afd97266ed8ec89ac697b9dcded0afced39635320fc5bfb7a950c705"
+    fake_api_key = "testtesttesttest"
+    address = "https://api.pushy.me"
 
     /**
      * This is a function to send data to a specific mobile phone over the Pushy Server
@@ -19,11 +20,12 @@ export default class Communication {
         return new Promise((resolve, reject) => {
             let options =
             {
-                url: `${this.address}push${this.api_key}`,
+                url: `${this.address}/push${this.api_key}`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: data,
+                json: true
             }
 
             request.post(options)
@@ -40,11 +42,12 @@ export default class Communication {
         return new Promise((resolve, reject) => {
             let options =
             {
-                url: `${this.address}devices/presence${this.api_key}`,
+                url: `${this.address}/devices/presence?api_key=${this.api_key}`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: data,
+                json: true
             }
 
             request.post(options)
@@ -52,7 +55,7 @@ export default class Communication {
                     resolve(JSON.parse(body))
                 })
                 .catch((err) => {
-                    reject(err)
+                    reject(`post request failed on url: ${this.address}/devices/presence?api_key=${this.fake_api_key}`)
                 })
         })
     }
