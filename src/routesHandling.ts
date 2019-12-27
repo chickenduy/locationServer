@@ -214,7 +214,7 @@ export let testRoutePost = (req, res) => {
 		})
 		.catch((err) => {
 			let response = {
-				"status" : "failures",
+				"status" : "failure",
 				"source" : "getPresence",
 				"message" : err
 			}
@@ -242,7 +242,7 @@ export let authenticateUser = (req, res, next) => {
 			let result = {
 				"status": "failure",
 				"source" : "authenticateUserPromise",
-				"message": "couldn't authenticate"
+				"message": err
 			}
 			res.status(500).json(result).send()
 		})

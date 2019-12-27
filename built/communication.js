@@ -66,7 +66,6 @@ class Communication {
             };
             request_1.default.post(options, (error, res, body) => {
                 if (error) {
-                    console.error(error);
                     reject(error);
                 }
                 resolve(JSON.parse(body));
