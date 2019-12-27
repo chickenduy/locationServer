@@ -51,22 +51,21 @@ exports.handleAggregationRequest = (req, res) => {
                 }
             });
             onlineUsers = helpers_1.shuffleFisherYates(onlineUsers);
-            // TODO: Start aggregation
-            let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE);
-            let groups = [];
-            let start = 0;
-            let end = GROUP_SIZE;
-            for (let i = 0; i < numberOfGroups; i++) {
-                groups[i].push(onlineUsers.slice(start, end));
-                start = start + GROUP_SIZE;
-                end = end + GROUP_SIZE;
-                if (end > onlineUsers.length) {
-                    end = onlineUsers.length;
-                }
-            }
+            // // TODO: Start aggregation
+            // let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE)
+            // let groups = []
+            // let start = 0
+            // let end = GROUP_SIZE
+            // for (let i = 0; i < numberOfGroups; i++) {
+            // 	groups[i].push(onlineUsers.slice(start, end))
+            // 	start = start + GROUP_SIZE
+            // 	end = end + GROUP_SIZE
+            // 	if (end > onlineUsers.length) {
+            // 		end = onlineUsers.length
+            // 	}
+            // }
             let response = {
                 "onlineUsers": result,
-                "groups": groups
             };
             res.status(200).json(response).send(`You have ${onlineUsers.length} participants`);
         })
