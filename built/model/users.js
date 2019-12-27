@@ -19,12 +19,8 @@ exports.getAllUsersPromise = () => {
             .then((db) => {
             db.collection(COLLECTION_CROWD).find().toArray()
                 .then((users) => {
-                let allTokens = Array();
                 if (users.length > 0) {
-                    users.forEach((user) => {
-                        allTokens.push(user.id);
-                    });
-                    resolve(allTokens);
+                    resolve(users);
                 }
                 else {
                     reject(`No users online`);

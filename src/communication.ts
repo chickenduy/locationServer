@@ -58,7 +58,7 @@ export default class Communication {
         return new Promise((resolve, reject) => {
             let options =
             {
-                url: `${this.address}presence${this.api_key}`,
+                url: `${this.address}devices/presence${this.api_key}`,
                 headers: {
                     'Content-Type': 'application/json'
                 },

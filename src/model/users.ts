@@ -19,17 +19,13 @@ class LimitedUser {
  * Get all online users with PushyAPI
  */
 export let getAllUsersPromise = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise<Array<User>>((resolve, reject) => {
         getDb()
             .then((db) => {
                 db.collection(COLLECTION_CROWD).find().toArray()
                     .then((users) => {
-                        let allTokens = Array<String>()
-                        if (users.length > 0) {
-                            users.forEach((user) => {
-                                allTokens.push(user.id)
-                            })
-                            resolve(allTokens)
+                        if (users.length > 0) {    
+                            resolve(users)
                         }
                         else {
                             reject(`No users online`)

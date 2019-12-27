@@ -21,21 +21,25 @@ export let handleAggregationRequest = (req, res) => {
 
 	let com = new Communication()
 
-	let timeA = req.query.timeA
-	let timeB = req.query.timeB
-	/**
-	 * request: position, steps, location, activity
-	 */
-	let request = req.query.request
-	/**
-	 * activity: walk, run, bike, vehicle
-	 */
-	let activity = req.query.activity
-	let radius = req.query.activity
+	// let timeA = req.query.timeA
+	// let timeB = req.query.timeB
+	// /**
+	//  * request: position, steps, location, activity
+	//  */
+	// let request = req.query.request
+	// /**
+	//  * activity: walk, run, bike, vehicle
+	//  */
+	// let activity = req.query.activity
+	// let radius = req.query.activity
 
 
 	getAllUsersPromise()
-		.then((tokens) => {
+		.then((users) => {
+			let tokens = Array<String>()
+			users.forEach((user) => {
+				tokens.push(user.id)
+			})
 			let data = {
 				"tokens": tokens
 			}
