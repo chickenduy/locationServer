@@ -74,6 +74,7 @@ export let handleAggregationRequest = (req, res) => {
 				.catch((err) => {
 					let response = {
 						"status": "failure",
+						"source" : "getPresence",
 						"message": err
 					}
 					res.status(500).json(response).send()
@@ -82,6 +83,7 @@ export let handleAggregationRequest = (req, res) => {
 		.catch((err) => {
 			let response = {
 				"status": "failure",
+				"source" : "getAllUsers",
 				"message": err
 			}
 			res.status(500).json(response).send()
@@ -116,6 +118,7 @@ export let handleCreateUserRequest = (req, res) => {
 		.catch((err) => {
 			let response = {
 				"status": "failure",
+				"source" : "createUserPromise",
 				"reason": err
 			}
 			res.status(500).json(response).send()
@@ -140,6 +143,7 @@ export let handleUpdateUserRequest = (req, res) => {
 				.catch((err) => {
 					let response = {
 						"status": "failure",
+						"source" : "patchUserPomise",
 						"reason": err
 					}
 					res.status(500).json(response).send()
@@ -148,6 +152,7 @@ export let handleUpdateUserRequest = (req, res) => {
 		.catch((err) => {
 			let response = {
 				"status": "failure",
+				"source" : "autheticateUserPromise",
 				"reason": err
 			}
 			res.status(500).json(response).send()
@@ -172,6 +177,7 @@ export let handlePingedUserRequest = (req, res) => {
 				.catch((err) => {
 					let response = {
 						"status": "failure",
+						"source" : "patchUserPromise",
 						"reason": err
 					}
 					res.status(500).json(response).send()
@@ -180,6 +186,7 @@ export let handlePingedUserRequest = (req, res) => {
 		.catch((err) => {
 			let response = {
 				"status": "failure",
+				"source" : "authenticateUserPromise",
 				"reason": err
 			}
 			res.status(500).json(response).send()
@@ -206,7 +213,12 @@ export let testRoutePost = (req, res) => {
 			res.status(200).json(result).send()
 		})
 		.catch((err) => {
-			res.status(500).send(err)
+			let response = {
+				"status" : "failures",
+				"source" : "getPresence",
+				"message" : err
+			}
+			res.status(500).json(response).send(err)
 		})
 }
 
@@ -228,7 +240,8 @@ export let authenticateUser = (req, res, next) => {
 		})
 		.catch((err) => {
 			let result = {
-				"status": "failiure",
+				"status": "failure",
+				"source" : "authenticateUserPromise",
 				"message": "couldn't authenticate"
 			}
 			res.status(500).json(result).send()
