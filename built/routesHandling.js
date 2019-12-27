@@ -69,7 +69,6 @@ exports.handleAggregationRequest = (req, res) => {
             }
             let response = {
                 "onlineUsers": onlineUsers,
-                "groups": groups
             };
             res.status(200).json(response).send(`You have ${onlineUsers.length} participants`);
         })
