@@ -49,7 +49,8 @@ export let handleAggregationRequest = (req, res) => {
 					let onlineUsers = []
 					users.forEach(user => {
 						if(user.online) {
-							onlineUsers.push(user)
+							onlineUsers.push(user.id)
+							patchUserPromise(user.id)
 						}
 					});
 					let response = {
