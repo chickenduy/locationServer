@@ -45,7 +45,7 @@ export let handleAggregationRequest = (req, res) => {
 			com.getPresence(tokens)
 				.then((result) => {
 					let onlineUsers = []
-					let users = result["presence"]
+					let users = result.presence
 					users.forEach(user => {
 						if (user.online) {
 							onlineUsers.push(user.id)
@@ -68,7 +68,7 @@ export let handleAggregationRequest = (req, res) => {
 					// 	}
 					// }
 					let response = {
-						"onlineUsers": result,
+						"onlineUsers": onlineUsers,
 						//"groups": groups
 					}
 					res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)

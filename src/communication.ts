@@ -39,7 +39,7 @@ export default class Communication {
     }
 
     getPresence(tokens: Array<String>) {
-        return new Promise((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             let options =
             {
                 url: `${this.address}/devices/presence?api_key=${this.api_key}`,
