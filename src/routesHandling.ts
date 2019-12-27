@@ -42,10 +42,7 @@ export let handleAggregationRequest = (req, res) => {
 			users.forEach((user) => {
 				tokens.push(user.id)
 			})
-			let data = {
-				"tokens": tokens
-			}
-			com.getPresence(data)
+			com.getPresence(tokens)
 				.then((result) => {
 					let onlineUsers = []
 					let users = result["presence"]

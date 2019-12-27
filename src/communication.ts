@@ -38,7 +38,7 @@ export default class Communication {
         });
     }
 
-    getPresence(data) {
+    getPresence(tokens) {
         return new Promise((resolve, reject) => {
             let options =
             {
@@ -46,8 +46,9 @@ export default class Communication {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: data,
-                json: true
+                body: {
+                    "tokens": tokens
+                }
             }
 
             request.post(options)

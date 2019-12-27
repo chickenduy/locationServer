@@ -40,15 +40,16 @@ class Communication {
             });
         });
     }
-    getPresence(data) {
+    getPresence(tokens) {
         return new Promise((resolve, reject) => {
             let options = {
                 url: `${this.address}/devices/presence?api_key=${this.api_key}`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: data,
-                json: true
+                body: {
+                    "tokens": tokens
+                }
             };
             request_promise_1.default.post(options)
                 .then((body) => {
