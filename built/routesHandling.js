@@ -7,7 +7,7 @@ const crypto_1 = __importDefault(require("crypto"));
 const users_1 = require("./model/users");
 const communication_1 = __importDefault(require("./communication"));
 const helpers_1 = require("./helpers");
-const GROUP_SIZE = 10;
+const GROUP_SIZE = 1;
 /**
  * This is a basic function that returns a plaintext "Hello world!"
  * @param res Response of the function

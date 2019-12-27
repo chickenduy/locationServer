@@ -3,7 +3,7 @@ import { getAllUsersPromise, createUserPromise, patchUserPromise, getAllRecentUs
 import Communication from "./communication";
 import { shuffleFisherYates } from "./helpers";
 
-const GROUP_SIZE = 10
+const GROUP_SIZE = 1
 
 /**
  * This is a basic function that returns a plaintext "Hello world!"
