@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = __importDefault(require("crypto"));
 const users_1 = require("./model/users");
 const communication_1 = __importDefault(require("./communication"));
+const helpers_1 = require("./helpers");
+const GROUP_SIZE = 10;
 /**
  * This is a basic function that returns a plaintext "Hello world!"
  * @param res Response of the function
@@ -51,10 +53,20 @@ exports.handleAggregationRequest = (req, res) => {
                     users_1.patchUserPromise(user.id);
                 }
             });
+            onlineUsers = helpers_1.shuffleFisherYates(onlineUsers);
+            // TODO: Start aggregation
+            let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE);
+            let groups = [];
+            let start = 0;
+            for (let i = 0; i < numberOfGroups; i++) {
+                groups[i].push(onlineUsers.slice(start, GROUP_SIZE));
+                start = +GROUP_SIZE;
+            }
             let response = {
-                "onlineUsers": onlineUsers
+                "onlineUsers": onlineUsers,
+                "groups": groups
             };
-            res.status(500).json(response).send();
+            res.status(200).json(response).send(`You have ${onlineUsers.length} participants`);
         })
             .catch((err) => {
             let response = {

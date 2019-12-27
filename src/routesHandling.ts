@@ -3,6 +3,8 @@ import { getAllUsersPromise, createUserPromise, patchUserPromise, getAllRecentUs
 import Communication from "./communication";
 import { shuffleFisherYates } from "./helpers";
 
+const GROUP_SIZE = 10
+
 /**
  * This is a basic function that returns a plaintext "Hello world!"
  * @param res Response of the function
@@ -48,16 +50,26 @@ export let handleAggregationRequest = (req, res) => {
 					let users = result["presence"]
 					let onlineUsers = []
 					users.forEach(user => {
-						if(user.online) {
+						if (user.online) {
 							onlineUsers.push(user.id)
 							patchUserPromise(user.id)
 						}
 					});
-					let response = {
-						"onlineUsers" : onlineUsers
-					}
-					res.status(500).json(response).send()
+					onlineUsers = shuffleFisherYates(onlineUsers)
 
+					// TODO: Start aggregation
+					let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE)
+					let groups = []
+					let start = 0
+					for (let i = 0; i < numberOfGroups; i++) {
+						groups[i].push(onlineUsers.slice(start, GROUP_SIZE))
+						start = + GROUP_SIZE
+					}
+					let response = {
+						"onlineUsers": onlineUsers,
+						"groups": groups
+					}
+					res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
 				})
 				.catch((err) => {
 					let response = {
