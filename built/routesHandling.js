@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = __importDefault(require("crypto"));
 const users_1 = require("./model/users");
 const communication_1 = __importDefault(require("./communication"));
+const helpers_1 = require("./helpers");
 const GROUP_SIZE = 1;
 /**
  * This is a basic function that returns a plaintext "Hello world!"
@@ -42,29 +43,30 @@ exports.handleAggregationRequest = (req, res) => {
         com.getPresence(tokens)
             .then((result) => {
             let onlineUsers = [];
-            // let users = result["presence"]
-            // users.forEach(user => {
-            // 	if (user.online) {
-            // 		onlineUsers.push(user.id)
-            // 		//patchUserPromise(user.id)
-            // 	}
-            // })
-            // onlineUsers = shuffleFisherYates(onlineUsers)
-            // // TODO: Start aggregation
-            // let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE)
-            // let groups = []
-            // let start = 0
-            // let end = GROUP_SIZE
-            // for (let i = 0; i < numberOfGroups; i++) {
-            // 	groups[i].push(onlineUsers.slice(start, end))
-            // 	start = start + GROUP_SIZE
-            // 	end = end + GROUP_SIZE
-            // 	if (end > onlineUsers.length) {
-            // 		end = onlineUsers.length
-            // 	}
-            // }
+            let users = result["presence"];
+            users.forEach(user => {
+                if (user.online) {
+                    onlineUsers.push(user.id);
+                    //patchUserPromise(user.id)
+                }
+            });
+            onlineUsers = helpers_1.shuffleFisherYates(onlineUsers);
+            // TODO: Start aggregation
+            let numberOfGroups = Math.ceil(onlineUsers.length / GROUP_SIZE);
+            let groups = [];
+            let start = 0;
+            let end = GROUP_SIZE;
+            for (let i = 0; i < numberOfGroups; i++) {
+                groups[i].push(onlineUsers.slice(start, end));
+                start = start + GROUP_SIZE;
+                end = end + GROUP_SIZE;
+                if (end > onlineUsers.length) {
+                    end = onlineUsers.length;
+                }
+            }
             let response = {
                 "onlineUsers": result,
+                "groups": groups
             };
             res.status(200).json(response).send(`You have ${onlineUsers.length} participants`);
         })
