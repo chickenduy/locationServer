@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const dbconnector_1 = require("../dbconnector");
-const COLLECTION_USER = "user";
+const COLLECTION_USER = "users";
 class User {
 }
 /**

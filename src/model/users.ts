@@ -1,7 +1,7 @@
 import { getDb } from "../dbconnector";
 import crypto from "crypto";
 
-const COLLECTION_USER = "user"
+const COLLECTION_USER = "users"
 
 class User {
     username: String
