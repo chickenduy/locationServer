@@ -273,8 +273,8 @@ exports.authenticateCrowd = (req, res, next) => {
  * @param next
  */
 exports.authenticateUser = (req, res, next) => {
-    let username;
-    let password;
+    let username = "";
+    let password = "";
     /**
      * Extract token and password from request
      */
