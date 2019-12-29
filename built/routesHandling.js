@@ -290,7 +290,7 @@ exports.authenticateUser = (req, res, next) => {
         let result = {
             "status": "failure",
             "source": "authenticateUser",
-            "message": "Missing username/password"
+            "message": `Missing username: ${username}, password: ${password}`
         };
         res.status(500).json(result).send();
         return;

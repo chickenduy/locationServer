@@ -291,15 +291,16 @@ export let authenticateUser = (req, res, next) => {
 	if (req.method === "GET") {
 		username = req.query.username
 		password = req.query.password
-	} else {
+	}
+	else {
 		username = req.body.username
 		password = req.body.password
 	}
-	if(!username || !password) {
+	if (!username || !password) {
 		let result = {
 			"status": "failure",
 			"source": "authenticateUser",
-			"message": "Missing username/password"
+			"message": `Missing username: ${username}, password: ${password}`
 		}
 		res.status(500).json(result).send()
 		return
