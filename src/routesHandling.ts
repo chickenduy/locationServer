@@ -30,23 +30,23 @@ export let basicRequest = (req, res) => {
  */
 export let handleAggregationRequest = (req, res) => {
 	let com = new Communication()
-	if(!req.type) {
-		let aggregationRequest = {
-			"type" : req.type,
-			"start" : Date.now(),
-			"end" : 0,
-			"group" : []
-		}
-	}
-	else {
-		let response = {
-			"status": "failure",
-			"source": "handleAggregationRequest",
-			"message": "Request doesn't conform to format"
-		}
-		res.status(500).json(response).send()
-		return
-	}
+	// if(!req.type) {
+	// 	let aggregationRequest = {
+	// 		"type" : req.type,
+	// 		"start" : Date.now(),
+	// 		"end" : 0,
+	// 		"group" : []
+	// 	}
+	// }
+	// else {
+	// 	let response = {
+	// 		"status": "failure",
+	// 		"source": "handleAggregationRequest",
+	// 		"message": "Request doesn't conform to format"
+	// 	}
+	// 	res.status(500).json(response).send()
+	// 	return
+	// }
 
 	// let timeA = req.query.timeA
 	// let timeB = req.query.timeB
@@ -86,8 +86,7 @@ export let handleAggregationRequest = (req, res) => {
 					}
 
 					// TODO: Start Aggregation
-					startAggregation(0, groups)
-
+					//startAggregation(0, groups)
 
 					//
 					let response = {

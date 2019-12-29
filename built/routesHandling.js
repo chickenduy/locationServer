@@ -15,7 +15,6 @@ const communication_1 = __importDefault(require("./communication"));
 const helpers_1 = require("./helpers");
 const user = __importStar(require("./model/users"));
 const crowd = __importStar(require("./model/crowd"));
-const requests_1 = require("./model/requests");
 const GROUP_SIZE = 1;
 /**
  * This is a basic function that returns a JSON "Hello world!"
@@ -38,23 +37,23 @@ exports.basicRequest = (req, res) => {
  */
 exports.handleAggregationRequest = (req, res) => {
     let com = new communication_1.default();
-    if (!req.type) {
-        let aggregationRequest = {
-            "type": req.type,
-            "start": Date.now(),
-            "end": 0,
-            "group": []
-        };
-    }
-    else {
-        let response = {
-            "status": "failure",
-            "source": "handleAggregationRequest",
-            "message": "Request doesn't conform to format"
-        };
-        res.status(500).json(response).send();
-        return;
-    }
+    // if(!req.type) {
+    // 	let aggregationRequest = {
+    // 		"type" : req.type,
+    // 		"start" : Date.now(),
+    // 		"end" : 0,
+    // 		"group" : []
+    // 	}
+    // }
+    // else {
+    // 	let response = {
+    // 		"status": "failure",
+    // 		"source": "handleAggregationRequest",
+    // 		"message": "Request doesn't conform to format"
+    // 	}
+    // 	res.status(500).json(response).send()
+    // 	return
+    // }
     // let timeA = req.query.timeA
     // let timeB = req.query.timeB
     // /**
@@ -90,7 +89,7 @@ exports.handleAggregationRequest = (req, res) => {
                 counter++;
             }
             // TODO: Start Aggregation
-            requests_1.startAggregation(0, groups);
+            //startAggregation(0, groups)
             //
             let response = {
                 "onlineUsers": onlineUsers,

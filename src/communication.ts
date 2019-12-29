@@ -57,7 +57,7 @@ export default class Communication {
                     resolve(body)
                 })
                 .catch((err) => {
-                    reject(`post request failed on url: ${this.address}/devices/presence?api_key=${this.fake_api_key}`)
+                    reject("POST request failed")
                 })
         })
     }
