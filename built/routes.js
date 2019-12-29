@@ -10,6 +10,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const RouteHandling = __importStar(require("./routesHandling"));
 class Router {
     /*
+        Register routes that require crowd authentication.
+    */
+    requireCrowdAuthentication(app, routes) {
+        routes.forEach(route => {
+            app.use(route, RouteHandling.authenticateCrowd);
+        });
+    }
+    /*
         Register routes that require user authentication.
     */
     requireUserAuthentication(app, routes) {
@@ -22,10 +30,12 @@ class Router {
     */
     setRoutes(app) {
         app.get('/', RouteHandling.basicRequest);
-        app.post('/user', RouteHandling.handleCreateUserRequest);
+        app.get('/result', RouteHandling.basicRequest);
+        app.post('/crowd', RouteHandling.handleCreateCrowdRequest);
         app.post('/request', RouteHandling.handleAggregationRequest);
-        app.patch('/user', RouteHandling.handleUpdateUserRequest);
-        app.patch('/user/ping', RouteHandling.handleUpdateUserRequest);
+        app.post('/aggregation', RouteHandling.basicRequest);
+        app.patch('/user', RouteHandling.handleUpdateCrowdRequest);
+        app.patch('/user/ping', RouteHandling.handlePingedCrowdRequest);
         app.all('*', RouteHandling.basicRequest);
     }
 }

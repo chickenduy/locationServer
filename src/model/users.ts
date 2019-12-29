@@ -1,63 +1,35 @@
 import { getDb } from "../dbconnector";
 import crypto from "crypto";
 
-const COLLECTION_CROWD = "crowd"
+const COLLECTION_USER = "user"
 
 class User {
-    id: String
-    publicKey: String
+    username: String
     password: String
-    lastSeen: number
-}
-
-class LimitedUser {
-    id: String
-    publicKey: String
 }
 
 /**
- * Get all online users with PushyAPI
- */
-export let getAllUsersPromise = () => {
-    return new Promise<Array<User>>((resolve, reject) => {
-        getDb()
-            .then((db) => {
-                db.collection(COLLECTION_CROWD).find().toArray()
-                    .then((users) => {
-                        if (users.length > 0) {    
-                            resolve(users)
-                        }
-                        else {
-                            reject(`No users online`)
-                        }
-                    })
-                    .catch((err) => {
-                        reject(err)
-                    })
-            })
-            .catch((err) => {
-                reject(err)
-            })
-    })
-}
-
-/**
- * Creates a user according to the user model or return null if the model is not satisfied.
+ * Creates a user according to the user model
  * @param user 
  */
 export let createUserPromise = (user) => {
     return new Promise((resolve, reject) => {
-        if (!user.id || !user.publicKey || !user.password || !user.lastSeen) {
+        if (!user.username  || !user.password) {
             reject("Could not create user, missing required fields")
         }
         else {
             getDb()
                 .then((db) => {
-                    db.collection(COLLECTION_CROWD).findOne({ "id": user.id })
+                    db.collection(COLLECTION_USER).findOne({ "username": user.username })
                         .then((foundUser) => {
                             if (!foundUser) {
-                                db.collection(COLLECTION_CROWD).insertOne(user)
-                                    .then((result) => {
+                                //hash password
+                                let insertUser = {
+                                    "username" : user.username,
+                                    "password" : user.password
+                                }
+                                db.collection(COLLECTION_USER).insertOne(insertUser)
+                                    .then(() => {
                                         resolve("Created user")
                                     })
                                     .catch((err) => {
@@ -79,54 +51,23 @@ export let createUserPromise = (user) => {
     })
 }
 
-export let getUserPromise = (token) => {
+/**
+ * Get a user with specific ID
+ * @param username 
+ */
+export let getUserPromise = (username) => {
     return new Promise<User>((resolve, reject) => {
-        if (!token) {
-            return reject("Could not find user, missing required fields")
+        if (!username) {
+            return reject("Missing required username")
         } else {
             getDb()
                 .then((db) => {
-                    db.collection(COLLECTION_CROWD).findOne({ "id": token })
+                    db.collection(COLLECTION_USER).findOne({ "username": username })
                         .then((foundUser) => {
                             if (foundUser)
                                 resolve(foundUser)
                             else
-                                reject("No user found")
-                        })
-                        .catch((err) => {
-                            reject(err)
-                        })
-                })
-                .catch((err) => {
-                    reject(err)
-                })
-        }
-    })
-}
-
-export let patchUserPromise = (token) => {
-    return new Promise((resolve, reject) => {
-        if (!token) {
-            return reject("Could not find user, missing required fields")
-        } else {
-            getDb()
-                .then((db) => {
-                    db.collection(COLLECTION_CROWD).findOne({ "id": token })
-                        .then((foundUser) => {
-                            if (foundUser) {
-                                db.collection(COLLECTION_CROWD).updateOne(
-                                    { "id": token },
-                                    { $set: { "lastSeen": Date.now() } })
-                                    .then(() => {
-                                        resolve("Found user and updated timestamp")
-                                    })
-                                    .catch((err) => {
-                                        reject("Couldn't update timestamp")
-                                    })
-                            }
-                            else {
-                                reject(`User ${token} is not registered`)
-                            }
+                                reject(`User ${username} is not registered`)
                         })
                         .catch((err) => {
                             reject(err)
@@ -140,53 +81,24 @@ export let patchUserPromise = (token) => {
 }
 
 /**
- * Gets all users that where last seen in a certain timeframe
+ * Function to authenticate the user
+ * @param username
+ * @param password
  */
-export let getAllRecentUsersPromise = () => {
-    return new Promise<Array<LimitedUser>>((resolve, reject) => {
-        let activeTimeFrame = new Date(Date.now() - (5 * 60 * 1000)).getTime()
-        getDb()
-            .then((db) => {
-                db.collection(COLLECTION_CROWD).find({ lastSeen: { $gt: activeTimeFrame } }).toArray()
-                    .then((users) => {
-                        if (users.length > 0) {
-                            let essentialUsers = []
-                            users.forEach((user) => {
-                                essentialUsers.push({
-                                    "id": user.id,
-                                    "publicKey": user.publicKey
-                                })
-                            })
-                            resolve(essentialUsers)
-                        }
-                        else {
-                            reject(`No users online since ${activeTimeFrame}`)
-                        }
-                    })
-                    .catch((err) => {
-                        reject(err)
-                    })
+export let authenticateUserPromise = (username, password) => {
+    return new Promise<User>((resolve, reject) => {
+        getUserPromise(username)
+            .then((user) => {
+                //hash passwords and compare
+                if (user.password === password) {
+                    resolve()
+                }
+                else {
+                    reject(`Password doesn't match for ${username}`)
+                }
             })
             .catch((err) => {
                 reject(err)
-            })
-    })
-}
-
-export let authenticateUserPromise = (id, password) => {
-    return new Promise<User>((resolve, reject) => {
-        getUserPromise(id)
-            .then((user) => {
-                let hash = crypto.createHash("sha256").update(password).digest().toString()
-                if (user.password === hash) {
-                    resolve(user)
-                }
-                else {
-                    reject()
-                }
-            })
-            .catch((err) => {
-                reject()
             })
     })
 }

@@ -1,41 +1,40 @@
 import express from 'express';
-import http from 'http';
-import https from 'https';
-import Communcation from './communication';
 import Routes from './routes';
 import bodyParser from 'body-parser';
-import fs from 'fs';
 import { getDb } from './dbconnector';
-
-const com = new Communcation()
-
-const app = express()
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 const port = process.env.PORT || 3000
 
+const app = express()
+app.set('port', port);
 //Parse json body into req.body
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.json({ "type": "application/json" }))
 
-//Set routes that require user authentication.
 const routes = new Routes()
 
-// routes.requireUserAuthentication(app,
-// 	[
-// 		'/request',
-// 	]
-// )
-
+//Set routes that require user authentication.
+routes.requireCrowdAuthentication(app,
+	[
+		'/aggregation'
+	]
+)
+routes.requireUserAuthentication(app,
+	[
+		'/request',
+		'/result'
+	]
+)
 routes.setRoutes(app)
 
-
-app.set('port', process.env.PORT || port);
-
-
+// Establish database connection before starting the server
 getDb()
 	.then(() => {
 		app.listen(app.get('port'), function () {
 			console.log("Server listening on port " + port)
 		})
+	})
+	.catch((err) => {
+		console.log(err)
 	})

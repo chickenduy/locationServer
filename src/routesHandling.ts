@@ -1,13 +1,17 @@
 import crypto from "crypto";
-import { getAllUsersPromise, createUserPromise, patchUserPromise, getAllRecentUsersPromise, getUserPromise, authenticateUserPromise } from "./model/users"
 import Communication from "./communication";
 import { shuffleFisherYates } from "./helpers";
+
+import * as user from './model/users';
+import * as crowd from './model/crowd';
+import { startAggregation } from './model/requests';
 
 const GROUP_SIZE = 1
 
 /**
  * This is a basic function that returns a plaintext "Hello world!"
- * @param res Response of the function
+ * @param req 
+ * @param res 
  */
 export let basicRequest = (req, res) => {
 	res.set({
@@ -19,9 +23,30 @@ export let basicRequest = (req, res) => {
 		})
 }
 
+/**
+ * This handles an incoming aggregation request
+ * @param req 
+ * @param res 
+ */
 export let handleAggregationRequest = (req, res) => {
-
 	let com = new Communication()
+	if(!req.type) {
+		let aggregationRequest = {
+			"type" : req.type,
+			"start" : Date.now(),
+			"end" : 0,
+			"group" : []
+		}
+	}
+	else {
+		let response = {
+			"status": "failure",
+			"source": "handleAggregationRequest",
+			"message": "Request doesn't conform to format"
+		}
+		res.status(500).json(response).send()
+		return
+	}
 
 	// let timeA = req.query.timeA
 	// let timeB = req.query.timeB
@@ -35,8 +60,7 @@ export let handleAggregationRequest = (req, res) => {
 	// let activity = req.query.activity
 	// let radius = req.query.activity
 
-
-	getAllUsersPromise()
+	crowd.getAllCrowdPromise()
 		.then((users) => {
 			let tokens = []
 			users.forEach((user) => {
@@ -54,14 +78,18 @@ export let handleAggregationRequest = (req, res) => {
 					})
 					onlineUsers = shuffleFisherYates(onlineUsers)
 
-					// TODO: Start aggregation
 					let counter = 0
 					let groups = [[]]
-					while(onlineUsers.length) {
-						groups[counter] = onlineUsers.splice(0,1)
+					while (onlineUsers.length) {
+						groups[counter] = onlineUsers.splice(0, 1)
 						counter++
 					}
-					
+
+					// TODO: Start Aggregation
+					startAggregation(0, groups)
+
+
+					//
 					let response = {
 						"onlineUsers": onlineUsers,
 						"groups": groups
@@ -71,7 +99,7 @@ export let handleAggregationRequest = (req, res) => {
 				.catch((err) => {
 					let response = {
 						"status": "failure",
-						"source" : "getPresence",
+						"source": "getPresence",
 						"message": err
 					}
 					res.status(500).json(response).send()
@@ -80,14 +108,28 @@ export let handleAggregationRequest = (req, res) => {
 		.catch((err) => {
 			let response = {
 				"status": "failure",
-				"source" : "getAllUsers",
+				"source": "getAllUsers",
 				"message": err
 			}
 			res.status(500).json(response).send()
 		})
 }
 
-export let handleCreateUserRequest = (req, res) => {
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export let handleGetAggregationResult = (req, res) => {
+	
+}
+
+/**
+ * Handles incoming create crowd request
+ * @param req 
+ * @param res 
+ */
+export let handleCreateCrowdRequest = (req, res) => {
 	console.log(req.body)
 	let request = req.body.request
 
@@ -100,7 +142,7 @@ export let handleCreateUserRequest = (req, res) => {
 		"password": password,
 		"lastSeen": Date.now()
 	}
-	createUserPromise(user)
+	crowd.createCrowdPromise(user)
 		.then((result) => {
 			let response = {
 				"status": "success",
@@ -115,21 +157,26 @@ export let handleCreateUserRequest = (req, res) => {
 		.catch((err) => {
 			let response = {
 				"status": "failure",
-				"source" : "createUserPromise",
+				"source": "createUserPromise",
 				"reason": err
 			}
 			res.status(500).json(response).send()
 		})
 }
 
-export let handleUpdateUserRequest = (req, res) => {
+/**
+ * Handle incoming ping to update timestamp of crowd
+ * @param req 
+ * @param res 
+ */
+export let handleUpdateCrowdRequest = (req, res) => {
 	console.log(req.body)
 	let id = req.body.id
 	let password = req.body.password
 
-	authenticateUserPromise(id, password)
+	crowd.authenticateCrowdPromise(id, password)
 		.then((user) => {
-			patchUserPromise(id)
+			crowd.patchCrowdPromise(id)
 				.then((result) => {
 					let response = {
 						"status": "success",
@@ -140,7 +187,7 @@ export let handleUpdateUserRequest = (req, res) => {
 				.catch((err) => {
 					let response = {
 						"status": "failure",
-						"source" : "patchUserPomise",
+						"source": "patchUserPomise",
 						"reason": err
 					}
 					res.status(500).json(response).send()
@@ -149,21 +196,26 @@ export let handleUpdateUserRequest = (req, res) => {
 		.catch((err) => {
 			let response = {
 				"status": "failure",
-				"source" : "autheticateUserPromise",
+				"source": "autheticateUserPromise",
 				"reason": err
 			}
 			res.status(500).json(response).send()
 		})
 }
 
-export let handlePingedUserRequest = (req, res) => {
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export let handlePingedCrowdRequest = (req, res) => {
 	console.log(req.body)
 	let id = req.body.id
 	let password = req.body.password
 
-	authenticateUserPromise(id, password)
+	crowd.authenticateCrowdPromise(id, password)
 		.then((user) => {
-			patchUserPromise(id)
+			crowd.patchCrowdPromise(id)
 				.then((result) => {
 					let response = {
 						"status": "success",
@@ -174,7 +226,7 @@ export let handlePingedUserRequest = (req, res) => {
 				.catch((err) => {
 					let response = {
 						"status": "failure",
-						"source" : "patchUserPromise",
+						"source": "patchUserPromise",
 						"reason": err
 					}
 					res.status(500).json(response).send()
@@ -183,46 +235,26 @@ export let handlePingedUserRequest = (req, res) => {
 		.catch((err) => {
 			let response = {
 				"status": "failure",
-				"source" : "authenticateUserPromise",
+				"source": "authenticateUserPromise",
 				"reason": err
 			}
 			res.status(500).json(response).send()
 		})
 }
 
-export let testRoutePost = (req, res) => {
-	console.log(req.body)
-	let com = new Communication()
-	let data = {
-		"to": "/topics/online",
-		"data": {
-			"test": false,
-			"value": "Hello World"
-		}
-	}
-	com.sendNotificationPromise(data)
-		.then((result) => {
-			console.log(result)
-			let response = {
-				"status": "success",
-				"result": result
-			}
-			res.status(200).json(result).send()
-		})
-		.catch((err) => {
-			let response = {
-				"status" : "failure",
-				"source" : "getPresence",
-				"message" : err
-			}
-			res.status(500).json(response).send(err)
-		})
-}
-
-export let authenticateUser = (req, res, next) => {
+/**
+ * Authenticate the crowd with stored Pushy token and password
+ * @param req 
+ * @param res 
+ * @param next 
+ */
+export let authenticateCrowd = (req, res, next) => {
 	let id
 	let password
 
+	/**
+	 * Extract token and password from request
+	 */
 	if (req.method === "GET") {
 		id = req.query.publicKey
 		password = req.query.password
@@ -231,14 +263,49 @@ export let authenticateUser = (req, res, next) => {
 		password = req.body.password
 	}
 
-	authenticateUserPromise(id, password)
+	crowd.authenticateCrowdPromise(id, password)
 		.then(() => {
 			next()
 		})
 		.catch((err) => {
 			let result = {
 				"status": "failure",
-				"source" : "authenticateUserPromise",
+				"source": "authenticateCrowdPromise",
+				"message": err
+			}
+			res.status(500).json(result).send()
+		})
+}
+
+/**
+ * Authenticate user with stored username and password
+ * @param req 
+ * @param res 
+ * @param next 
+ */
+export let authenticateUser = (req, res, next) => {
+	let username
+	let password
+
+	/**
+	 * Extract token and password from request
+	 */
+	if (req.method === "GET") {
+		username = req.query.username
+		password = req.query.password
+	} else {
+		username = req.body.username
+		password = req.body.password
+	}
+
+	user.authenticateUserPromise(username, password)
+		.then(() => {
+			next()
+		})
+		.catch((err) => {
+			let result = {
+				"status": "failure",
+				"source": "authenticateUserPromise",
 				"message": err
 			}
 			res.status(500).json(result).send()
