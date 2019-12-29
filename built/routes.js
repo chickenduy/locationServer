@@ -34,8 +34,8 @@ class Router {
         app.post('/crowd', RouteHandling.handleCreateCrowdRequest);
         app.post('/request', RouteHandling.handleAggregationRequest);
         app.post('/aggregation', RouteHandling.basicRequest);
-        app.patch('/user', RouteHandling.handleUpdateCrowdRequest);
-        app.patch('/user/ping', RouteHandling.handlePingedCrowdRequest);
+        app.patch('/crowd', RouteHandling.handleUpdateCrowdRequest);
+        app.patch('/crowd/ping', RouteHandling.handlePingedCrowdRequest);
         app.all('*', RouteHandling.basicRequest);
     }
 }

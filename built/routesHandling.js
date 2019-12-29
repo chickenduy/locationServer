@@ -18,7 +18,7 @@ const crowd = __importStar(require("./model/crowd"));
 const requests_1 = require("./model/requests");
 const GROUP_SIZE = 1;
 /**
- * This is a basic function that returns a plaintext "Hello world!"
+ * This is a basic function that returns a JSON "Hello world!"
  * @param req
  * @param res
  */
@@ -28,7 +28,7 @@ exports.basicRequest = (req, res) => {
     });
     res.status(200)
         .send({
-        "test": "Successfully deployed"
+        "test": "Hello world!"
     });
 };
 /**
@@ -286,6 +286,15 @@ exports.authenticateUser = (req, res, next) => {
     else {
         username = req.body.username;
         password = req.body.password;
+    }
+    if (!username || !password) {
+        let result = {
+            "status": "failure",
+            "source": "authenticateUser",
+            "message": "Missing username/password"
+        };
+        res.status(500).json(result).send();
+        return;
     }
     user.authenticateUserPromise(username, password)
         .then(() => {

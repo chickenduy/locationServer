@@ -55,7 +55,7 @@ export let createUserPromise = (user) => {
  * Get a user with specific ID
  * @param username 
  */
-export let getUserPromise = (username) => {
+export let getUserPromise = (username: String) => {
     return new Promise<User>((resolve, reject) => {
         if (!username) {
             return reject("Missing required username")
@@ -91,7 +91,7 @@ export let authenticateUserPromise = (username, password) => {
             .then((user) => {
                 //hash passwords and compare
                 if (user.password === password) {
-                    resolve()
+                    resolve(user)
                 }
                 else {
                     reject(`Password doesn't match for ${username}`)

@@ -86,7 +86,7 @@ exports.authenticateUserPromise = (username, password) => {
             .then((user) => {
             //hash passwords and compare
             if (user.password === password) {
-                resolve();
+                resolve(user);
             }
             else {
                 reject(`Password doesn't match for ${username}`);
