@@ -29,9 +29,11 @@ let sendAggregationTestPromise = (groups: any[][]) => {
             let data = {
                 "to": group[0],
                 "data": {
+                    "encryptionKey": "1234",
                     "request": {
-                        "id": "",
-                        "type": "",
+                        "id": "1234",
+                        "type": "activity",
+                        "raw": "steps",
                         "start": "",
                         "end": "",
                         "group": group
