@@ -57,7 +57,7 @@ class Communication {
                 resolve(body);
             })
                 .catch((err) => {
-                reject("POST request failed");
+                reject(err);
             });
         });
     }
