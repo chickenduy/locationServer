@@ -24,7 +24,7 @@ class Communication {
     sendNotificationPromise(data) {
         return new Promise((resolve, reject) => {
             let options = {
-                url: `${this.address}/push${this.api_key}`,
+                url: `${this.address}/push?api_key=${this.api_key}`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -33,7 +33,7 @@ class Communication {
             };
             request_promise_1.default.post(options)
                 .then((body) => {
-                resolve(JSON.parse(body));
+                resolve(body);
             })
                 .catch((err) => {
                 reject(err);

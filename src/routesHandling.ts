@@ -4,7 +4,7 @@ import { shuffleFisherYates } from "./helpers";
 
 import * as user from './model/users';
 import * as crowd from './model/crowd';
-import { startAggregation } from './model/requests';
+import { startAggregationPromise } from './model/requests';
 
 const GROUP_SIZE = 1
 
@@ -86,13 +86,24 @@ export let handleAggregationRequest = (req, res) => {
 					}
 
 					// TODO: Start Aggregation
-					startAggregation(req, res, groups)
+					startAggregationPromise(req, res, groups)
+						.then((result) => {
+							res.status(200).json(result).send()
+						})
+						.catch((err) => {
+							let response = {
+								"status": "failure",
+								"source": "startAggregation",
+								"message": err
+							}
+							res.status(500).json(response).send()
+						})
 
-					let response = {
-						"onlineUsers": onlineUsers,
-						"groups": groups
-					}
-					res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
+					// let response = {
+					// 	"onlineUsers": onlineUsers,
+					// 	"groups": groups
+					// }
+					// res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
 				})
 				.catch((err) => {
 					let response = {

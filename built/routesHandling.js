@@ -90,12 +90,23 @@ exports.handleAggregationRequest = (req, res) => {
                 counter++;
             }
             // TODO: Start Aggregation
-            requests_1.startAggregation(req, res, groups);
-            let response = {
-                "onlineUsers": onlineUsers,
-                "groups": groups
-            };
-            res.status(200).json(response).send(`You have ${onlineUsers.length} participants`);
+            requests_1.startAggregationPromise(req, res, groups)
+                .then((result) => {
+                res.status(200).json(result).send();
+            })
+                .catch((err) => {
+                let response = {
+                    "status": "failure",
+                    "source": "startAggregation",
+                    "message": err
+                };
+                res.status(500).json(response).send();
+            });
+            // let response = {
+            // 	"onlineUsers": onlineUsers,
+            // 	"groups": groups
+            // }
+            // res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
         })
             .catch((err) => {
             let response = {

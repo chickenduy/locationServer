@@ -20,17 +20,16 @@ export default class Communication {
         return new Promise((resolve, reject) => {
             let options =
             {
-                url: `${this.address}/push${this.api_key}`,
+                url: `${this.address}/push?api_key=${this.api_key}`,
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: data,
                 json: true
             }
-
             request.post(options)
                 .then((body) => {
-                    resolve(JSON.parse(body))
+                    resolve(body)
                 })
                 .catch((err) => {
                     reject(err)

@@ -21,7 +21,10 @@ function openDb() {
             }
         }
         else {
-            mongoClient.connect(uri, { "useNewUrlParser": true })
+            mongoClient.connect(uri, {
+                "useNewUrlParser": true,
+                useUnifiedTopology: true
+            })
                 .then((con) => {
                 conn = con;
                 db = con.db(DB);
