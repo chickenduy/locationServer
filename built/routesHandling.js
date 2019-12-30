@@ -15,6 +15,7 @@ const communication_1 = __importDefault(require("./communication"));
 const helpers_1 = require("./helpers");
 const user = __importStar(require("./model/users"));
 const crowd = __importStar(require("./model/crowd"));
+const requests_1 = require("./model/requests");
 const GROUP_SIZE = 1;
 /**
  * This is a basic function that returns a JSON "Hello world!"
@@ -89,13 +90,13 @@ exports.handleAggregationRequest = (req, res) => {
                 counter++;
             }
             // TODO: Start Aggregation
-            //startAggregation(0, groups)
+            requests_1.startAggregation(req, res, groups);
             //
-            let response = {
-                "onlineUsers": onlineUsers,
-                "groups": groups
-            };
-            res.status(200).json(response).send(`You have ${onlineUsers.length} participants`);
+            // let response = {
+            // 	"onlineUsers": onlineUsers,
+            // 	"groups": groups
+            // }
+            // res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
         })
             .catch((err) => {
             let response = {

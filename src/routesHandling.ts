@@ -86,14 +86,14 @@ export let handleAggregationRequest = (req, res) => {
 					}
 
 					// TODO: Start Aggregation
-					//startAggregation(0, groups)
+					startAggregation(req, res, groups)
 
 					//
-					let response = {
-						"onlineUsers": onlineUsers,
-						"groups": groups
-					}
-					res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
+					// let response = {
+					// 	"onlineUsers": onlineUsers,
+					// 	"groups": groups
+					// }
+					// res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
 				})
 				.catch((err) => {
 					let response = {

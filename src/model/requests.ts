@@ -1,12 +1,14 @@
-export let startAggregation = (type: number, groups: any[][]) => {
-    switch (type) {
-        case 0:
+export let startAggregation = (req, res, groups: any[][]) => {
+    switch (req.body.type) {
+        case "test":
             sendAggregation1()
+            res.status(200).send("startAggregation")
             break
-        case 1:
+        case "test2":
             sendAggregation1()
             break
         default:
+            break
     }
 }
 
