@@ -17,20 +17,20 @@ class LimitedCrowd {
 
 /**
  * Creates a user according to the user model or return null if the model is not satisfied.
- * @param user 
+ * @param crowd 
  */
-export let createCrowdPromise = (user) => {
+export let createCrowdPromise = (crowd) => {
     return new Promise((resolve, reject) => {
-        if (!user.id || !user.publicKey || !user.password || !user.lastSeen) {
+        if (!crowd.id || !crowd.publicKey || !crowd.password || !crowd.lastSeen) {
             reject("Could not create user, missing required fields")
         }
         else {
             getDb()
                 .then((db) => {
-                    db.collection(COLLECTION_CROWD).findOne({ "id": user.id })
-                        .then((foundUser) => {
-                            if (!foundUser) {
-                                db.collection(COLLECTION_CROWD).insertOne(user)
+                    db.collection(COLLECTION_CROWD).findOne({ "id": crowd.id })
+                        .then((foundCrowd) => {
+                            if (!foundCrowd) {
+                                db.collection(COLLECTION_CROWD).insertOne(crowd)
                                     .then((result) => {
                                         resolve("Created user")
                                     })
@@ -39,7 +39,7 @@ export let createCrowdPromise = (user) => {
                                     })
                             }
                             else {
-                                reject(`User ${user.id} already present`)
+                                reject(`User ${crowd.id} already present`)
                             }
                         })
                         .catch((err) => {

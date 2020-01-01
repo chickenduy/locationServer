@@ -1,0 +1,34 @@
+{
+    "stepsRequest": {
+        "username": "admin",
+        "password": "admin",
+        "requestType": "steps",
+        "timepoint": true,
+        "date": 1577782398
+    },
+    "locationRequest": {
+        "username": "admin",
+        "password": "admin",
+        "requestType": "location",
+        "accuracy": 1,
+        "timepoint": true,
+        "date": 1577782398
+    },
+    "presenceRequestTimepoint": {
+        "username": "admin",
+        "password": "admin",
+        "requestType": "location",
+        "accuracy": 1,
+        "timepoint": true,
+        "date": 1577782398
+    },
+    "presenceRequestTimeframe": {
+        "username": "admin",
+        "password": "admin",
+        "requestType": "location",
+        "accuracy": 1,
+        "timepoint": false,
+        "dateA": 1577782398,
+        "dateB": 1577782398
+    }
+}

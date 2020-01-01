@@ -13,9 +13,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = __importDefault(require("crypto"));
 const communication_1 = __importDefault(require("./communication"));
 const helpers_1 = require("./helpers");
-const user = __importStar(require("./model/users"));
+const user = __importStar(require("./model/user"));
 const crowd = __importStar(require("./model/crowd"));
-const requests_1 = require("./model/requests");
+const request_1 = require("./model/request");
 const GROUP_SIZE = 1;
 /**
  * This is a basic function that returns a JSON "Hello world!"
@@ -38,34 +38,6 @@ exports.basicRequest = (req, res) => {
  */
 exports.handleAggregationRequest = (req, res) => {
     let com = new communication_1.default();
-    // if(!req.type) {
-    // 	let aggregationRequest = {
-    // 		"type" : req.type,
-    // 		"start" : Date.now(),
-    // 		"end" : 0,
-    // 		"group" : []
-    // 	}
-    // }
-    // else {
-    // 	let response = {
-    // 		"status": "failure",
-    // 		"source": "handleAggregationRequest",
-    // 		"message": "Request doesn't conform to format"
-    // 	}
-    // 	res.status(500).json(response).send()
-    // 	return
-    // }
-    // let timeA = req.query.timeA
-    // let timeB = req.query.timeB
-    // /**
-    //  * request: position, steps, location, activity
-    //  */
-    // let request = req.query.request
-    // /**
-    //  * activity: walk, run, bike, vehicle
-    //  */
-    // let activity = req.query.activity
-    // let radius = req.query.activity
     crowd.getAllCrowdPromise()
         .then((users) => {
         let tokens = [];
@@ -82,6 +54,15 @@ exports.handleAggregationRequest = (req, res) => {
                     //patchUserPromise(user.id)
                 }
             });
+            if (onlineUsers.length == 0) {
+                let response = {
+                    "status": "failure",
+                    "source": "getPresence",
+                    "message": "no devices online"
+                };
+                res.status(500).json(response).send();
+                return;
+            }
             onlineUsers = helpers_1.shuffleFisherYates(onlineUsers);
             let counter = 0;
             let groups = [[]];
@@ -90,7 +71,7 @@ exports.handleAggregationRequest = (req, res) => {
                 counter++;
             }
             // TODO: Start Aggregation
-            requests_1.startAggregationPromise(req, res, groups)
+            request_1.startAggregationPromise(req, groups)
                 .then((result) => {
                 res.status(200).json(result).send();
             })

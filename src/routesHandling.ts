@@ -2,9 +2,9 @@ import crypto from "crypto";
 import Communication from "./communication";
 import { shuffleFisherYates } from "./helpers";
 
-import * as user from './model/users';
+import * as user from './model/user';
 import * as crowd from './model/crowd';
-import { startAggregationPromise } from './model/requests';
+import { startAggregationPromise } from './model/request';
 
 const GROUP_SIZE = 1
 
@@ -30,35 +30,6 @@ export let basicRequest = (req, res) => {
  */
 export let handleAggregationRequest = (req, res) => {
 	let com = new Communication()
-	// if(!req.type) {
-	// 	let aggregationRequest = {
-	// 		"type" : req.type,
-	// 		"start" : Date.now(),
-	// 		"end" : 0,
-	// 		"group" : []
-	// 	}
-	// }
-	// else {
-	// 	let response = {
-	// 		"status": "failure",
-	// 		"source": "handleAggregationRequest",
-	// 		"message": "Request doesn't conform to format"
-	// 	}
-	// 	res.status(500).json(response).send()
-	// 	return
-	// }
-
-	// let timeA = req.query.timeA
-	// let timeB = req.query.timeB
-	// /**
-	//  * request: position, steps, location, activity
-	//  */
-	// let request = req.query.request
-	// /**
-	//  * activity: walk, run, bike, vehicle
-	//  */
-	// let activity = req.query.activity
-	// let radius = req.query.activity
 
 	crowd.getAllCrowdPromise()
 		.then((users) => {
@@ -76,6 +47,15 @@ export let handleAggregationRequest = (req, res) => {
 							//patchUserPromise(user.id)
 						}
 					})
+					if (onlineUsers.length == 0) {
+						let response = {
+							"status": "failure",
+							"source": "getPresence",
+							"message": "no devices online"
+						}
+						res.status(500).json(response).send()
+						return
+					}
 					onlineUsers = shuffleFisherYates(onlineUsers)
 
 					let counter = 0
@@ -86,7 +66,7 @@ export let handleAggregationRequest = (req, res) => {
 					}
 
 					// TODO: Start Aggregation
-					startAggregationPromise(req, res, groups)
+					startAggregationPromise(req, groups)
 						.then((result) => {
 							res.status(200).json(result).send()
 						})
