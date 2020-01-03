@@ -36,7 +36,7 @@ function openDb() {
 	})
 }
 
-export function getDb() {
+function getDb() {
 	return new Promise<mongo.Db>((resolve, reject) => {
 		if (!db) {
 			openDb()
@@ -49,4 +49,8 @@ export function getDb() {
 		}
 		resolve(db)
 	})
+}
+
+export {
+	getDb
 }

@@ -13,7 +13,7 @@ const GROUP_SIZE = 1
  * @param req 
  * @param res 
  */
-export let basicRequest = (req, res) => {
+let basicRequest = (req, res) => {
 	res.set({
 		'Content-Type': 'application/json'
 	})
@@ -28,7 +28,7 @@ export let basicRequest = (req, res) => {
  * @param req 
  * @param res 
  */
-export let handleAggregationRequest = (req, res) => {
+let handleAggregationRequest = (req, res) => {
 	let com = new Communication()
 
 	crowd.getAllCrowdPromise()
@@ -39,15 +39,15 @@ export let handleAggregationRequest = (req, res) => {
 			})
 			com.getPresence(tokens)
 				.then((result) => {
-					let onlineUsers = []
+					let onlineCrowd = []
 					let users = result.presence
 					users.forEach(user => {
 						if (user.online) {
-							onlineUsers.push(user.id)
+							onlineCrowd.push(user.id)
 							//patchUserPromise(user.id)
 						}
 					})
-					if (onlineUsers.length == 0) {
+					if (onlineCrowd.length == 0) {
 						let response = {
 							"status": "failure",
 							"source": "getPresence",
@@ -56,43 +56,55 @@ export let handleAggregationRequest = (req, res) => {
 						res.status(500).json(response).send()
 						return
 					}
-					onlineUsers = shuffleFisherYates(onlineUsers)
+					onlineCrowd = shuffleFisherYates(onlineCrowd)
+					crowd.getCrowdWithTokensPromise(onlineCrowd)
+						.then((onlineCrowdDetailed) => {
+							let counter = 0
+							let groups = [[]]
+							while (onlineCrowdDetailed.length) {
+								groups[counter] = onlineCrowdDetailed.splice(0, 1)
+								counter++
+							}
 
-					let counter = 0
-					let groups = [[]]
-					while (onlineUsers.length) {
-						groups[counter] = onlineUsers.splice(0, 1)
-						counter++
-					}
+							// TODO: Start Aggregation
+							startAggregationPromise(req, groups)
+								.then((result) => {
+									res.status(200).json(result).send()
+								})
+								.catch((err) => {
+									let response = {
+										"status": "failure",
+										"source": "startAggregation",
+										"message": err
+									}
+									res.status(500).json(response).send()
+								})
 
-					// TODO: Start Aggregation
-					startAggregationPromise(req, groups)
-						.then((result) => {
-							res.status(200).json(result).send()
+							// let response = {
+							// 	"onlineUsers": onlineUsers,
+							// 	"groups": groups
+							// }
+							// res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
 						})
 						.catch((err) => {
 							let response = {
 								"status": "failure",
-								"source": "startAggregation",
+								"source": "getPresence",
 								"message": err
 							}
 							res.status(500).json(response).send()
 						})
-
-					// let response = {
-					// 	"onlineUsers": onlineUsers,
-					// 	"groups": groups
-					// }
-					// res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
 				})
 				.catch((err) => {
 					let response = {
 						"status": "failure",
-						"source": "getPresence",
+						"source": "startAggregation",
 						"message": err
 					}
 					res.status(500).json(response).send()
 				})
+
+
 		})
 		.catch((err) => {
 			let response = {
@@ -109,7 +121,7 @@ export let handleAggregationRequest = (req, res) => {
  * @param req 
  * @param res 
  */
-export let handleGetAggregationResult = (req, res) => {
+let handleGetAggregationResult = (req, res) => {
 
 }
 
@@ -118,7 +130,7 @@ export let handleGetAggregationResult = (req, res) => {
  * @param req 
  * @param res 
  */
-export let handleCreateCrowdRequest = (req, res) => {
+let handleCreateCrowdRequest = (req, res) => {
 	console.log(req.body)
 	let request = req.body.request
 
@@ -158,7 +170,7 @@ export let handleCreateCrowdRequest = (req, res) => {
  * @param req 
  * @param res 
  */
-export let handleUpdateCrowdRequest = (req, res) => {
+let handleUpdateCrowdRequest = (req, res) => {
 	console.log(req.body)
 	let id = req.body.id
 	let password = req.body.password
@@ -197,13 +209,13 @@ export let handleUpdateCrowdRequest = (req, res) => {
  * @param req 
  * @param res 
  */
-export let handlePingedCrowdRequest = (req, res) => {
+let handlePingedCrowdRequest = (req, res) => {
 	console.log(req.body)
 	let id = req.body.id
 	let password = req.body.password
 
 	crowd.authenticateCrowdPromise(id, password)
-		.then((user) => {
+		.then(() => {
 			crowd.patchCrowdPromise(id)
 				.then((result) => {
 					let response = {
@@ -237,7 +249,7 @@ export let handlePingedCrowdRequest = (req, res) => {
  * @param res 
  * @param next 
  */
-export let authenticateCrowd = (req, res, next) => {
+let authenticateCrowd = (req, res, next) => {
 	let id
 	let password
 
@@ -272,7 +284,7 @@ export let authenticateCrowd = (req, res, next) => {
  * @param res 
  * @param next 
  */
-export let authenticateUser = (req, res, next) => {
+let authenticateUser = (req, res, next) => {
 	let username = ""
 	let password = ""
 	/**
@@ -308,4 +320,15 @@ export let authenticateUser = (req, res, next) => {
 			}
 			res.status(500).json(result).send()
 		})
+}
+
+export {
+	basicRequest,
+	handleAggregationRequest,
+	handleCreateCrowdRequest,
+	handleUpdateCrowdRequest,
+	handleGetAggregationResult,
+	handlePingedCrowdRequest,
+	authenticateCrowd,
+	authenticateUser
 }

@@ -12,7 +12,7 @@ class User {
  * Creates a user according to the user model
  * @param user 
  */
-export let createUserPromise = (user) => {
+let createUserPromise = (user) => {
     return new Promise((resolve, reject) => {
         if (!user.username  || !user.password) {
             reject("Could not create user, missing required fields")
@@ -55,7 +55,7 @@ export let createUserPromise = (user) => {
  * Get a user with specific ID
  * @param username 
  */
-export let getUserPromise = (username: String) => {
+let getUserPromise = (username: String) => {
     return new Promise<User>((resolve, reject) => {
         if (!username) {
             return reject("Missing required username")
@@ -85,7 +85,7 @@ export let getUserPromise = (username: String) => {
  * @param username
  * @param password
  */
-export let authenticateUserPromise = (username, password) => {
+let authenticateUserPromise = (username, password) => {
     return new Promise<User>((resolve, reject) => {
         getUserPromise(username)
             .then((user) => {
@@ -101,4 +101,10 @@ export let authenticateUserPromise = (username, password) => {
                 reject(err)
             })
     })
+}
+
+export {
+    createUserPromise,
+    getUserPromise,
+    authenticateUserPromise
 }

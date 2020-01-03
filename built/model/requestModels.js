@@ -1,95 +1,83 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requestHeaderModel = (id, group, type) => {
+let requestHeaderModel = (id, type) => {
     return {
         "id": id,
         "start": Date.now(),
         "end": 0,
-        "from": null,
-        "group": group,
         "type": type // Type of aggregation [steps, walking, running, bicycle, vehicle, location, presence]
     };
 };
-exports.requestStepsModel = (date) => {
+exports.requestHeaderModel = requestHeaderModel;
+let requestOptionsModel = (group) => {
+    return {
+        "from": null,
+        "group": group,
+    };
+};
+exports.requestOptionsModel = requestOptionsModel;
+let requestStepsModel = (date) => {
     return {
         "date": date
     };
 };
-exports.requestWalkTimepointModel = (raw, date) => {
+exports.requestStepsModel = requestStepsModel;
+let requestWalkModel = (start, end, type) => {
     return {
-        "raw": raw,
-        "date": date
+        start: start,
+        end: end,
+        type: type // What type of raw data [time/distance]
     };
 };
-exports.requestWalkTimeframeModel = (raw, dateA, dateB) => {
+exports.requestWalkModel = requestWalkModel;
+let requestLocationModel = (start, end, accuracy) => {
     return {
-        "raw": raw,
-        "dateA": dateA,
-        "dateB": dateB
+        start: start,
+        end: end,
+        accuracy: accuracy
     };
 };
-exports.requestLocationTimepointModel = (date, accuracy) => {
+exports.requestLocationModel = requestLocationModel;
+let requestPresenceModel = (start, end, long, lat, radius) => {
     return {
-        "accuracy": accuracy,
-        "date": date
+        start: start,
+        end: end,
+        long: long,
+        lat: lat,
+        radius: radius,
     };
 };
-exports.requestPresenceTimepointModel = (date, long, lat, radius) => {
+exports.requestPresenceModel = requestPresenceModel;
+let dataModel = () => {
     return {
-        "location": {
-            "long": long,
-            "lat": lat
+        raw: [],
+        n: 0 // Number of participants
+    };
+};
+exports.dataModel = dataModel;
+let messageModel = (to, requestHeader, requestOptions, requestData, data) => {
+    return {
+        to: to,
+        data: {
+            encryptionKey: null,
+            iv: null,
+            requestHeader: requestHeader,
+            requestOptions: requestOptions,
+            requestData: requestData,
+            data: data
         },
-        "radius": radius,
-        "date": date
+        time_to_live: 120 // only try to send for t minutes
     };
 };
-exports.requestPresenceTimeframeModel = (dateA, dateB, long, lat, radius) => {
+exports.messageModel = messageModel;
+let confirmationMessageModel = () => {
     return {
-        "location": {
-            "long": long,
-            "lat": lat
+        to: String,
+        data: {
+            confirmation: true
         },
-        "radius": radius,
-        "dateA": dateA,
-        "dateB": dateB,
+        time_to_live: 120 // only try to send for t minutes
     };
 };
-exports.dataModel = () => {
-    return {
-        "raw": [],
-        "n": 0
-    };
-};
-exports.messageModel = (to, requestHeader, requestOptions, data) => {
-    return {
-        "to": to,
-        "data": {
-            "encryptionKey": null,
-            "iv": null,
-            "requestHeader": requestHeader,
-            "requestOptions": requestOptions,
-            "data": data
-        },
-        "time_to_live": 120 // only try to send for t minutes
-    };
-};
-exports.confirmationMessageModel = () => {
-    return {
-        "to": String,
-        "data": {
-            "confirmation": true
-        }
-    };
-};
-let incomingRequest = () => {
-    return {
-        "username": "",
-        "password": "",
-        "requestType": "",
-        "raw": "",
-        "timepoint": true,
-        "date": 0,
-    };
-};
+exports.confirmationMessageModel = confirmationMessageModel;
 //# sourceMappingURL=requestModels.js.map

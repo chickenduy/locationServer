@@ -22,7 +22,7 @@ const GROUP_SIZE = 1;
  * @param req
  * @param res
  */
-exports.basicRequest = (req, res) => {
+let basicRequest = (req, res) => {
     res.set({
         'Content-Type': 'application/json'
     });
@@ -31,12 +31,13 @@ exports.basicRequest = (req, res) => {
         "test": "Hello world!"
     });
 };
+exports.basicRequest = basicRequest;
 /**
  * This handles an incoming aggregation request
  * @param req
  * @param res
  */
-exports.handleAggregationRequest = (req, res) => {
+let handleAggregationRequest = (req, res) => {
     let com = new communication_1.default();
     crowd.getAllCrowdPromise()
         .then((users) => {
@@ -46,15 +47,15 @@ exports.handleAggregationRequest = (req, res) => {
         });
         com.getPresence(tokens)
             .then((result) => {
-            let onlineUsers = [];
+            let onlineCrowd = [];
             let users = result.presence;
             users.forEach(user => {
                 if (user.online) {
-                    onlineUsers.push(user.id);
+                    onlineCrowd.push(user.id);
                     //patchUserPromise(user.id)
                 }
             });
-            if (onlineUsers.length == 0) {
+            if (onlineCrowd.length == 0) {
                 let response = {
                     "status": "failure",
                     "source": "getPresence",
@@ -63,36 +64,47 @@ exports.handleAggregationRequest = (req, res) => {
                 res.status(500).json(response).send();
                 return;
             }
-            onlineUsers = helpers_1.shuffleFisherYates(onlineUsers);
-            let counter = 0;
-            let groups = [[]];
-            while (onlineUsers.length) {
-                groups[counter] = onlineUsers.splice(0, 1);
-                counter++;
-            }
-            // TODO: Start Aggregation
-            request_1.startAggregationPromise(req, groups)
-                .then((result) => {
-                res.status(200).json(result).send();
+            onlineCrowd = helpers_1.shuffleFisherYates(onlineCrowd);
+            crowd.getCrowdWithTokensPromise(onlineCrowd)
+                .then((onlineCrowdDetailed) => {
+                let counter = 0;
+                let groups = [[]];
+                while (onlineCrowdDetailed.length) {
+                    groups[counter] = onlineCrowdDetailed.splice(0, 1);
+                    counter++;
+                }
+                // TODO: Start Aggregation
+                request_1.startAggregationPromise(req, groups)
+                    .then((result) => {
+                    res.status(200).json(result).send();
+                })
+                    .catch((err) => {
+                    let response = {
+                        "status": "failure",
+                        "source": "startAggregation",
+                        "message": err
+                    };
+                    res.status(500).json(response).send();
+                });
+                // let response = {
+                // 	"onlineUsers": onlineUsers,
+                // 	"groups": groups
+                // }
+                // res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
             })
                 .catch((err) => {
                 let response = {
                     "status": "failure",
-                    "source": "startAggregation",
+                    "source": "getPresence",
                     "message": err
                 };
                 res.status(500).json(response).send();
             });
-            // let response = {
-            // 	"onlineUsers": onlineUsers,
-            // 	"groups": groups
-            // }
-            // res.status(200).json(response).send(`You have ${onlineUsers.length} participants`)
         })
             .catch((err) => {
             let response = {
                 "status": "failure",
-                "source": "getPresence",
+                "source": "startAggregation",
                 "message": err
             };
             res.status(500).json(response).send();
@@ -107,19 +119,21 @@ exports.handleAggregationRequest = (req, res) => {
         res.status(500).json(response).send();
     });
 };
+exports.handleAggregationRequest = handleAggregationRequest;
 /**
  *
  * @param req
  * @param res
  */
-exports.handleGetAggregationResult = (req, res) => {
+let handleGetAggregationResult = (req, res) => {
 };
+exports.handleGetAggregationResult = handleGetAggregationResult;
 /**
  * Handles incoming create crowd request
  * @param req
  * @param res
  */
-exports.handleCreateCrowdRequest = (req, res) => {
+let handleCreateCrowdRequest = (req, res) => {
     console.log(req.body);
     let request = req.body.request;
     let random = Math.random().toString(36);
@@ -151,12 +165,13 @@ exports.handleCreateCrowdRequest = (req, res) => {
         res.status(500).json(response).send();
     });
 };
+exports.handleCreateCrowdRequest = handleCreateCrowdRequest;
 /**
  * Handle incoming ping to update timestamp of crowd
  * @param req
  * @param res
  */
-exports.handleUpdateCrowdRequest = (req, res) => {
+let handleUpdateCrowdRequest = (req, res) => {
     console.log(req.body);
     let id = req.body.id;
     let password = req.body.password;
@@ -188,17 +203,18 @@ exports.handleUpdateCrowdRequest = (req, res) => {
         res.status(500).json(response).send();
     });
 };
+exports.handleUpdateCrowdRequest = handleUpdateCrowdRequest;
 /**
  *
  * @param req
  * @param res
  */
-exports.handlePingedCrowdRequest = (req, res) => {
+let handlePingedCrowdRequest = (req, res) => {
     console.log(req.body);
     let id = req.body.id;
     let password = req.body.password;
     crowd.authenticateCrowdPromise(id, password)
-        .then((user) => {
+        .then(() => {
         crowd.patchCrowdPromise(id)
             .then((result) => {
             let response = {
@@ -225,13 +241,14 @@ exports.handlePingedCrowdRequest = (req, res) => {
         res.status(500).json(response).send();
     });
 };
+exports.handlePingedCrowdRequest = handlePingedCrowdRequest;
 /**
  * Authenticate the crowd with stored Pushy token and password
  * @param req
  * @param res
  * @param next
  */
-exports.authenticateCrowd = (req, res, next) => {
+let authenticateCrowd = (req, res, next) => {
     let id;
     let password;
     /**
@@ -258,13 +275,14 @@ exports.authenticateCrowd = (req, res, next) => {
         res.status(500).json(result).send();
     });
 };
+exports.authenticateCrowd = authenticateCrowd;
 /**
  * Authenticate user with stored username and password
  * @param req
  * @param res
  * @param next
  */
-exports.authenticateUser = (req, res, next) => {
+let authenticateUser = (req, res, next) => {
     let username = "";
     let password = "";
     /**
@@ -300,4 +318,5 @@ exports.authenticateUser = (req, res, next) => {
         res.status(500).json(result).send();
     });
 };
+exports.authenticateUser = authenticateUser;
 //# sourceMappingURL=routesHandling.js.map

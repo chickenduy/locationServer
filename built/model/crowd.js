@@ -7,14 +7,24 @@ const dbconnector_1 = require("../dbconnector");
 const crypto_1 = __importDefault(require("crypto"));
 const COLLECTION_CROWD = "crowd";
 class Crowd {
+    constructor(id, publicKey, password, lastSeen) {
+        this.id = id;
+        this.publicKey = publicKey;
+        this.password = password;
+        this.lastSeen = lastSeen;
+    }
 }
 class LimitedCrowd {
+    constructor(crowd) {
+        this.id = crowd.id;
+        this.publicKey = crowd.publicKey;
+    }
 }
 /**
  * Creates a user according to the user model or return null if the model is not satisfied.
  * @param crowd
  */
-exports.createCrowdPromise = (crowd) => {
+let createCrowdPromise = (crowd) => {
     return new Promise((resolve, reject) => {
         if (!crowd.id || !crowd.publicKey || !crowd.password || !crowd.lastSeen) {
             reject("Could not create user, missing required fields");
@@ -47,11 +57,12 @@ exports.createCrowdPromise = (crowd) => {
         }
     });
 };
+exports.createCrowdPromise = createCrowdPromise;
 /**
  *
  * @param token
  */
-exports.getCrowdPromise = (token) => {
+let getCrowdPromise = (token) => {
     return new Promise((resolve, reject) => {
         if (!token) {
             return reject("Missing required token/id");
@@ -76,10 +87,59 @@ exports.getCrowdPromise = (token) => {
         }
     });
 };
+exports.getCrowdPromise = getCrowdPromise;
+/**
+ *
+ * @param tokens
+ */
+let getCrowdArrayPromise = (tokens) => {
+    return new Promise((resolve, reject) => {
+        if (!tokens) {
+            return null;
+        }
+        else {
+            dbconnector_1.getDb()
+                .then((db) => {
+                db.collection(COLLECTION_CROWD).find({
+                    id: {
+                        $in: tokens
+                    }
+                }).toArray()
+                    .then((crowds) => {
+                    if (crowds) {
+                        resolve(crowds);
+                    }
+                    else {
+                        reject("Users not registered");
+                    }
+                })
+                    .catch((err) => {
+                    reject(err);
+                });
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        }
+    });
+};
+let getCrowdWithTokensPromise = (tokens) => {
+    return new Promise((resolve, reject) => {
+        getCrowdArrayPromise(tokens)
+            .then((crowds) => {
+            let limitedCrowds = [];
+            crowds.forEach((crowd) => {
+                limitedCrowds.push(new LimitedCrowd(crowd));
+            });
+            resolve(limitedCrowds);
+        });
+    });
+};
+exports.getCrowdWithTokensPromise = getCrowdWithTokensPromise;
 /**
  * Get all online users with PushyAPI
  */
-exports.getAllCrowdPromise = () => {
+let getAllCrowdPromise = () => {
     return new Promise((resolve, reject) => {
         dbconnector_1.getDb()
             .then((db) => {
@@ -101,11 +161,12 @@ exports.getAllCrowdPromise = () => {
         });
     });
 };
+exports.getAllCrowdPromise = getAllCrowdPromise;
 /**
  *
  * @param token
  */
-exports.patchCrowdPromise = (token) => {
+let patchCrowdPromise = (token) => {
     return new Promise((resolve, reject) => {
         if (!token) {
             return reject("Missing required token/id");
@@ -138,10 +199,11 @@ exports.patchCrowdPromise = (token) => {
         }
     });
 };
+exports.patchCrowdPromise = patchCrowdPromise;
 /**
  * Gets all users that where last seen in a certain timeframe
  */
-exports.getAllRecentCrowdPromise = () => {
+let getAllRecentCrowdPromise = () => {
     return new Promise((resolve, reject) => {
         let activeTimeFrame = new Date(Date.now() - (5 * 60 * 1000)).getTime();
         dbconnector_1.getDb()
@@ -171,14 +233,15 @@ exports.getAllRecentCrowdPromise = () => {
         });
     });
 };
+exports.getAllRecentCrowdPromise = getAllRecentCrowdPromise;
 /**
  * Function to authenticate the user
  * @param id pushy token used as id
  * @param password password saved in database
  */
-exports.authenticateCrowdPromise = (id, password) => {
+let authenticateCrowdPromise = (id, password) => {
     return new Promise((resolve, reject) => {
-        exports.getCrowdPromise(id)
+        getCrowdPromise(id)
             .then((user) => {
             let hash = crypto_1.default.createHash("sha256").update(password).digest().toString();
             if (user.password === hash) {
@@ -193,4 +256,5 @@ exports.authenticateCrowdPromise = (id, password) => {
         });
     });
 };
+exports.authenticateCrowdPromise = authenticateCrowdPromise;
 //# sourceMappingURL=crowd.js.map

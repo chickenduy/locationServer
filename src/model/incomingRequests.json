@@ -3,32 +3,40 @@
         "username": "admin",
         "password": "admin",
         "requestType": "steps",
-        "timepoint": true,
-        "date": 1577782398
+        "request": {
+            "date": 0
+        }
+    },
+    "walkRequest": {
+        "username": "admin",
+        "password": "admin",
+        "requestType": "walk",
+        "request": {
+            "start": 0,
+            "end": 0,
+            "type": "time/distance"
+        }
     },
     "locationRequest": {
         "username": "admin",
         "password": "admin",
         "requestType": "location",
-        "accuracy": 1,
-        "timepoint": true,
-        "date": 1577782398
+        "request": {
+            "start": 0,
+            "end": 0,
+            "accuracy": 1
+        }
     },
-    "presenceRequestTimepoint": {
+    "presenceRequest": {
         "username": "admin",
         "password": "admin",
-        "requestType": "location",
-        "accuracy": 1,
-        "timepoint": true,
-        "date": 1577782398
-    },
-    "presenceRequestTimeframe": {
-        "username": "admin",
-        "password": "admin",
-        "requestType": "location",
-        "accuracy": 1,
-        "timepoint": false,
-        "dateA": 1577782398,
-        "dateB": 1577782398
+        "requestType": "presence",
+        "request": {
+            "start": 0,
+            "end": 0,
+            "long": 0,
+            "lat": 0,
+            "radius": 1
+        }
     }
 }

@@ -1,5 +1,7 @@
 import { getDb } from "../dbconnector";
 import crypto from "crypto";
+import { resolve } from "dns";
+import { rejects } from "assert";
 
 const COLLECTION_CROWD = "crowd"
 
@@ -8,18 +10,32 @@ class Crowd {
     publicKey: String
     password: String
     lastSeen: number
+    constructor(id, publicKey, password, lastSeen) {
+        this.id = id
+        this.publicKey = publicKey
+        this.password = password
+        this.lastSeen = lastSeen
+    }
 }
+
+
+
 
 class LimitedCrowd {
     id: String
     publicKey: String
+    constructor(crowd: Crowd) {
+        this.id = crowd.id
+        this.publicKey = crowd.publicKey
+    }
 }
+
 
 /**
  * Creates a user according to the user model or return null if the model is not satisfied.
  * @param crowd 
  */
-export let createCrowdPromise = (crowd) => {
+let createCrowdPromise = (crowd: Crowd) => {
     return new Promise((resolve, reject) => {
         if (!crowd.id || !crowd.publicKey || !crowd.password || !crowd.lastSeen) {
             reject("Could not create user, missing required fields")
@@ -57,7 +73,7 @@ export let createCrowdPromise = (crowd) => {
  * 
  * @param token 
  */
-export let getCrowdPromise = (token) => {
+let getCrowdPromise = (token: String) => {
     return new Promise<Crowd>((resolve, reject) => {
         if (!token) {
             return reject("Missing required token/id")
@@ -83,9 +99,57 @@ export let getCrowdPromise = (token) => {
 }
 
 /**
+ * 
+ * @param tokens
+ */
+let getCrowdArrayPromise = (tokens: String[]) => {
+    return new Promise<Crowd[]>((resolve, reject) => {
+        if (!tokens) {
+            return null
+        } else {
+            getDb()
+                .then((db) => {
+                    db.collection(COLLECTION_CROWD).find({
+                        id: {
+                            $in: tokens
+                        }
+                    }).toArray()
+                        .then((crowds) => {
+                            if (crowds) {
+                                resolve(crowds)
+                            }
+                            else {
+                                reject("Users not registered")
+                            }
+                        })
+                        .catch((err) => {
+                            reject(err)
+                        })
+                })
+                .catch((err) => {
+                    reject(err)
+                })
+        }
+    })
+}
+
+let getCrowdWithTokensPromise = (tokens: String[]) => {
+    return new Promise<LimitedCrowd[]>((resolve, reject) => {
+        getCrowdArrayPromise(tokens)
+            .then((crowds) => {
+                let limitedCrowds = []
+                crowds.forEach((crowd) => {
+                    limitedCrowds.push(new LimitedCrowd(crowd))
+                })
+                resolve(limitedCrowds)
+            })
+    })
+}
+
+/**
  * Get all online users with PushyAPI
  */
-export let getAllCrowdPromise = () => {
+let getAllCrowdPromise = () => {
     return new Promise<Array<Crowd>>((resolve, reject) => {
         getDb()
             .then((db) => {
@@ -112,7 +176,7 @@ export let getAllCrowdPromise = () => {
  * 
  * @param token 
  */
-export let patchCrowdPromise = (token) => {
+let patchCrowdPromise = (token: String) => {
     return new Promise((resolve, reject) => {
         if (!token) {
             return reject("Missing required token/id")
@@ -150,7 +214,7 @@ export let patchCrowdPromise = (token) => {
 /**
  * Gets all users that where last seen in a certain timeframe
  */
-export let getAllRecentCrowdPromise = () => {
+let getAllRecentCrowdPromise = () => {
     return new Promise<Array<LimitedCrowd>>((resolve, reject) => {
         let activeTimeFrame = new Date(Date.now() - (5 * 60 * 1000)).getTime()
         getDb()
@@ -186,7 +250,7 @@ export let getAllRecentCrowdPromise = () => {
  * @param id pushy token used as id
  * @param password password saved in database
  */
-export let authenticateCrowdPromise = (id, password) => {
+let authenticateCrowdPromise = (id: String, password: string) => {
     return new Promise<Crowd>((resolve, reject) => {
         getCrowdPromise(id)
             .then((user) => {
@@ -202,4 +266,15 @@ export let authenticateCrowdPromise = (id, password) => {
                 reject(err)
             })
     })
+}
+
+export {
+    createCrowdPromise,
+    getCrowdPromise,
+    getAllCrowdPromise,
+    getAllRecentCrowdPromise,
+    getCrowdWithTokensPromise,
+    patchCrowdPromise,
+    authenticateCrowdPromise
+
 }

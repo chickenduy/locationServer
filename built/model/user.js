@@ -8,7 +8,7 @@ class User {
  * Creates a user according to the user model
  * @param user
  */
-exports.createUserPromise = (user) => {
+let createUserPromise = (user) => {
     return new Promise((resolve, reject) => {
         if (!user.username || !user.password) {
             reject("Could not create user, missing required fields");
@@ -46,11 +46,12 @@ exports.createUserPromise = (user) => {
         }
     });
 };
+exports.createUserPromise = createUserPromise;
 /**
  * Get a user with specific ID
  * @param username
  */
-exports.getUserPromise = (username) => {
+let getUserPromise = (username) => {
     return new Promise((resolve, reject) => {
         if (!username) {
             return reject("Missing required username");
@@ -75,14 +76,15 @@ exports.getUserPromise = (username) => {
         }
     });
 };
+exports.getUserPromise = getUserPromise;
 /**
  * Function to authenticate the user
  * @param username
  * @param password
  */
-exports.authenticateUserPromise = (username, password) => {
+let authenticateUserPromise = (username, password) => {
     return new Promise((resolve, reject) => {
-        exports.getUserPromise(username)
+        getUserPromise(username)
             .then((user) => {
             //hash passwords and compare
             if (user.password === password) {
@@ -97,4 +99,5 @@ exports.authenticateUserPromise = (username, password) => {
         });
     });
 };
+exports.authenticateUserPromise = authenticateUserPromise;
 //# sourceMappingURL=user.js.map

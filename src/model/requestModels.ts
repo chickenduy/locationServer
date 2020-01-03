@@ -1,104 +1,95 @@
+import { start } from "repl"
+import { endianness } from "os"
 
 
-export let requestHeaderModel = (id: String, group: String[][], type: String) => {
+let requestHeaderModel = (id: String, type: String) => {
     return {
         "id": id, // Unique ID of request
         "start": Date.now(), // Start date of request
         "end": 0, // End date of request
-        "from": null,
-        "group": group, // Pushy Tokens of aggregation group
         "type": type // Type of aggregation [steps, walking, running, bicycle, vehicle, location, presence]
     }
 }
 
-export let requestStepsModel = (date: number) => {
+let requestOptionsModel = (group: String[][]) => {
+    return {
+        "from": null,
+        "group": group, // Pushy Tokens of aggregation group
+    }
+}
+
+let requestStepsModel = (date: number) => {
     return {
         "date": date
     }
 }
 
-export let requestWalkTimepointModel = (raw: String, date: number) => {
+let requestWalkModel = (start: number, end: number, type: String) => {
     return {
-        "raw": raw, // What type of raw data [time spent, distance done]
-        "date": date
+        start: start,
+        end: end,
+        type: type // What type of raw data [time/distance]
     }
 }
 
-export let requestWalkTimeframeModel = (raw: String, dateA: number, dateB: number) => {
+let requestLocationModel = (start: number, end: number, accuracy: number) => {
     return {
-        "raw": raw, // What type of raw data [time, distance]
-        "dateA": dateA,
-        "dateB": dateB
+        start: start, // Accuracy of spatial cloaking
+        end: end,
+        accuracy: accuracy
     }
 }
 
-export let requestLocationTimepointModel = (date: number, accuracy: number) => {
+let requestPresenceModel = (start: number, end: number, long: number, lat: number, radius: number) => {
     return {
-        "accuracy": accuracy, // Accuracy of spatial cloaking
-        "date": date
+        start: start,
+        end: end,
+        long: long,
+        lat: lat,
+        radius: radius, // Radius from location
     }
 }
 
-export let requestPresenceTimepointModel = (date: number, long: number, lat: number, radius: number) => {
+let dataModel = () => {
     return {
-        "location": {
-            "long": long,
-            "lat": lat
+        raw: [], // Array of raw data (anonymized)
+        n: 0 // Number of participants
+    }
+}
+
+let messageModel = (to: String, requestHeader: any, requestOptions: any, requestData: any, data: any) => {
+    return {
+        to: to, // Pushy Token
+        data: {
+            encryptionKey: null, // AES Encryption Key
+            iv: null, // AES Init Vector
+            requestHeader: requestHeader,
+            requestOptions: requestOptions,
+            requestData: requestData,
+            data: data
         },
-        "radius": radius, // Radius from location
-        "date": date
+        time_to_live: 120 // only try to send for t minutes
     }
 }
 
-export let requestPresenceTimeframeModel = (dateA: number, dateB: number, long: number, lat: number, radius: number) => {
+let confirmationMessageModel = () => {
     return {
-        "location": {
-            "long": long,
-            "lat": lat
+        to: String, // Pushy Token
+        data: {
+            confirmation: true
         },
-        "radius": radius, // Radius from location
-        "dateA": dateA,
-        "dateB": dateB,
+        time_to_live: 120 // only try to send for t minutes
     }
 }
 
-export let dataModel = () => {
-    return {
-        "raw": [], // Array of raw data (anonymized)
-        "n": 0
-    }
-}
-
-export let messageModel = (to: String, requestHeader: any, requestOptions: any, data: any) => {
-    return {
-        "to": to, // Pushy Token
-        "data": {
-            "encryptionKey": null, // AES Encryption Key
-            "iv": null, // AES Init Vector
-            "requestHeader": requestHeader,
-            "requestOptions": requestOptions,
-            "data": data
-        },
-        "time_to_live": 120 // only try to send for t minutes
-    }
-}
-
-export let confirmationMessageModel = () => {
-    return {
-        "to": String, // Pushy Token
-        "data": {
-            "confirmation": true
-        }
-    }
-}
-
-let incomingRequest = () => {
-    return {
-        "username": "",
-        "password": "",
-        "requestType": "",
-        "raw": "",
-        "timepoint": true,
-        "date": 0,
-    }
+export {
+    requestHeaderModel,
+    requestOptionsModel,
+    requestStepsModel,
+    requestWalkModel,
+    requestLocationModel,
+    requestPresenceModel,
+    dataModel,
+    messageModel,
+    confirmationMessageModel
 }
