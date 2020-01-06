@@ -6,7 +6,7 @@ import * as user from './model/user';
 import * as crowd from './model/crowd';
 import { startAggregationPromise } from './model/request';
 
-const GROUP_SIZE = 1
+const GROUP_SIZE = 2
 
 /**
  * This is a basic function that returns a JSON "Hello world!"
@@ -62,7 +62,7 @@ let handleAggregationRequest = (req, res) => {
 							let counter = 0
 							let groups = [[]]
 							while (onlineCrowdDetailed.length) {
-								groups[counter] = onlineCrowdDetailed.splice(0, 1)
+								groups[counter] = onlineCrowdDetailed.splice(0, GROUP_SIZE)
 								counter++
 							}
 

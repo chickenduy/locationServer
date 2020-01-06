@@ -16,7 +16,7 @@ const helpers_1 = require("./helpers");
 const user = __importStar(require("./model/user"));
 const crowd = __importStar(require("./model/crowd"));
 const request_1 = require("./model/request");
-const GROUP_SIZE = 1;
+const GROUP_SIZE = 2;
 /**
  * This is a basic function that returns a JSON "Hello world!"
  * @param req
@@ -70,7 +70,7 @@ let handleAggregationRequest = (req, res) => {
                 let counter = 0;
                 let groups = [[]];
                 while (onlineCrowdDetailed.length) {
-                    groups[counter] = onlineCrowdDetailed.splice(0, 1);
+                    groups[counter] = onlineCrowdDetailed.splice(0, GROUP_SIZE);
                     counter++;
                 }
                 // TODO: Start Aggregation

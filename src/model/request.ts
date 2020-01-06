@@ -17,10 +17,10 @@ let startAggregationPromise = (req, groups: any[][]) => {
                     requestData = requestModel.requestStepsModel(request.date)
                     break
                 case "walk":
-                    requestData = requestModel.requestWalkModel(request.start, request.end, request.type)
+                    requestData = requestModel.requestWalkModel(request.start, request.end)
                     break
                 case "location":
-                    requestData = requestModel.requestLocationModel(request.start, request.end, request.accuracy)
+                    requestData = requestModel.requestLocationModel(request.timestamp, request.accuracy)
                     break
                 case "presence":
                     requestData = requestModel.requestPresenceModel(request.start, request.end, request.long, request.lat, request.radius)

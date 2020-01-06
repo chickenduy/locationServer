@@ -1,7 +1,3 @@
-import { start } from "repl"
-import { endianness } from "os"
-
-
 let requestHeaderModel = (id: String, type: String) => {
     return {
         "id": id, // Unique ID of request
@@ -13,7 +9,7 @@ let requestHeaderModel = (id: String, type: String) => {
 
 let requestOptionsModel = (group: String[][]) => {
     return {
-        "from": null,
+        "from": "",
         "group": group, // Pushy Tokens of aggregation group
     }
 }
@@ -24,19 +20,17 @@ let requestStepsModel = (date: number) => {
     }
 }
 
-let requestWalkModel = (start: number, end: number, type: String) => {
+let requestWalkModel = (start: number, end: number) => {
     return {
         start: start,
         end: end,
-        type: type // What type of raw data [time/distance]
     }
 }
 
-let requestLocationModel = (start: number, end: number, accuracy: number) => {
+let requestLocationModel = (timestamp: number, accuracy) => {
     return {
-        start: start, // Accuracy of spatial cloaking
-        end: end,
-        accuracy: accuracy
+        timestamp: timestamp, 
+        accuracy: accuracy // Accuracy of spatial cloaking [1-5] [10km-1m]
     }
 }
 

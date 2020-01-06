@@ -11,7 +11,7 @@ let requestHeaderModel = (id, type) => {
 exports.requestHeaderModel = requestHeaderModel;
 let requestOptionsModel = (group) => {
     return {
-        "from": null,
+        "from": "",
         "group": group,
     };
 };
@@ -22,19 +22,17 @@ let requestStepsModel = (date) => {
     };
 };
 exports.requestStepsModel = requestStepsModel;
-let requestWalkModel = (start, end, type) => {
+let requestWalkModel = (start, end) => {
     return {
         start: start,
         end: end,
-        type: type // What type of raw data [time/distance]
     };
 };
 exports.requestWalkModel = requestWalkModel;
-let requestLocationModel = (start, end, accuracy) => {
+let requestLocationModel = (timestamp, accuracy) => {
     return {
-        start: start,
-        end: end,
-        accuracy: accuracy
+        timestamp: timestamp,
+        accuracy: accuracy // Accuracy of spatial cloaking [1-5] [10km-1m]
     };
 };
 exports.requestLocationModel = requestLocationModel;

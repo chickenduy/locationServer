@@ -1,0 +1,46 @@
+{
+    "message": {
+        "to": "token",
+        "data": {
+            "encryptionKey": "some key",
+            "iv": "some iv",
+            "requestHeader": {
+                "id": "some id",
+                "start": 0,
+                "end": 0,
+                "type": "some type"
+            },
+            "requestOptions": {
+                "from": "token",
+                "group": []
+            },
+            "requestData": {
+                "type": "depending on what the type is"
+            },
+            "data": {
+                "n": 0,
+                "raw": []
+            }
+        }
+    },
+    "steps": {
+        "date": 0
+    },
+    "walk": {
+        "start": 0,
+        "end": 0
+    },
+    "location": {
+        "start": 0,
+        "end": 0,
+        "minAccuracy": 0,
+        "maxAccuracy": 0
+    },
+    "presence": {
+        "start": 0,
+        "end": 0,
+        "long": 0,
+        "lat": 0,
+        "radius": 0
+    }
+}

@@ -13,8 +13,7 @@
         "requestType": "walk",
         "request": {
             "start": 0,
-            "end": 0,
-            "type": "time/distance"
+            "end": 0
         }
     },
     "locationRequest": {
@@ -22,9 +21,9 @@
         "password": "admin",
         "requestType": "location",
         "request": {
-            "start": 0,
-            "end": 0,
-            "accuracy": 1
+            "timestamp": 0,
+            "minAccuracy": 1,
+            "maxAccuracy": 0
         }
     },
     "presenceRequest": {
