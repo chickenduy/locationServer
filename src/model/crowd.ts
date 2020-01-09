@@ -1,7 +1,5 @@
 import { getDb } from "../dbconnector";
 import crypto from "crypto";
-import { resolve } from "dns";
-import { rejects } from "assert";
 
 const COLLECTION_CROWD = "crowd"
 
@@ -17,9 +15,6 @@ class Crowd {
         this.lastSeen = lastSeen
     }
 }
-
-
-
 
 class LimitedCrowd {
     id: String

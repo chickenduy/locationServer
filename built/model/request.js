@@ -18,9 +18,10 @@ let startAggregationPromise = (req, groups) => {
         let com = new communication_1.default();
         let uniqueId = uniqid_1.default();
         let requestHeader = requestModel.requestHeaderModel(uniqueId, req.body.requestType);
+        let index = 1;
         groups.forEach((group) => {
             let data = requestModel.dataModel();
-            let requestOptions = requestModel.requestOptionsModel(group);
+            let requestOptions = requestModel.requestOptionsModel(index, group);
             let requestData = null;
             let request = req.body.request;
             switch (req.body.requestType) {
@@ -46,6 +47,7 @@ let startAggregationPromise = (req, groups) => {
                 .catch((err) => {
                 reject(err);
             });
+            index++;
         });
     });
 };

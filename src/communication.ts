@@ -9,12 +9,6 @@ export default class Communication {
      * This is a function to send data to a specific mobile phone over the Pushy Server
      * and resolves or rejects the depending on the REST request.
      * @param notification in JSON 
-     * {
-     *  to: <Pushy Token>
-     *  data: {
-     *      <specific data>
-     *  }
-     * } 
      */
     sendNotificationPromise(data) {
         return new Promise((resolve, reject) => {
@@ -37,6 +31,10 @@ export default class Communication {
         });
     }
 
+    /**
+     * Calls the Pushy API to see if the devices have been online in the past
+     * @param tokens that are tested for online presence
+     */
     getPresence(tokens: Array<String>) {
         return new Promise<any>((resolve, reject) => {
             let options =

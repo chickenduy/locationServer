@@ -7,9 +7,10 @@ let startAggregationPromise = (req, groups: any[][]) => {
         let com = new Communication()
         let uniqueId = uniqid()
         let requestHeader = requestModel.requestHeaderModel(uniqueId, req.body.requestType)
+        let index = 1
         groups.forEach((group) => {
             let data = requestModel.dataModel()
-            let requestOptions = requestModel.requestOptionsModel(group)
+            let requestOptions = requestModel.requestOptionsModel(index, group)
             let requestData = null
             let request = req.body.request
             switch (req.body.requestType) {
@@ -27,7 +28,6 @@ let startAggregationPromise = (req, groups: any[][]) => {
                     break
             }
             let message = requestModel.messageModel(group[0].id, requestHeader, requestOptions, requestData, data)
-
             console.log(message)
             com.sendNotificationPromise(message)
                 .then((result) => {
@@ -36,6 +36,7 @@ let startAggregationPromise = (req, groups: any[][]) => {
                 .catch((err) => {
                     reject(err)
                 })
+            index++
         })
     })
 }

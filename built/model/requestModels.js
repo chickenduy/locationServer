@@ -9,10 +9,12 @@ let requestHeaderModel = (id, type) => {
     };
 };
 exports.requestHeaderModel = requestHeaderModel;
-let requestOptionsModel = (group) => {
+let requestOptionsModel = (groupNumber, group) => {
     return {
-        "from": "",
-        "group": group,
+        groupNumber: groupNumber,
+        numberOfGroups: group.length,
+        from: "",
+        group: group,
     };
 };
 exports.requestOptionsModel = requestOptionsModel;

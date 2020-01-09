@@ -11,11 +11,13 @@
                 "type": "some type"
             },
             "requestOptions": {
+                "groupNumber": 0,
+                "numberOfGroups": 1,
                 "from": "token",
                 "group": []
             },
             "requestData": {
-                "type": "depending on what the type is"
+                "type": "depending on type, see below"
             },
             "data": {
                 "n": 0,
@@ -31,8 +33,7 @@
         "end": 0
     },
     "location": {
-        "start": 0,
-        "end": 0,
+        "date": 0,
         "minAccuracy": 0,
         "maxAccuracy": 0
     },

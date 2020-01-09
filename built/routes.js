@@ -1,14 +1,19 @@
 "use strict";
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const RouteHandling = __importStar(require("./routesHandling"));
+const routesHandling_1 = __importDefault(require("./routesHandling/routesHandling"));
+const routeAggregation_1 = __importDefault(require("./routesHandling/routeAggregation"));
+const routeCrowd_1 = __importDefault(require("./routesHandling/routeCrowd"));
+const routeAuthentication_1 = __importDefault(require("./routesHandling/routeAuthentication"));
 class Router {
+    constructor() {
+        this.routesHandling = new routesHandling_1.default();
+        this.aggregationHandler = new routeAggregation_1.default();
+        this.crowdHandler = new routeCrowd_1.default();
+        this.authenticationHandler = new routeAuthentication_1.default();
+    }
     /**
      * Register routes that require crowd authentication.
      * @param app
@@ -16,7 +21,7 @@ class Router {
      */
     requireCrowdAuthentication(app, routes) {
         routes.forEach(route => {
-            app.use(route, RouteHandling.authenticateCrowd);
+            app.use(route, this.authenticationHandler.authenticateCrowd);
         });
     }
     /**
@@ -26,7 +31,7 @@ class Router {
      */
     requireUserAuthentication(app, routes) {
         routes.forEach(route => {
-            app.use(route, RouteHandling.authenticateUser);
+            app.use(route, this.authenticationHandler.authenticateUser);
         });
     }
     /**
@@ -34,14 +39,13 @@ class Router {
      * @param app
      */
     setRoutes(app) {
-        app.get('/', RouteHandling.basicRequest);
-        app.get('/result', RouteHandling.basicRequest);
-        app.post('/crowd', RouteHandling.handleCreateCrowdRequest);
-        app.post('/aggregation', RouteHandling.basicRequest);
-        app.post('/request', RouteHandling.handleAggregationRequest);
-        app.patch('/crowd', RouteHandling.handleUpdateCrowdRequest);
-        app.patch('/crowd/ping', RouteHandling.handlePingedCrowdRequest);
-        app.all('*', RouteHandling.basicRequest);
+        app.all('*', this.routesHandling.handleBasicRequest);
+        app.get('/aggregationResult', this.aggregationHandler.handleGetAggregationResult);
+        app.post('/crowd', this.crowdHandler.handleCreateCrowdRequest);
+        app.post('/aggregationData', this.aggregationHandler.handlePostAggregationResult);
+        app.post('/aggregationRequest', this.aggregationHandler.handleAggregationRequest);
+        app.patch('/crowd', this.crowdHandler.handleUpdateCrowdRequest);
+        app.patch('/crowd/ping', this.crowdHandler.handlePingedCrowdRequest);
     }
 }
 exports.default = Router;
