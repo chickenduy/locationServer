@@ -39,13 +39,13 @@ class Router {
      * @param app
      */
     setRoutes(app) {
-        app.all('*', this.routesHandling.handleBasicRequest);
         app.get('/aggregationResult', this.aggregationHandler.handleGetAggregationResult);
         app.post('/crowd', this.crowdHandler.handleCreateCrowdRequest);
         app.post('/aggregationData', this.aggregationHandler.handlePostAggregationResult);
         app.post('/aggregationRequest', this.aggregationHandler.handleAggregationRequest);
         app.patch('/crowd', this.crowdHandler.handleUpdateCrowdRequest);
         app.patch('/crowd/ping', this.crowdHandler.handlePingedCrowdRequest);
+        app.all('*', this.routesHandling.handleBasicRequest);
     }
 }
 exports.default = Router;

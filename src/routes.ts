@@ -36,8 +36,6 @@ export default class Router {
      * @param app 
      */
     setRoutes(app) {
-        app.all('*', this.routesHandling.handleBasicRequest)
-
         app.get('/aggregationResult', this.aggregationHandler.handleGetAggregationResult)
 
         app.post('/crowd', this.crowdHandler.handleCreateCrowdRequest)
@@ -47,5 +45,6 @@ export default class Router {
         app.patch('/crowd', this.crowdHandler.handleUpdateCrowdRequest)
         app.patch('/crowd/ping', this.crowdHandler.handlePingedCrowdRequest)
 
+        app.all('*', this.routesHandling.handleBasicRequest)
     }
 }
