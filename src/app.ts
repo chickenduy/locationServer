@@ -17,7 +17,10 @@ const routes = new Routes()
 //Set routes that require user authentication.
 routes.requireCrowdAuthentication(app,
 	[
-		'/aggregationData'
+		'/aggregationsteps', 
+		'/aggregationwalk',
+		'/aggregationlocation',
+		'/aggregationpresence',
 	]
 )
 routes.requireUserAuthentication(app,

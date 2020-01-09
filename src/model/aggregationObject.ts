@@ -1,10 +1,10 @@
 export default class AggreagationObject {
-    groups: [[]]
+    raw: any[]
     numberOfGroups: number
     collectedGroups: number
 
     constructor() {
-        this.groups = [[]]
+        this.raw =[]
         this.numberOfGroups = 0
         this.collectedGroups = 0
     }

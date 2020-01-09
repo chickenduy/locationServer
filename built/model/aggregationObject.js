@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class AggreagationObject {
     constructor() {
-        this.groups = [[]];
+        this.raw = [];
         this.numberOfGroups = 0;
         this.collectedGroups = 0;
     }

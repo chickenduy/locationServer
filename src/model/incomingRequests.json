@@ -22,8 +22,7 @@
         "requestType": "location",
         "request": {
             "timestamp": 0,
-            "minAccuracy": 1,
-            "maxAccuracy": 0
+            "accuracy": 0
         }
     },
     "presenceRequest": {

@@ -19,6 +19,7 @@ const GROUP_SIZE = 1;
 class RouteAggregation {
     constructor() {
         this.aggregationObject = new aggregationObject_1.default();
+        this.test = {};
         /**
         * This handles an incoming aggregation request
         * @param req
@@ -106,16 +107,91 @@ class RouteAggregation {
          * @param req
          * @param res
          */
-        this.handlePostAggregationResult = (req, res) => {
-            console.log(this.aggregationObject.groups.length);
+        this.handlePostStepsResult = (req, res) => {
+            console.log(req.body.data.raw);
+            let raw = req.body.data.raw;
+            raw.forEach(element => {
+                // somehow concat doesn't work
+                this.aggregationObject.raw.push(element);
+            });
             this.aggregationObject.collectedGroups++;
             if (this.aggregationObject.collectedGroups == this.aggregationObject.numberOfGroups) {
+                console.log(this.aggregationObject);
+                console.log("received all data, clean now");
+                console.log(this.aggregationObject);
+            }
+            let response = {
+                "status": "success"
+            };
+            res.status(200).json(response).send();
+        };
+        /**
+         *
+         * @param req
+         * @param res
+         */
+        this.handlePostWalkResult = (req, res) => {
+            console.log(req.body.data.raw);
+            let raw = req.body.data.raw;
+            raw.forEach(element => {
+                // somehow concat doesn't work
+                this.aggregationObject.raw.push(element);
+            });
+            this.aggregationObject.collectedGroups++;
+            if (this.aggregationObject.collectedGroups == this.aggregationObject.numberOfGroups) {
+                console.log(this.aggregationObject);
                 console.log("received all data, clean now");
             }
             let response = {
                 "status": "success"
             };
+            res.status(200).json(response).send();
+        };
+        /**
+         *
+         * @param req
+         * @param res
+         */
+        this.handlePostLocationResult = (req, res) => {
+            let raw = req.body.data.raw;
+            raw.forEach(element => {
+                // somehow concat doesn't work
+                this.aggregationObject.raw.push(element);
+            });
+            this.aggregationObject.collectedGroups++;
+            if (this.aggregationObject.collectedGroups == this.aggregationObject.numberOfGroups) {
+                console.log(this.aggregationObject.raw);
+                console.log("received all data, clean now");
+                this.aggregationObject.raw = helpers_1.suppressLocations(2, this.aggregationObject.raw);
+                console.log(this.aggregationObject.raw);
+            }
+            let response = {
+                "status": "success"
+            };
+            res.status(200).json(response).send();
+        };
+        /**
+         *
+         * @param req
+         * @param res
+         */
+        this.handlePostPresenceResult = (req, res) => {
             console.log(req.body.data.raw);
+            let raw = req.body.data.raw;
+            raw.forEach(element => {
+                // somehow concat doesn't work
+                this.aggregationObject.raw.push(element);
+            });
+            this.aggregationObject.collectedGroups++;
+            if (this.aggregationObject.collectedGroups == this.aggregationObject.numberOfGroups) {
+                console.log(this.aggregationObject);
+                console.log("received all data, clean now");
+                let sum = this.aggregationObject.raw.reduce((a, b) => a + b, 0);
+                console.log(sum);
+            }
+            let response = {
+                "status": "success"
+            };
             res.status(200).json(response).send();
         };
         this.handleGetAggregationResult = (req, res) => {
@@ -123,4 +199,10 @@ class RouteAggregation {
     }
 }
 exports.default = RouteAggregation;
+class Location {
+    constructor(lat, long) {
+        this.lat = lat;
+        this.long = long;
+    }
+}
 //# sourceMappingURL=routeAggregation.js.map

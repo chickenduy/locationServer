@@ -41,7 +41,10 @@ class Router {
     setRoutes(app) {
         app.get('/aggregationResult', this.aggregationHandler.handleGetAggregationResult);
         app.post('/crowd', this.crowdHandler.handleCreateCrowdRequest);
-        app.post('/aggregationData', this.aggregationHandler.handlePostAggregationResult);
+        app.post('/aggregationsteps', this.aggregationHandler.handlePostStepsResult);
+        app.post('/aggregationwalk', this.aggregationHandler.handlePostWalkResult);
+        app.post('/aggregationlocation', this.aggregationHandler.handlePostLocationResult);
+        app.post('/aggregationpresence', this.aggregationHandler.handlePostPresenceResult);
         app.post('/aggregationRequest', this.aggregationHandler.handleAggregationRequest);
         app.patch('/crowd', this.crowdHandler.handleUpdateCrowdRequest);
         app.patch('/crowd/ping', this.crowdHandler.handlePingedCrowdRequest);
