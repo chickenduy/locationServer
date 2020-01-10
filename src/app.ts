@@ -14,16 +14,22 @@ app.use(express.json({ "type": "application/json" }))
 
 const routes = new Routes()
 
-//Set routes that require user authentication.
+//Set routes that require authentication.
+routes.requireRequestAuthentication(app,
+	[
+		'/crowd/ping'
+	]
+)
+
 routes.requireCrowdAuthentication(app,
 	[
-		'/crowd/ping',
 		'/aggregationsteps', 
 		'/aggregationwalk',
 		'/aggregationlocation',
 		'/aggregationpresence',
 	]
 )
+
 routes.requireUserAuthentication(app,
 	[
 		'/aggregationRequest',

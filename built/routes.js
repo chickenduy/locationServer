@@ -19,6 +19,16 @@ class Router {
      * @param app
      * @param routes
      */
+    requireRequestAuthentication(app, routes) {
+        routes.forEach(route => {
+            app.use(route, this.authenticationHandler.authenticateRequest);
+        });
+    }
+    /**
+     * Register routes that require crowd authentication.
+     * @param app
+     * @param routes
+     */
     requireCrowdAuthentication(app, routes) {
         routes.forEach(route => {
             app.use(route, this.authenticationHandler.authenticateCrowd);

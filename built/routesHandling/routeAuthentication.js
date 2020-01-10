@@ -17,7 +17,7 @@ class RouteAuthentication {
          * @param res
          * @param next
          */
-        this.authenticateCrowd = (req, res, next) => {
+        this.authenticateRequest = (req, res, next) => {
             let id;
             let password;
             /**
@@ -29,6 +29,40 @@ class RouteAuthentication {
             }
             else {
                 id = req.body.requestOptions.from;
+                password = req.body.password;
+            }
+            crowd.authenticateCrowdPromise(id, password)
+                .then(() => {
+                next();
+            })
+                .catch((err) => {
+                let result = {
+                    "status": "failure",
+                    "source": "authenticateCrowdPromise",
+                    "message": err
+                };
+                console.log(result);
+                res.status(500).json(result).send();
+            });
+        };
+        /**
+         * Authenticate the crowd with stored Pushy token and password
+         * @param req
+         * @param res
+         * @param next
+         */
+        this.authenticateCrowd = (req, res, next) => {
+            let id;
+            let password;
+            /**
+             * Extract token and password from request
+             */
+            if (req.method === "GET") {
+                id = req.query.id;
+                password = req.query.password;
+            }
+            else {
+                id = req.body.id;
                 password = req.body.password;
             }
             crowd.authenticateCrowdPromise(id, password)

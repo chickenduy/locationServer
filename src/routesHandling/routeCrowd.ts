@@ -1,11 +1,5 @@
 import crypto from "crypto";
-import Communication from "../communication";
-import { shuffleFisherYates } from "../helpers";
-
-import * as user from '../model/user';
 import * as crowd from '../model/crowd';
-import { startAggregationPromise } from '../model/request';
-import AggreagationObject from "../model/aggregationObject";
 
 export default class RouteCrowd {
 

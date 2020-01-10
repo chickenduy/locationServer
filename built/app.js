@@ -15,9 +15,11 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
 app.use(express_1.default.json({ "type": "application/json" }));
 const routes = new routes_1.default();
-//Set routes that require user authentication.
+//Set routes that require authentication.
+routes.requireRequestAuthentication(app, [
+    '/crowd/ping'
+]);
 routes.requireCrowdAuthentication(app, [
-    '/crowd/ping',
     '/aggregationsteps',
     '/aggregationwalk',
     '/aggregationlocation',
