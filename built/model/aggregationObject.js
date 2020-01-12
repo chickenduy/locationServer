@@ -5,6 +5,7 @@ class AggreagationObject {
         this.raw = [];
         this.numberOfGroups = 0;
         this.collectedGroups = 0;
+        this.anonymity = 2;
     }
 }
 exports.default = AggreagationObject;

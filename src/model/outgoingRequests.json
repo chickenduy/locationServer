@@ -17,7 +17,7 @@
                 "group": []
             },
             "requestData": {
-                "type": "depending on type, see below"
+                "see": "depending on type, see below"
             },
             "data": {
                 "n": 0,
@@ -34,14 +34,13 @@
     },
     "location": {
         "date": 0,
-        "minAccuracy": 0,
-        "maxAccuracy": 0
+        "accuracy": 0
     },
     "presence": {
         "start": 0,
         "end": 0,
-        "long": 0,
         "lat": 0,
+        "long": 0,
         "radius": 0
     }
 }
