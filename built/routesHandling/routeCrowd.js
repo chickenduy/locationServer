@@ -60,29 +60,18 @@ class RouteCrowd {
             console.log(req.body);
             let id = req.body.id;
             let password = req.body.password;
-            crowd.authenticateCrowdPromise(id, password)
-                .then((user) => {
-                crowd.patchCrowdPromise(id)
-                    .then((result) => {
-                    let response = {
-                        "status": "success",
-                        "message": result
-                    };
-                    res.status(200).json(response).send();
-                })
-                    .catch((err) => {
-                    let response = {
-                        "status": "failure",
-                        "source": "patchUserPomise",
-                        "reason": err
-                    };
-                    res.status(500).json(response).send();
-                });
+            crowd.patchCrowdPromise(id)
+                .then((result) => {
+                let response = {
+                    "status": "success",
+                    "message": result
+                };
+                res.status(200).json(response).send();
             })
                 .catch((err) => {
                 let response = {
                     "status": "failure",
-                    "source": "autheticateUserPromise",
+                    "source": "patchUserPomise",
                     "reason": err
                 };
                 res.status(500).json(response).send();
@@ -95,31 +84,19 @@ class RouteCrowd {
          */
         this.handlePingedCrowdRequest = (req, res) => {
             console.log(req.body);
-            let id = req.body.requestOptions.from;
-            let password = req.body.password;
-            crowd.authenticateCrowdPromise(id, password)
-                .then(() => {
-                crowd.patchCrowdPromise(id)
-                    .then((result) => {
-                    let response = {
-                        "status": "success",
-                        "message": result
-                    };
-                    res.status(200).json(response).send();
-                })
-                    .catch((err) => {
-                    let response = {
-                        "status": "failure",
-                        "source": "patchUserPromise",
-                        "reason": err
-                    };
-                    res.status(500).json(response).send();
-                });
+            let id = req.body.id;
+            crowd.patchCrowdPromise(id)
+                .then((result) => {
+                let response = {
+                    "status": "success",
+                    "message": result
+                };
+                res.status(200).json(response).send();
             })
                 .catch((err) => {
                 let response = {
                     "status": "failure",
-                    "source": "authenticateUserPromise",
+                    "source": "patchUserPromise",
                     "reason": err
                 };
                 res.status(500).json(response).send();
