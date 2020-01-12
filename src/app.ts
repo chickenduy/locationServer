@@ -27,7 +27,6 @@ routes.requireRequestAuthentication(app,
 routes.requireCrowdAuthentication(app,
 	[
 		'/crowd/ping'
-
 	]
 )
 

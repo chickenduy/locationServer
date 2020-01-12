@@ -105,7 +105,7 @@ class RouteAuthentication {
                     "source": "authenticateUser",
                     "message": `Missing username: ${username}, password: ${password}`
                 };
-                res.status(500).json(result).send();
+                res.status(200).json(result).send();
                 return;
             }
             user.authenticateUserPromise(username, password)
