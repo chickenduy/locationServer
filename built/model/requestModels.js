@@ -9,10 +9,10 @@ let requestHeaderModel = (id, type) => {
     };
 };
 exports.requestHeaderModel = requestHeaderModel;
-let requestOptionsModel = (groupNumber, group) => {
+let requestOptionsModel = (groupNumber, numberOfGroups, group) => {
     return {
         groupNumber: groupNumber,
-        numberOfGroups: group.length,
+        numberOfGroups: numberOfGroups,
         from: "",
         group: group,
     };
@@ -31,10 +31,11 @@ let requestWalkModel = (start, end) => {
     };
 };
 exports.requestWalkModel = requestWalkModel;
-let requestLocationModel = (timestamp, accuracy) => {
+let requestLocationModel = (timestamp, accuracy, anonymity) => {
     return {
         timestamp: timestamp,
-        accuracy: accuracy // Accuracy of spatial cloaking [1-5] [10km-1m]
+        accuracy: accuracy,
+        anonymity: anonymity
     };
 };
 exports.requestLocationModel = requestLocationModel;

@@ -32,6 +32,15 @@ class RouteAuthentication {
                 id = req.body.id;
                 password = req.body.password;
             }
+            if (!id || !password) {
+                let result = {
+                    "status": "failure",
+                    "source": "authenticateUser",
+                    "message": `Missing username: ${id}, password: ${password}`
+                };
+                res.status(500).json(result).send();
+                return;
+            }
             crowd.authenticateCrowdPromise(id, password)
                 .then(() => {
                 next();
@@ -59,14 +68,8 @@ class RouteAuthentication {
             /**
              * Extract token and password from request
              */
-            if (req.method === "GET") {
-                username = req.query.username;
-                password = req.query.password;
-            }
-            else {
-                username = req.body.username;
-                password = req.body.password;
-            }
+            username = req.body.username;
+            password = req.body.password;
             if (!username || !password) {
                 let result = {
                     "status": "failure",
@@ -102,13 +105,16 @@ class RouteAuthentication {
             /**
              * Extract token and password from request
              */
-            if (req.method === "GET") {
-                id = req.query.id;
-                password = req.query.password;
-            }
-            else {
-                id = req.body.requestOptions.from;
-                password = req.body.password;
+            id = req.body.requestOptions.from;
+            password = req.body.password;
+            if (!id || !password) {
+                let result = {
+                    "status": "failure",
+                    "source": "authenticateUser",
+                    "message": `Missing username: ${id}, password: ${password}`
+                };
+                res.status(500).json(result).send();
+                return;
             }
             crowd.authenticateCrowdPromise(id, password)
                 .then(() => {

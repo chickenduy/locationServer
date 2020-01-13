@@ -34,7 +34,8 @@
     },
     "location": {
         "date": 0,
-        "accuracy": 0
+        "accuracy": 0,
+        "anonymity": 2
     },
     "presence": {
         "start": 0,

@@ -1,16 +1,14 @@
 import Communication from '../communication';
-import uniqid from 'uniqid';
 import * as requestModel from './requestModels'
 
-let startAggregationPromise = (req, groups: any[][]) => {
+let startAggregationPromise = (req, groups: any[][], uniqueId: String) => {
     return new Promise((resolve, reject) => {
         let com = new Communication()
-        let uniqueId = uniqid()
         let requestHeader = requestModel.requestHeaderModel(uniqueId, req.body.requestType)
         let index = 1
         groups.forEach((group) => {
             let data = requestModel.dataModel()
-            let requestOptions = requestModel.requestOptionsModel(index, group)
+            let requestOptions = requestModel.requestOptionsModel(index, groups.length, group)
             let requestData = null
             let request = req.body.request
             switch (req.body.requestType) {
@@ -21,7 +19,7 @@ let startAggregationPromise = (req, groups: any[][]) => {
                     requestData = requestModel.requestWalkModel(request.start, request.end)
                     break
                 case "location":
-                    requestData = requestModel.requestLocationModel(request.timestamp, request.accuracy)
+                    requestData = requestModel.requestLocationModel(request.timestamp, request.accuracy, request.anonymity)
                     break
                 case "presence":
                     requestData = requestModel.requestPresenceModel(request.start, request.end, request.long, request.lat, request.radius)

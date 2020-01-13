@@ -1,19 +1,18 @@
 import Communication from "../communication";
 import { shuffleFisherYates, suppressSingles, suppressLocations } from "../helpers";
+import uniqid from 'uniqid';
 
 import * as crowd from '../model/crowd';
 import { startAggregationPromise } from '../model/request';
 import AggreagationObject from "../model/aggregationObject";
 
-const GROUP_SIZE = 1
+const GROUP_SIZE = 2
+const MIN_GROUP_SIZE = 2
 const MIN_ANON = 2
 
 export default class RouteAggregation {
-    aggregationObject = new AggreagationObject()
-    test = {
-
-    }
-
+    aggregationObjects: { [id: string] : AggreagationObject; } = {};
+    
     /**
     * This handles an incoming aggregation request
     * @param req 
@@ -51,16 +50,21 @@ export default class RouteAggregation {
                             .then((onlineCrowdDetailed) => {
                                 let counter = 0
                                 let groups = [[]]
+                                let newGroupSize = GROUP_SIZE
+                                while(onlineCrowdDetailed.length%newGroupSize < MIN_GROUP_SIZE && onlineCrowdDetailed.length%newGroupSize != 0) {
+                                    newGroupSize++
+                                }
                                 while (onlineCrowdDetailed.length) {
-                                    groups[counter] = onlineCrowdDetailed.splice(0, GROUP_SIZE)
+                                    groups[counter] = onlineCrowdDetailed.splice(0, newGroupSize)
                                     counter++
                                 }
-                                this.aggregationObject.numberOfGroups = groups.length
+                                let uniqueId = uniqid()
+                                this.aggregationObjects[uniqueId] = new AggreagationObject()
+                                this.aggregationObjects[uniqueId].numberOfGroups = groups.length
                                 if (req.body.request.anonymity > MIN_ANON) {
-                                    this.aggregationObject.anonymity = req.body.request.anonymity
+                                    this.aggregationObjects[uniqueId].anonymity = req.body.request.anonymity
                                 }
-                                
-                                startAggregationPromise(req, groups)
+                                startAggregationPromise(req, groups, uniqueId)
                                     .then((result) => {
                                         res.status(200).json(result).send()
                                     })
@@ -109,24 +113,26 @@ export default class RouteAggregation {
     handlePostStepsResult = (req, res) => {
         console.log(req.body.data.raw)
         let raw: any[] = req.body.data.raw
+        let id = req.body.requestHeader.id
+
         raw.forEach(element => {
             // somehow concat doesn't work
-            this.aggregationObject.raw.push(element)
+            this.aggregationObjects[id].raw.push(element)
         });
-        this.aggregationObject.collectedGroups++
-        if (this.aggregationObject.collectedGroups == this.aggregationObject.numberOfGroups) {
-            console.log(this.aggregationObject)
+        this.aggregationObjects[id].collectedGroups++
+        if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
+            console.log(this.aggregationObjects[id])
             console.log("received all data, clean now")
-            let sum = this.aggregationObject.raw.reduce((a, b) => a + b, 0)
+            let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0)
             let result = {
-                id: req.body.requestHeader.id,
+                id: id,
                 start: req.body.requestHeader.start,
                 end: Date.now(),
                 average: sum/req.body.data.n,
                 raw: raw,
                 options: req.body.requestData
             }
-            console.log(this.aggregationObject)
+            console.log(this.aggregationObjects[id])
             console.log(result)
         }
         let response = {
@@ -143,17 +149,19 @@ export default class RouteAggregation {
     handlePostWalkResult = (req, res) => {
         console.log(req.body.data.raw)
         let raw: any[] = req.body.data.raw
+        let id = req.body.requestHeader.id
+
         raw.forEach(element => {
             // somehow concat doesn't work
-            this.aggregationObject.raw.push(element)
+            this.aggregationObjects[id].raw.push(element)
         });
-        this.aggregationObject.collectedGroups++
-        if (this.aggregationObject.collectedGroups == this.aggregationObject.numberOfGroups) {
-            console.log(this.aggregationObject)
+        this.aggregationObjects[id].collectedGroups++
+        if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
+            console.log(this.aggregationObjects[id])
             console.log("received all data, clean now")
-            let sum = this.aggregationObject.raw.reduce((a, b) => a + b, 0)
+            let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0)
             let result = {
-                id: req.body.requestHeader.id,
+                id: id,
                 start: req.body.requestHeader.start,
                 end: Date.now(),
                 average: sum/req.body.data.n,
@@ -175,16 +183,20 @@ export default class RouteAggregation {
      */
     handlePostLocationResult = (req, res) => {
         let raw: any[] = req.body.data.raw
+        let id = req.body.requestHeader.id
         raw.forEach(element => {
             // somehow concat doesn't work
-            this.aggregationObject.raw.push(element)
+            this.aggregationObjects[id].raw.push(element)
         });
-        this.aggregationObject.collectedGroups++
-        if (this.aggregationObject.collectedGroups == this.aggregationObject.numberOfGroups) {
-            console.log(this.aggregationObject.raw)
+        this.aggregationObjects[id].collectedGroups++
+        console.log(this.aggregationObjects[id].collectedGroups)
+        console.log(this.aggregationObjects[id].numberOfGroups)
+        if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
+            console.log(this.aggregationObjects[id].raw)
             console.log("received all data, clean now")
-            this.aggregationObject.raw = suppressLocations(this.aggregationObject.anonymity, this.aggregationObject.raw)
-            console.log(this.aggregationObject.raw)
+            this.aggregationObjects[id].raw = suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw)
+            console.log(this.aggregationObjects[id].raw)
+            delete this.aggregationObjects[id]
         }
         let response = {
             "status": "success"
@@ -200,17 +212,19 @@ export default class RouteAggregation {
     handlePostPresenceResult = (req, res) => {
         console.log(req.body.data.raw)
         let raw: any[] = req.body.data.raw
+        let id = req.body.requestHeader.id
+
         raw.forEach(element => {
             // somehow concat doesn't work
-            this.aggregationObject.raw.push(element)
+            this.aggregationObjects[id].raw.push(element)
         });
-        this.aggregationObject.collectedGroups++
-        if (this.aggregationObject.collectedGroups == this.aggregationObject.numberOfGroups) {
-            console.log(this.aggregationObject)
+        this.aggregationObjects[id].collectedGroups++
+        if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
+            console.log(this.aggregationObjects[id])
             console.log("received all data, clean now")
-            let sum = this.aggregationObject.raw.reduce((a, b) => a + b, 0)
+            let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0)
             let result = {
-                id: req.body.requestHeader.id,
+                id: id,
                 start: req.body.requestHeader.start,
                 end: Date.now(),
                 visits: sum,

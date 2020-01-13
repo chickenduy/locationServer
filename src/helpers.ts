@@ -36,7 +36,7 @@ let suppressLocations = (k: number = 2,array: Array<any>) => {
                 break
             }
         }
-        if (found >= k) {
+        if (found < k-1) {
             unique.push(i)
         }
         found = 0

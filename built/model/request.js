@@ -11,17 +11,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const communication_1 = __importDefault(require("../communication"));
-const uniqid_1 = __importDefault(require("uniqid"));
 const requestModel = __importStar(require("./requestModels"));
-let startAggregationPromise = (req, groups) => {
+let startAggregationPromise = (req, groups, uniqueId) => {
     return new Promise((resolve, reject) => {
         let com = new communication_1.default();
-        let uniqueId = uniqid_1.default();
         let requestHeader = requestModel.requestHeaderModel(uniqueId, req.body.requestType);
         let index = 1;
         groups.forEach((group) => {
             let data = requestModel.dataModel();
-            let requestOptions = requestModel.requestOptionsModel(index, group);
+            let requestOptions = requestModel.requestOptionsModel(index, groups.length, group);
             let requestData = null;
             let request = req.body.request;
             switch (req.body.requestType) {
@@ -32,7 +30,7 @@ let startAggregationPromise = (req, groups) => {
                     requestData = requestModel.requestWalkModel(request.start, request.end);
                     break;
                 case "location":
-                    requestData = requestModel.requestLocationModel(request.timestamp, request.accuracy);
+                    requestData = requestModel.requestLocationModel(request.timestamp, request.accuracy, request.anonymity);
                     break;
                 case "presence":
                     requestData = requestModel.requestPresenceModel(request.start, request.end, request.long, request.lat, request.radius);

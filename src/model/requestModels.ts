@@ -7,10 +7,10 @@ let requestHeaderModel = (id: String, type: String) => {
     }
 }
 
-let requestOptionsModel = (groupNumber: number, group: String[][]) => {
+let requestOptionsModel = (groupNumber: number, numberOfGroups: number, group: String[][]) => {
     return {
         groupNumber: groupNumber,
-        numberOfGroups: group.length,
+        numberOfGroups: numberOfGroups,
         from: "",
         group: group, // Pushy Tokens of aggregation group
     }
@@ -29,10 +29,11 @@ let requestWalkModel = (start: number, end: number) => {
     }
 }
 
-let requestLocationModel = (timestamp: number, accuracy) => {
+let requestLocationModel = (timestamp: number, accuracy: number, anonymity: number) => {
     return {
         timestamp: timestamp,
-        accuracy: accuracy // Accuracy of spatial cloaking [1-5] [10km-1m]
+        accuracy: accuracy, // Accuracy of spatial cloaking [1-5] [10km-1m]
+        anonymity: anonymity
     }
 }
 
