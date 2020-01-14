@@ -31,9 +31,9 @@ let requestWalkModel = (start, end) => {
     };
 };
 exports.requestWalkModel = requestWalkModel;
-let requestLocationModel = (timestamp, accuracy, anonymity) => {
+let requestLocationModel = (date, accuracy, anonymity) => {
     return {
-        timestamp: timestamp,
+        date: date,
         accuracy: accuracy,
         anonymity: anonymity
     };

@@ -15,6 +15,7 @@ const helpers_1 = require("../helpers");
 const uniqid_1 = __importDefault(require("uniqid"));
 const crowd = __importStar(require("../model/crowd"));
 const request_1 = require("../model/request");
+const aggregationResult_1 = require("../model/aggregationResult");
 const aggregationObject_1 = __importDefault(require("../model/aggregationObject"));
 const GROUP_SIZE = 2;
 const MIN_GROUP_SIZE = 2;
@@ -128,19 +129,24 @@ class RouteAggregation {
             });
             this.aggregationObjects[id].collectedGroups++;
             if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
-                console.log(this.aggregationObjects[id]);
-                console.log("received all data, clean now");
                 let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0);
                 let result = {
                     id: id,
+                    type: req.body.requestHeader.type,
                     start: req.body.requestHeader.start,
                     end: Date.now(),
-                    average: sum / req.body.data.n,
-                    raw: raw,
+                    average_steps: sum / req.body.data.n,
+                    raw: this.aggregationObjects[id].raw,
                     options: req.body.requestData
                 };
-                console.log(this.aggregationObjects[id]);
-                console.log(result);
+                aggregationResult_1.createAggregationResultPromise(result)
+                    .then(() => {
+                    console.log("Success");
+                })
+                    .catch((err) => {
+                    console.log(err);
+                });
+                delete this.aggregationObjects[id];
             }
             let response = {
                 "status": "success"
@@ -162,18 +168,24 @@ class RouteAggregation {
             });
             this.aggregationObjects[id].collectedGroups++;
             if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
-                console.log(this.aggregationObjects[id]);
-                console.log("received all data, clean now");
                 let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0);
                 let result = {
                     id: id,
-                    start: req.body.requestHeader.start,
+                    type: req.body.requestHeader.type,
+                    start: req.body.requestHeader.type,
                     end: Date.now(),
                     average: sum / req.body.data.n,
-                    raw: raw,
+                    raw: this.aggregationObjects[id].raw,
                     options: req.body.requestData
                 };
-                console.log(result);
+                aggregationResult_1.createAggregationResultPromise(result)
+                    .then(() => {
+                    console.log("Success");
+                })
+                    .catch((err) => {
+                    console.log(err);
+                });
+                delete this.aggregationObjects[id];
             }
             let response = {
                 "status": "success"
@@ -196,10 +208,22 @@ class RouteAggregation {
             console.log(this.aggregationObjects[id].collectedGroups);
             console.log(this.aggregationObjects[id].numberOfGroups);
             if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
-                console.log(this.aggregationObjects[id].raw);
-                console.log("received all data, clean now");
                 this.aggregationObjects[id].raw = helpers_1.suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw);
-                console.log(this.aggregationObjects[id].raw);
+                let result = {
+                    id: id,
+                    type: req.body.requestHeader.type,
+                    start: req.body.requestHeader.start,
+                    end: Date.now(),
+                    raw: this.aggregationObjects[id].raw,
+                    options: req.body.requestData
+                };
+                aggregationResult_1.createAggregationResultPromise(result)
+                    .then(() => {
+                    console.log("Success");
+                })
+                    .catch((err) => {
+                    console.log(err);
+                });
                 delete this.aggregationObjects[id];
             }
             let response = {
@@ -227,13 +251,21 @@ class RouteAggregation {
                 let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0);
                 let result = {
                     id: id,
+                    type: req.body.requestHeader.type,
                     start: req.body.requestHeader.start,
                     end: Date.now(),
                     visits: sum,
-                    raw: raw,
+                    raw: this.aggregationObjects[id].raw,
                     options: req.body.requestData
                 };
-                console.log(result);
+                aggregationResult_1.createAggregationResultPromise(result)
+                    .then(() => {
+                    console.log("Success");
+                })
+                    .catch((err) => {
+                    console.log(err);
+                });
+                delete this.aggregationObjects[id];
             }
             let response = {
                 "status": "success"
@@ -241,14 +273,31 @@ class RouteAggregation {
             res.status(200).json(response).send();
         };
         this.handleGetAggregationResult = (req, res) => {
+            let id = req.query.id;
+            if (id != null) {
+                aggregationResult_1.findAggregationResultPromise(id)
+                    .then((result) => {
+                    res.status(200).json(result).send();
+                })
+                    .catch((err) => {
+                    let response = {
+                        "status": "failure",
+                        "source": "startAggregation",
+                        "message": err
+                    };
+                    res.status(500).json(response).send();
+                });
+            }
+            else {
+                let response = {
+                    "status": "failure",
+                    "source": "startAggregation",
+                    "message": ""
+                };
+                res.status(500).json(response).send();
+            }
         };
     }
 }
 exports.default = RouteAggregation;
-class Location {
-    constructor(lat, long) {
-        this.lat = lat;
-        this.long = long;
-    }
-}
 //# sourceMappingURL=routeAggregation.js.map

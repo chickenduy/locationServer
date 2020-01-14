@@ -19,7 +19,7 @@ let startAggregationPromise = (req, groups: any[][], uniqueId: String) => {
                     requestData = requestModel.requestWalkModel(request.start, request.end)
                     break
                 case "location":
-                    requestData = requestModel.requestLocationModel(request.timestamp, request.accuracy, request.anonymity)
+                    requestData = requestModel.requestLocationModel(request.date, request.accuracy, request.anonymity)
                     break
                 case "presence":
                     requestData = requestModel.requestPresenceModel(request.start, request.end, request.long, request.lat, request.radius)
@@ -28,8 +28,13 @@ let startAggregationPromise = (req, groups: any[][], uniqueId: String) => {
             let message = requestModel.messageModel(group[0].id, requestHeader, requestOptions, requestData, data)
             console.log(message)
             com.sendNotificationPromise(message)
-                .then((result) => {
-                    resolve(result)
+                .then(() => {
+                    let response = {
+                        id: requestHeader.id,
+                        type: requestHeader.type,
+                        numberOfGroups: requestOptions.numberOfGroups
+                    }
+                    resolve(response)
                 })
                 .catch((err) => {
                     reject(err)

@@ -29,9 +29,9 @@ let requestWalkModel = (start: number, end: number) => {
     }
 }
 
-let requestLocationModel = (timestamp: number, accuracy: number, anonymity: number) => {
+let requestLocationModel = (date: number, accuracy: number, anonymity: number) => {
     return {
-        timestamp: timestamp,
+        date: date,
         accuracy: accuracy, // Accuracy of spatial cloaking [1-5] [10km-1m]
         anonymity: anonymity
     }

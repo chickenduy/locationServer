@@ -4,7 +4,7 @@ export default class RoutesHandling {
 	 * @param req 
 	 * @param res 
 	 */
-	public handleBasicRequest = (req, res) => {
+	handleBasicRequest = (req, res) => {
 		res.set({
 			'Content-Type': 'application/json'
 		})

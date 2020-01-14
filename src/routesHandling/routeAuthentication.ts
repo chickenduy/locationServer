@@ -65,9 +65,13 @@ export default class RouteAuthentication {
         /**
          * Extract token and password from request
          */
-        
-        username = req.body.username
-        password = req.body.password
+        if (req.method === "GET") {
+            username = req.query.username
+            password = req.query.password
+        } else {
+            username = req.body.username
+            password = req.body.password
+        }
 
         if (!username || !password) {
             let result = {
@@ -93,12 +97,12 @@ export default class RouteAuthentication {
             })
     }
 
-     /**
-     * Authenticate the crowd with stored Pushy token and password
-     * @param req 
-     * @param res 
-     * @param next 
-     */
+    /**
+    * Authenticate the crowd with stored Pushy token and password
+    * @param req 
+    * @param res 
+    * @param next 
+    */
     authenticateRequest = (req, res, next) => {
         console.log("authenticateRequest")
 
@@ -120,7 +124,7 @@ export default class RouteAuthentication {
             res.status(500).json(result).send()
             return
         }
-        
+
         crowd.authenticateCrowdPromise(id, password)
             .then(() => {
                 next()

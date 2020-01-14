@@ -68,8 +68,14 @@ class RouteAuthentication {
             /**
              * Extract token and password from request
              */
-            username = req.body.username;
-            password = req.body.password;
+            if (req.method === "GET") {
+                username = req.query.username;
+                password = req.query.password;
+            }
+            else {
+                username = req.body.username;
+                password = req.body.password;
+            }
             if (!username || !password) {
                 let result = {
                     "status": "failure",
