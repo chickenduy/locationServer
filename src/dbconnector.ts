@@ -8,7 +8,7 @@ const DB = "data"
 let conn = null
 let db: mongo.Db = null
 
-function openDb() {
+let openDb = () => {
 	return new Promise<mongo.Db>((resolve, reject) => {
 		if (conn) {
 			if (db) {
@@ -36,7 +36,7 @@ function openDb() {
 	})
 }
 
-function getDb() {
+let getDb = () => {
 	return new Promise<mongo.Db>((resolve, reject) => {
 		if (!db) {
 			openDb()

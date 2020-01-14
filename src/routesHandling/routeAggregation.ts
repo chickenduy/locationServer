@@ -1,5 +1,5 @@
-import Communication from "../communication";
-import { shuffleFisherYates, suppressSingles, suppressLocations } from "../helpers";
+import Communication from "../model/communication";
+import { shuffleFisherYates, suppressSingles, suppressLocations } from "../functions/helpers";
 import uniqid from 'uniqid';
 
 import * as crowd from '../model/crowd';

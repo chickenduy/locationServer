@@ -1,7 +1,7 @@
-import RouteHandling from './routesHandling/routesHandling';
-import RouteAggregation from './routesHandling/routeAggregation';
-import RouteCrowd from './routesHandling/routeCrowd';
-import RouteAuthentication from './routesHandling/routeAuthentication';
+import RouteHandling from '../routesHandling/routesHandling';
+import RouteAggregation from '../routesHandling/routeAggregation';
+import RouteCrowd from '../routesHandling/routeCrowd';
+import RouteAuthentication from '../routesHandling/routeAuthentication';
 
 export default class Router {
     routesHandling = new RouteHandling()

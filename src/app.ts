@@ -1,5 +1,5 @@
 import express from 'express';
-import Routes from './routes';
+import Routes from './model/routes';
 import bodyParser from 'body-parser';
 import { getDb } from './dbconnector';
 

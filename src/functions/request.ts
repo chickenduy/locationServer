@@ -1,4 +1,4 @@
-import Communication from '../communication';
+import Communication from '../model/communication';
 import * as requestModel from '../model/requestModels'
 
 let startAggregationPromise = (req, groups: any[][], uniqueId: String) => {
