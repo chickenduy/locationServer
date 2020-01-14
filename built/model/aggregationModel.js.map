@@ -1,0 +1,1 @@
+{"version":3,"file":"aggregationModel.js","sourceRoot":"","sources":["../../src/model/aggregationModel.ts"],"names":[],"mappings":";;AAAA,MAAqB,iBAAiB;IAMlC;QACI,IAAI,CAAC,GAAG,GAAG,EAAE,CAAA;QACb,IAAI,CAAC,cAAc,GAAG,CAAC,CAAA;QACvB,IAAI,CAAC,eAAe,GAAG,CAAC,CAAA;QACxB,IAAI,CAAC,SAAS,GAAG,CAAC,CAAA;IACtB,CAAC;CACJ;AAZD,oCAYC"}

@@ -14,9 +14,9 @@ const communication_1 = __importDefault(require("../communication"));
 const helpers_1 = require("../helpers");
 const uniqid_1 = __importDefault(require("uniqid"));
 const crowd = __importStar(require("../model/crowd"));
-const request_1 = require("../model/request");
-const aggregationResult_1 = require("../model/aggregationResult");
-const aggregationObject_1 = __importDefault(require("../model/aggregationObject"));
+const request_1 = require("../functions/request");
+const aggregation_1 = require("../functions/aggregation");
+const aggregationModel_1 = __importDefault(require("../model/aggregationModel"));
 const GROUP_SIZE = 2;
 const MIN_GROUP_SIZE = 2;
 const MIN_ANON = 2;
@@ -69,7 +69,7 @@ class RouteAggregation {
                             counter++;
                         }
                         let uniqueId = uniqid_1.default();
-                        this.aggregationObjects[uniqueId] = new aggregationObject_1.default();
+                        this.aggregationObjects[uniqueId] = new aggregationModel_1.default();
                         this.aggregationObjects[uniqueId].numberOfGroups = groups.length;
                         if (req.body.request.anonymity > MIN_ANON) {
                             this.aggregationObjects[uniqueId].anonymity = req.body.request.anonymity;
@@ -139,7 +139,7 @@ class RouteAggregation {
                     raw: this.aggregationObjects[id].raw,
                     options: req.body.requestData
                 };
-                aggregationResult_1.createAggregationResultPromise(result)
+                aggregation_1.createAggregationResultPromise(result)
                     .then(() => {
                     console.log("Success");
                 })
@@ -178,7 +178,7 @@ class RouteAggregation {
                     raw: this.aggregationObjects[id].raw,
                     options: req.body.requestData
                 };
-                aggregationResult_1.createAggregationResultPromise(result)
+                aggregation_1.createAggregationResultPromise(result)
                     .then(() => {
                     console.log("Success");
                 })
@@ -217,7 +217,7 @@ class RouteAggregation {
                     raw: this.aggregationObjects[id].raw,
                     options: req.body.requestData
                 };
-                aggregationResult_1.createAggregationResultPromise(result)
+                aggregation_1.createAggregationResultPromise(result)
                     .then(() => {
                     console.log("Success");
                 })
@@ -258,7 +258,7 @@ class RouteAggregation {
                     raw: this.aggregationObjects[id].raw,
                     options: req.body.requestData
                 };
-                aggregationResult_1.createAggregationResultPromise(result)
+                aggregation_1.createAggregationResultPromise(result)
                     .then(() => {
                     console.log("Success");
                 })
@@ -275,7 +275,7 @@ class RouteAggregation {
         this.handleGetAggregationResult = (req, res) => {
             let id = req.query.id;
             if (id != null) {
-                aggregationResult_1.findAggregationResultPromise(id)
+                aggregation_1.findAggregationResultPromise(id)
                     .then((result) => {
                     res.status(200).json(result).send();
                 })

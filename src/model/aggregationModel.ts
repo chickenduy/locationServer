@@ -1,4 +1,4 @@
-export default class AggreagationObject {
+export default class AggreagationModel {
     raw: any[]
     numberOfGroups: number
     collectedGroups: number

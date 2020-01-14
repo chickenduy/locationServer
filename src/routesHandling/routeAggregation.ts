@@ -3,16 +3,16 @@ import { shuffleFisherYates, suppressSingles, suppressLocations } from "../helpe
 import uniqid from 'uniqid';
 
 import * as crowd from '../model/crowd';
-import { startAggregationPromise } from '../model/request';
-import { createAggregationResultPromise, findAggregationResultPromise } from '../model/aggregationResult'
-import AggreagationObject from "../model/aggregationObject";
+import { startAggregationPromise } from '../functions/request';
+import { createAggregationResultPromise, findAggregationResultPromise } from '../functions/aggregation'
+import AggreagationModel from "../model/aggregationModel";
 
 const GROUP_SIZE = 2
 const MIN_GROUP_SIZE = 2
 const MIN_ANON = 2
 
 export default class RouteAggregation {
-    aggregationObjects: { [id: string]: AggreagationObject; } = {};
+    aggregationObjects: { [id: string]: AggreagationModel; } = {};
 
     /**
     * This handles an incoming aggregation request
@@ -60,7 +60,7 @@ export default class RouteAggregation {
                                     counter++
                                 }
                                 let uniqueId = uniqid()
-                                this.aggregationObjects[uniqueId] = new AggreagationObject()
+                                this.aggregationObjects[uniqueId] = new AggreagationModel()
                                 this.aggregationObjects[uniqueId].numberOfGroups = groups.length
                                 if (req.body.request.anonymity > MIN_ANON) {
                                     this.aggregationObjects[uniqueId].anonymity = req.body.request.anonymity
