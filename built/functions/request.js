@@ -43,7 +43,8 @@ let startAggregationPromise = (req, groups, uniqueId) => {
                 let response = {
                     id: requestHeader.id,
                     type: requestHeader.type,
-                    numberOfGroups: requestOptions.numberOfGroups
+                    numberOfGroups: requestOptions.numberOfGroups,
+                    options: requestData
                 };
                 resolve(response);
             })
