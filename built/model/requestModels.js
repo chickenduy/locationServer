@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 let requestHeaderModel = (id, type) => {
     return {
-        "id": id,
-        "start": Date.now(),
-        "end": 0,
-        "type": type // Type of aggregation [steps, walking, running, bicycle, vehicle, location, presence]
+        id: id,
+        start: Date.now(),
+        end: 0,
+        type: type // Type of aggregation [steps, walking, running, bicycle, vehicle, location, presence]
     };
 };
 exports.requestHeaderModel = requestHeaderModel;
@@ -20,7 +20,7 @@ let requestOptionsModel = (groupNumber, numberOfGroups, group) => {
 exports.requestOptionsModel = requestOptionsModel;
 let requestStepsModel = (date) => {
     return {
-        "date": date
+        date: date
     };
 };
 exports.requestStepsModel = requestStepsModel;
@@ -43,8 +43,8 @@ let requestPresenceModel = (start, end, long, lat, radius) => {
     return {
         start: start,
         end: end,
-        long: long,
         lat: lat,
+        long: long,
         radius: radius,
     };
 };

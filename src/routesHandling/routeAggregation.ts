@@ -7,9 +7,9 @@ import { startAggregationPromise } from '../functions/request';
 import { createAggregationResultPromise, findAggregationResultPromise } from '../functions/aggregation'
 import AggreagationModel from "../model/aggregationModel";
 
-const GROUP_SIZE = 2
-const MIN_GROUP_SIZE = 2
-const MIN_ANON = 2
+const GROUP_SIZE = 1
+const MIN_GROUP_SIZE = 1
+const MIN_ANON = 1
 
 export default class RouteAggregation {
     aggregationObjects: { [id: string]: AggreagationModel; } = {};
@@ -49,6 +49,15 @@ export default class RouteAggregation {
                         onlineCrowd = shuffleFisherYates(onlineCrowd)
                         crowd.getCrowdWithTokensPromise(onlineCrowd)
                             .then((onlineCrowdDetailed) => {
+                                if(onlineCrowdDetailed.length < MIN_GROUP_SIZE) {
+                                    let response = {
+                                        "status": "failure",
+                                        "source": "startAggregation",
+                                        "message": "not enough participants"
+                                    }
+                                    res.status(500).json(response).send()
+                                    return
+                                }
                                 let counter = 0
                                 let groups = [[]]
                                 let newGroupSize = GROUP_SIZE
@@ -65,6 +74,7 @@ export default class RouteAggregation {
                                 if (req.body.request.anonymity > MIN_ANON) {
                                     this.aggregationObjects[uniqueId].anonymity = req.body.request.anonymity
                                 }
+                                console.log("start aggregation")
                                 startAggregationPromise(req, groups, uniqueId)
                                     .then((result) => {
                                         res.status(200).json(result).send()

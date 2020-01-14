@@ -1,9 +1,9 @@
 let requestHeaderModel = (id: String, type: String) => {
     return {
-        "id": id, // Unique ID of request
-        "start": Date.now(), // Start date of request
-        "end": 0, // End date of request
-        "type": type // Type of aggregation [steps, walking, running, bicycle, vehicle, location, presence]
+        id: id, // Unique ID of request
+        start: Date.now(), // Start date of request
+        end: 0, // End date of request
+        type: type // Type of aggregation [steps, walking, running, bicycle, vehicle, location, presence]
     }
 }
 
@@ -18,7 +18,7 @@ let requestOptionsModel = (groupNumber: number, numberOfGroups: number, group: S
 
 let requestStepsModel = (date: number) => {
     return {
-        "date": date
+        date: date
     }
 }
 
@@ -41,8 +41,8 @@ let requestPresenceModel = (start: number, end: number, long: number, lat: numbe
     return {
         start: start,
         end: end,
-        long: long,
         lat: lat,
+        long: long,
         radius: radius, // Radius from location
     }
 }
