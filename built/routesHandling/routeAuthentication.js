@@ -51,7 +51,6 @@ class RouteAuthentication {
                     "source": "authenticateCrowdPromise",
                     "message": err
                 };
-                console.log(result);
                 res.status(500).json(result).send();
             });
         };
