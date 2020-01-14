@@ -10,7 +10,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const communication_1 = __importDefault(require("../communication"));
+const communication_1 = __importDefault(require("../model/communication"));
 const requestModel = __importStar(require("../model/requestModels"));
 let startAggregationPromise = (req, groups, uniqueId) => {
     return new Promise((resolve, reject) => {

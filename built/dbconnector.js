@@ -9,7 +9,7 @@ const uri = "mongodb+srv://chickenduy:LeAnh2000!@locationstorage-mlqqq.mongodb.n
 const DB = "data";
 let conn = null;
 let db = null;
-function openDb() {
+let openDb = () => {
     return new Promise((resolve, reject) => {
         if (conn) {
             if (db) {
@@ -35,8 +35,8 @@ function openDb() {
             });
         }
     });
-}
-function getDb() {
+};
+let getDb = () => {
     return new Promise((resolve, reject) => {
         if (!db) {
             openDb()
@@ -49,6 +49,6 @@ function getDb() {
         }
         resolve(db);
     });
-}
+};
 exports.getDb = getDb;
 //# sourceMappingURL=dbconnector.js.map

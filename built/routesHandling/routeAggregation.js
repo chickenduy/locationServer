@@ -10,8 +10,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const communication_1 = __importDefault(require("../communication"));
-const helpers_1 = require("../helpers");
+const communication_1 = __importDefault(require("../model/communication"));
+const helpers_1 = require("../functions/helpers");
 const uniqid_1 = __importDefault(require("uniqid"));
 const crowd = __importStar(require("../model/crowd"));
 const request_1 = require("../functions/request");
