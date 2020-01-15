@@ -11,7 +11,7 @@ let createAggregationResultPromise = (result) => {
             .then((db) => {
             db.collection(COLLECTION_RESULT).insertOne(result)
                 .then(() => {
-                resolve();
+                resolve("saved aggregation");
             })
                 .catch((err) => {
                 reject(err);

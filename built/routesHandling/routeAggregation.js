@@ -150,8 +150,13 @@ class RouteAggregation {
                     options: req.body.requestData
                 };
                 aggregation_1.createAggregationResultPromise(result)
-                    .then(() => {
-                    console.log("Success");
+                    .then((result) => {
+                    let response = {
+                        "status": "success",
+                        "source": "handlePostPresenceResult",
+                        "message": result
+                    };
+                    res.status(200).json(response).send();
                 })
                     .catch((err) => {
                     let response = {
@@ -198,8 +203,13 @@ class RouteAggregation {
                     options: req.body.requestData
                 };
                 aggregation_1.createAggregationResultPromise(result)
-                    .then(() => {
-                    console.log("Success");
+                    .then((result) => {
+                    let response = {
+                        "status": "success",
+                        "source": "handlePostPresenceResult",
+                        "message": result
+                    };
+                    res.status(200).json(response).send();
                 })
                     .catch((err) => {
                     let response = {
@@ -233,8 +243,6 @@ class RouteAggregation {
                 this.aggregationObjects[id].raw.push(element);
             });
             this.aggregationObjects[id].collectedGroups++;
-            console.log(this.aggregationObjects[id].collectedGroups);
-            console.log(this.aggregationObjects[id].numberOfGroups);
             if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
                 let supressed = helpers_1.suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw);
                 let result = {
@@ -246,9 +254,11 @@ class RouteAggregation {
                     options: req.body.requestData
                 };
                 aggregation_1.createAggregationResultPromise(result)
-                    .then(() => {
+                    .then((result) => {
                     let response = {
-                        "status": "success"
+                        "status": "success",
+                        "source": "handlePostPresenceResult",
+                        "message": result
                     };
                     res.status(200).json(response).send();
                 })
@@ -297,8 +307,13 @@ class RouteAggregation {
                     options: req.body.requestData
                 };
                 aggregation_1.createAggregationResultPromise(result)
-                    .then(() => {
-                    console.log("Success");
+                    .then((result) => {
+                    let response = {
+                        "status": "success",
+                        "source": "handlePostPresenceResult",
+                        "message": result
+                    };
+                    res.status(200).json(response).send();
                 })
                     .catch((err) => {
                     let response = {

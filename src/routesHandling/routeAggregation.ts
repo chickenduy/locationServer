@@ -143,8 +143,13 @@ export default class RouteAggregation {
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
-                .then(() => {
-                    console.log("Success")
+                .then((result) => {
+                    let response = {
+                        "status": "success",
+                        "source": "handlePostPresenceResult",
+                        "message": result
+                    }
+                    res.status(200).json(response).send()
                 })
                 .catch((err) => {
                     let response = {
@@ -193,8 +198,13 @@ export default class RouteAggregation {
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
-                .then(() => {
-                    console.log("Success")
+                .then((result) => {
+                    let response = {
+                        "status": "success",
+                        "source": "handlePostPresenceResult",
+                        "message": result
+                    }
+                    res.status(200).json(response).send()
                 })
                 .catch((err) => {
                     let response = {
@@ -229,10 +239,8 @@ export default class RouteAggregation {
             this.aggregationObjects[id].raw.push(element)
         });
         this.aggregationObjects[id].collectedGroups++
-        console.log(this.aggregationObjects[id].collectedGroups)
-        console.log(this.aggregationObjects[id].numberOfGroups)
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
-            let supressed  = suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw)
+            let supressed = suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw)
             let result = {
                 id: id,
                 type: req.body.requestHeader.type,
@@ -242,9 +250,11 @@ export default class RouteAggregation {
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
-                .then(() => {
+                .then((result) => {
                     let response = {
-                        "status": "success"
+                        "status": "success",
+                        "source": "handlePostPresenceResult",
+                        "message": result
                     }
                     res.status(200).json(response).send()
                 })
@@ -295,8 +305,13 @@ export default class RouteAggregation {
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
-                .then(() => {
-                    console.log("Success")
+                .then((result) => {
+                    let response = {
+                        "status": "success",
+                        "source": "handlePostPresenceResult",
+                        "message": result
+                    }
+                    res.status(200).json(response).send()
                 })
                 .catch((err) => {
                     let response = {
