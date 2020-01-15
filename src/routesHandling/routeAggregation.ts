@@ -49,7 +49,7 @@ export default class RouteAggregation {
                         onlineCrowd = shuffleFisherYates(onlineCrowd)
                         crowd.getCrowdWithTokensPromise(onlineCrowd)
                             .then((onlineCrowdDetailed) => {
-                                if(onlineCrowdDetailed.length < MIN_GROUP_SIZE) {
+                                if (onlineCrowdDetailed.length < MIN_GROUP_SIZE) {
                                     let response = {
                                         "status": "failure",
                                         "source": "startAggregation",
@@ -147,14 +147,23 @@ export default class RouteAggregation {
                     console.log("Success")
                 })
                 .catch((err) => {
-                    console.log(err)
+                    let response = {
+                        "status": "failure",
+                        "source": "createAggregationResultPromise",
+                        "message": err
+                    }
+                    res.status(200).json(response).send()
                 })
             delete this.aggregationObjects[id]
         }
-        let response = {
-            "status": "success"
+        else {
+            let response = {
+                "status": "success",
+                "source": "handlePostPresenceResult",
+                "message": `received results (${this.aggregationObjects[id].collectedGroups}/${this.aggregationObjects[id].numberOfGroups})`
+            }
+            res.status(200).json(response).send()
         }
-        res.status(200).json(response).send()
     }
 
     /**
@@ -188,14 +197,23 @@ export default class RouteAggregation {
                     console.log("Success")
                 })
                 .catch((err) => {
-                    console.log(err)
+                    let response = {
+                        "status": "failure",
+                        "source": "createAggregationResultPromise",
+                        "message": err
+                    }
+                    res.status(200).json(response).send()
                 })
             delete this.aggregationObjects[id]
         }
-        let response = {
-            "status": "success"
+        else {
+            let response = {
+                "status": "success",
+                "source": "handlePostPresenceResult",
+                "message": `received results (${this.aggregationObjects[id].collectedGroups}/${this.aggregationObjects[id].numberOfGroups})`
+            }
+            res.status(200).json(response).send()
         }
-        res.status(200).json(response).send()
     }
 
     /**
@@ -225,17 +243,29 @@ export default class RouteAggregation {
             }
             createAggregationResultPromise(result)
                 .then(() => {
-                    console.log("Success")
+                    let response = {
+                        "status": "success"
+                    }
+                    res.status(200).json(response).send()
                 })
                 .catch((err) => {
-                    console.log(err)
+                    let response = {
+                        "status": "failure",
+                        "source": "createAggregationResultPromise",
+                        "message": err
+                    }
+                    res.status(200).json(response).send()
                 })
             delete this.aggregationObjects[id]
         }
-        let response = {
-            "status": "success"
+        else {
+            let response = {
+                "status": "success",
+                "source": "handlePostPresenceResult",
+                "message": `received results (${this.aggregationObjects[id].collectedGroups}/${this.aggregationObjects[id].numberOfGroups})`
+            }
+            res.status(200).json(response).send()
         }
-        res.status(200).json(response).send()
     }
 
     /**
@@ -254,8 +284,6 @@ export default class RouteAggregation {
         });
         this.aggregationObjects[id].collectedGroups++
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
-            console.log(this.aggregationObjects[id])
-            console.log("received all data, clean now")
             let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0)
             let result = {
                 id: id,
@@ -271,14 +299,23 @@ export default class RouteAggregation {
                     console.log("Success")
                 })
                 .catch((err) => {
-                    console.log(err)
+                    let response = {
+                        "status": "failure",
+                        "source": "createAggregationResultPromise",
+                        "message": err
+                    }
+                    res.status(200).json(response).send()
                 })
             delete this.aggregationObjects[id]
         }
-        let response = {
-            "status": "success"
+        else {
+            let response = {
+                "status": "success",
+                "source": "handlePostPresenceResult",
+                "message": `received results (${this.aggregationObjects[id].collectedGroups}/${this.aggregationObjects[id].numberOfGroups})`
+            }
+            res.status(200).json(response).send()
         }
-        res.status(200).json(response).send()
     }
 
     handleGetAggregationResult = (req, res) => {

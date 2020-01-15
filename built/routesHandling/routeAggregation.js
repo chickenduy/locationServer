@@ -154,14 +154,23 @@ class RouteAggregation {
                     console.log("Success");
                 })
                     .catch((err) => {
-                    console.log(err);
+                    let response = {
+                        "status": "failure",
+                        "source": "createAggregationResultPromise",
+                        "message": err
+                    };
+                    res.status(200).json(response).send();
                 });
                 delete this.aggregationObjects[id];
             }
-            let response = {
-                "status": "success"
-            };
-            res.status(200).json(response).send();
+            else {
+                let response = {
+                    "status": "success",
+                    "source": "handlePostPresenceResult",
+                    "message": `received results (${this.aggregationObjects[id].collectedGroups}/${this.aggregationObjects[id].numberOfGroups})`
+                };
+                res.status(200).json(response).send();
+            }
         };
         /**
          *
@@ -193,14 +202,23 @@ class RouteAggregation {
                     console.log("Success");
                 })
                     .catch((err) => {
-                    console.log(err);
+                    let response = {
+                        "status": "failure",
+                        "source": "createAggregationResultPromise",
+                        "message": err
+                    };
+                    res.status(200).json(response).send();
                 });
                 delete this.aggregationObjects[id];
             }
-            let response = {
-                "status": "success"
-            };
-            res.status(200).json(response).send();
+            else {
+                let response = {
+                    "status": "success",
+                    "source": "handlePostPresenceResult",
+                    "message": `received results (${this.aggregationObjects[id].collectedGroups}/${this.aggregationObjects[id].numberOfGroups})`
+                };
+                res.status(200).json(response).send();
+            }
         };
         /**
          *
@@ -229,17 +247,29 @@ class RouteAggregation {
                 };
                 aggregation_1.createAggregationResultPromise(result)
                     .then(() => {
-                    console.log("Success");
+                    let response = {
+                        "status": "success"
+                    };
+                    res.status(200).json(response).send();
                 })
                     .catch((err) => {
-                    console.log(err);
+                    let response = {
+                        "status": "failure",
+                        "source": "createAggregationResultPromise",
+                        "message": err
+                    };
+                    res.status(200).json(response).send();
                 });
                 delete this.aggregationObjects[id];
             }
-            let response = {
-                "status": "success"
-            };
-            res.status(200).json(response).send();
+            else {
+                let response = {
+                    "status": "success",
+                    "source": "handlePostPresenceResult",
+                    "message": `received results (${this.aggregationObjects[id].collectedGroups}/${this.aggregationObjects[id].numberOfGroups})`
+                };
+                res.status(200).json(response).send();
+            }
         };
         /**
          *
@@ -256,8 +286,6 @@ class RouteAggregation {
             });
             this.aggregationObjects[id].collectedGroups++;
             if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
-                console.log(this.aggregationObjects[id]);
-                console.log("received all data, clean now");
                 let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0);
                 let result = {
                     id: id,
@@ -273,14 +301,23 @@ class RouteAggregation {
                     console.log("Success");
                 })
                     .catch((err) => {
-                    console.log(err);
+                    let response = {
+                        "status": "failure",
+                        "source": "createAggregationResultPromise",
+                        "message": err
+                    };
+                    res.status(200).json(response).send();
                 });
                 delete this.aggregationObjects[id];
             }
-            let response = {
-                "status": "success"
-            };
-            res.status(200).json(response).send();
+            else {
+                let response = {
+                    "status": "success",
+                    "source": "handlePostPresenceResult",
+                    "message": `received results (${this.aggregationObjects[id].collectedGroups}/${this.aggregationObjects[id].numberOfGroups})`
+                };
+                res.status(200).json(response).send();
+            }
         };
         this.handleGetAggregationResult = (req, res) => {
             let id = req.query.id;
