@@ -236,13 +236,13 @@ class RouteAggregation {
             console.log(this.aggregationObjects[id].collectedGroups);
             console.log(this.aggregationObjects[id].numberOfGroups);
             if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
-                this.aggregationObjects[id].raw = helpers_1.suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw);
+                let supressed = helpers_1.suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw);
                 let result = {
                     id: id,
                     type: req.body.requestHeader.type,
                     start: req.body.requestHeader.start,
                     end: Date.now(),
-                    raw: this.aggregationObjects[id].raw,
+                    raw: supressed,
                     options: req.body.requestData
                 };
                 aggregation_1.createAggregationResultPromise(result)
@@ -256,7 +256,7 @@ class RouteAggregation {
                     let response = {
                         "status": "failure",
                         "source": "createAggregationResultPromise",
-                        "message": err
+                        "message": err + ` ${this.aggregationObjects[id].raw}`
                     };
                     res.status(200).json(response).send();
                 });

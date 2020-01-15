@@ -232,13 +232,13 @@ export default class RouteAggregation {
         console.log(this.aggregationObjects[id].collectedGroups)
         console.log(this.aggregationObjects[id].numberOfGroups)
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
-            this.aggregationObjects[id].raw = suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw)
+            let supressed  = suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw)
             let result = {
                 id: id,
                 type: req.body.requestHeader.type,
                 start: req.body.requestHeader.start,
                 end: Date.now(),
-                raw: this.aggregationObjects[id].raw,
+                raw: supressed,
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
@@ -252,7 +252,7 @@ export default class RouteAggregation {
                     let response = {
                         "status": "failure",
                         "source": "createAggregationResultPromise",
-                        "message": err
+                        "message": err + ` ${this.aggregationObjects[id].raw}`
                     }
                     res.status(200).json(response).send()
                 })
