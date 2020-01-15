@@ -23,7 +23,7 @@ let suppressSingles = (array: Array<any>) => {
     return array
 }
 
-let suppressLocations = (k: number = 2,array: Array<any>) => {
+let suppressLocations = (k: number = 2, array: Array<any>) => {
     let found = 0
     let unique = []
     for (let i = 0; i < array.length; i++) {
