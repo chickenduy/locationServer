@@ -5,7 +5,7 @@ const COLLECTION_RESULT = "aggregation"
 let createAggregationResultPromise = (result) => {
     return new Promise((resolve, reject) => {
         if (result.raw.length == 0) {
-            return reject("There is no raw data to save")
+            reject("There is no raw data to save")
         }
         getDb()
             .then((db) => {
