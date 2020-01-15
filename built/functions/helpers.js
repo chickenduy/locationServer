@@ -24,20 +24,19 @@ let suppressSingles = (array) => {
     return array;
 };
 exports.suppressSingles = suppressSingles;
-let suppressLocations = (k = 2, array) => {
+let suppressLocations = (k, array) => {
     let found = 0;
     let unique = [];
     for (let i = 0; i < array.length; i++) {
         let temp = array[i];
         for (let j = 0; j < array.length; j++) {
             if (temp.lat == array[j].lat &&
-                temp.lon == array[j].lon &&
-                i != j) {
+                temp.lon == array[j].lon) {
                 found++;
                 break;
             }
         }
-        if (found < k - 1) {
+        if (found < k) {
             unique.push(i);
         }
         found = 0;
