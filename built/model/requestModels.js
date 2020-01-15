@@ -18,33 +18,42 @@ let requestOptionsModel = (groupNumber, numberOfGroups, group) => {
     };
 };
 exports.requestOptionsModel = requestOptionsModel;
-let requestStepsModel = (date) => {
+let requestStepsModel = (date, lat, lon, radius) => {
     return {
-        date: date
+        date: date,
+        lat: lat,
+        lon: lon,
+        radius: radius,
     };
 };
 exports.requestStepsModel = requestStepsModel;
-let requestWalkModel = (start, end) => {
-    return {
-        start: start,
-        end: end,
-    };
-};
-exports.requestWalkModel = requestWalkModel;
-let requestLocationModel = (date, accuracy, anonymity) => {
-    return {
-        date: date,
-        accuracy: accuracy,
-        anonymity: anonymity
-    };
-};
-exports.requestLocationModel = requestLocationModel;
-let requestPresenceModel = (start, end, long, lat, radius) => {
+let requestWalkModel = (start, end, lat, lon, radius) => {
     return {
         start: start,
         end: end,
         lat: lat,
-        long: long,
+        lon: lon,
+        radius: radius,
+    };
+};
+exports.requestWalkModel = requestWalkModel;
+let requestLocationModel = (date, accuracy, anonymity, lat, lon, radius) => {
+    return {
+        date: date,
+        accuracy: accuracy,
+        anonymity: anonymity,
+        lat: lat,
+        lon: lon,
+        radius: radius,
+    };
+};
+exports.requestLocationModel = requestLocationModel;
+let requestPresenceModel = (start, end, lat, lon, radius) => {
+    return {
+        start: start,
+        end: end,
+        lat: lat,
+        lon: lon,
         radius: radius,
     };
 };

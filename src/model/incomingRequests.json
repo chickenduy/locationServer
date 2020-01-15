@@ -4,7 +4,10 @@
         "password": "admin",
         "requestType": "steps",
         "request": {
-            "date": 0
+            "date": 0,
+            "lat": 0,
+            "lon": 0,
+            "radius": 0
         }
     },
     "walkRequest": {
@@ -13,7 +16,10 @@
         "requestType": "walk",
         "request": {
             "start": 0,
-            "end": 0
+            "end": 0,
+            "lat": 0,
+            "lon": 0,
+            "radius": 0
         }
     },
     "locationRequest": {
@@ -21,9 +27,12 @@
         "password": "admin",
         "requestType": "location",
         "request": {
-            "timestamp": 0,
+            "date": 0,
             "accuracy": 0,
-            "anonymity":0
+            "anonymity": 0,
+            "lat": 0,
+            "lon": 0,
+            "radius": 0
         }
     },
     "presenceRequest": {
@@ -34,7 +43,7 @@
             "start": 0,
             "end": 0,
             "lat": 0,
-            "long": 0,
+            "lon": 0,
             "radius": 1
         }
     }

@@ -16,33 +16,42 @@ let requestOptionsModel = (groupNumber: number, numberOfGroups: number, group: S
     }
 }
 
-let requestStepsModel = (date: number) => {
-    return {
-        date: date
-    }
-}
-
-let requestWalkModel = (start: number, end: number) => {
-    return {
-        start: start,
-        end: end,
-    }
-}
-
-let requestLocationModel = (date: number, accuracy: number, anonymity: number) => {
+let requestStepsModel = (date: number, lat: number, lon: number, radius: number) => {
     return {
         date: date,
-        accuracy: accuracy, // Accuracy of spatial cloaking [1-5] [10km-1m]
-        anonymity: anonymity
+        lat: lat,
+        lon: lon,
+        radius: radius,
     }
 }
 
-let requestPresenceModel = (start: number, end: number, long: number, lat: number, radius: number) => {
+let requestWalkModel = (start: number, end: number, lat: number, lon: number, radius: number) => {
     return {
         start: start,
         end: end,
         lat: lat,
-        long: long,
+        lon: lon,
+        radius: radius,
+    }
+}
+
+let requestLocationModel = (date: number, accuracy: number, anonymity: number, lat: number, lon: number, radius: number) => {
+    return {
+        date: date,
+        accuracy: accuracy, // Accuracy of spatial cloaking [1-5] [10km-1m]
+        anonymity: anonymity,
+        lat: lat,
+        lon: lon,
+        radius: radius,
+    }
+}
+
+let requestPresenceModel = (start: number, end: number, lat: number, lon: number, radius: number) => {
+    return {
+        start: start,
+        end: end,
+        lat: lat,
+        lon: lon,
         radius: radius, // Radius from location
     }
 }

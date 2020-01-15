@@ -31,7 +31,7 @@ let suppressLocations = (k = 2, array) => {
         let temp = array[i];
         for (let j = 0; j < array.length; j++) {
             if (temp.lat == array[j].lat &&
-                temp.long == array[j].long &&
+                temp.lon == array[j].lon &&
                 i != j) {
                 found++;
                 break;

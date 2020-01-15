@@ -26,22 +26,31 @@
         }
     },
     "steps": {
-        "date": 0
+        "date": 0,
+        "lat": 0,
+        "lon": 0,
+        "radius": 0
     },
     "walk": {
         "start": 0,
-        "end": 0
+        "end": 0,
+        "lat": 0,
+        "lon": 0,
+        "radius": 0
     },
     "location": {
         "date": 0,
         "accuracy": 0,
-        "anonymity": 2
+        "anonymity": 2,
+        "lat": 0,
+        "lon": 0,
+        "radius": 0
     },
     "presence": {
         "start": 0,
         "end": 0,
         "lat": 0,
-        "long": 0,
+        "lon": 0,
         "radius": 0
     }
 }
