@@ -33,7 +33,9 @@ let suppressLocations = (k, array) => {
             if (temp.lat == array[j].lat &&
                 temp.lon == array[j].lon) {
                 found++;
-                break;
+                if (found >= k) {
+                    break;
+                }
             }
         }
         if (found < k) {
