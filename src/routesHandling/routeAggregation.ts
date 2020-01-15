@@ -132,6 +132,12 @@ export default class RouteAggregation {
         });
         this.aggregationObjects[id].collectedGroups++
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
+            let response = {
+                "status": "success",
+                "source": "handlePostPresenceResult",
+                "message": "received all"
+            }
+            res.status(200).json(response).send()
             let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0)
             let result = {
                 id: id,
@@ -144,12 +150,6 @@ export default class RouteAggregation {
             }
             createAggregationResultPromise(result)
                 .then((result) => {
-                    let response = {
-                        "status": "success",
-                        "source": "handlePostPresenceResult",
-                        "message": result
-                    }
-                    res.status(200).json(response).send()
                 })
                 .catch((err) => {
                     let response = {
@@ -187,6 +187,12 @@ export default class RouteAggregation {
         });
         this.aggregationObjects[id].collectedGroups++
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
+            let response = {
+                "status": "success",
+                "source": "handlePostPresenceResult",
+                "message": "received all"
+            }
+            res.status(200).json(response).send()
             let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0)
             let result = {
                 id: id,
@@ -199,12 +205,6 @@ export default class RouteAggregation {
             }
             createAggregationResultPromise(result)
                 .then((result) => {
-                    let response = {
-                        "status": "success",
-                        "source": "handlePostPresenceResult",
-                        "message": result
-                    }
-                    res.status(200).json(response).send()
                 })
                 .catch((err) => {
                     let response = {
@@ -240,6 +240,12 @@ export default class RouteAggregation {
         });
         this.aggregationObjects[id].collectedGroups++
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
+            let response = {
+                "status": "success",
+                "source": "handlePostPresenceResult",
+                "message": "received all"
+            }
+            res.status(200).json(response).send()
             let supressed = suppressLocations(this.aggregationObjects[id].anonymity, this.aggregationObjects[id].raw)
             let result = {
                 id: id,
@@ -251,12 +257,7 @@ export default class RouteAggregation {
             }
             createAggregationResultPromise(result)
                 .then((result) => {
-                    let response = {
-                        "status": "success",
-                        "source": "handlePostPresenceResult",
-                        "message": result
-                    }
-                    res.status(200).json(response).send()
+                    
                 })
                 .catch((err) => {
                     let response = {
@@ -294,6 +295,12 @@ export default class RouteAggregation {
         });
         this.aggregationObjects[id].collectedGroups++
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
+            let response = {
+                "status": "success",
+                "source": "handlePostPresenceResult",
+                "message": "received all"
+            }
+            res.status(200).json(response).send()
             let sum = this.aggregationObjects[id].raw.reduce((a, b) => a + b, 0)
             let result = {
                 id: id,
@@ -306,12 +313,7 @@ export default class RouteAggregation {
             }
             createAggregationResultPromise(result)
                 .then((result) => {
-                    let response = {
-                        "status": "success",
-                        "source": "handlePostPresenceResult",
-                        "message": result
-                    }
-                    res.status(200).json(response).send()
+                    
                 })
                 .catch((err) => {
                     let response = {
