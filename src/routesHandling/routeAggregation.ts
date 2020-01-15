@@ -262,7 +262,7 @@ export default class RouteAggregation {
                     let response = {
                         "status": "failure",
                         "source": "createAggregationResultPromise",
-                        "message": err + ` ${this.aggregationObjects[id].raw}`
+                        "message": `${err} ${this.aggregationObjects[id].raw}`
                     }
                     res.status(200).json(response).send()
                 })
