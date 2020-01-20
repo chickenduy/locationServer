@@ -18,7 +18,7 @@ const routes = new Routes()
 routes.requireRequestAuthentication(app,
 	[
 		'/aggregationsteps', 
-		'/aggregationwalk',
+		'/aggregationactivity',
 		'/aggregationlocation',
 		'/aggregationpresence',
 	]

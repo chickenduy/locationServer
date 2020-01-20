@@ -18,7 +18,7 @@ const routes = new routes_1.default();
 //Set routes that require authentication.
 routes.requireRequestAuthentication(app, [
     '/aggregationsteps',
-    '/aggregationwalk',
+    '/aggregationactivity',
     '/aggregationlocation',
     '/aggregationpresence',
 ]);
