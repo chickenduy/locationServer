@@ -15,8 +15,8 @@ let startAggregationPromise = (req, groups: any[][], uniqueId: String) => {
                 case "steps":
                     requestData = requestModel.requestStepsModel(request.date, request.lat, request.lon, request.radius)
                     break
-                case "walk":
-                    requestData = requestModel.requestWalkModel(request.start, request.end, request.lat, request.lon, request.radius)
+                case "activity":
+                    requestData = requestModel.requestActivityModel(request.type ,request.start, request.end, request.lat, request.lon, request.radius)
                     break
                 case "location":
                     requestData = requestModel.requestLocationModel(request.date, request.accuracy, request.anonymity, request.lat, request.lon, request.radius)

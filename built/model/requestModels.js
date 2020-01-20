@@ -27,8 +27,9 @@ let requestStepsModel = (date, lat, lon, radius) => {
     };
 };
 exports.requestStepsModel = requestStepsModel;
-let requestWalkModel = (start, end, lat, lon, radius) => {
+let requestActivityModel = (type, start, end, lat, lon, radius) => {
     return {
+        type: type,
         start: start,
         end: end,
         lat: lat,
@@ -36,7 +37,7 @@ let requestWalkModel = (start, end, lat, lon, radius) => {
         radius: radius,
     };
 };
-exports.requestWalkModel = requestWalkModel;
+exports.requestActivityModel = requestActivityModel;
 let requestLocationModel = (date, accuracy, anonymity, lat, lon, radius) => {
     return {
         date: date,
