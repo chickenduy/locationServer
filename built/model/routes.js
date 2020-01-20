@@ -53,7 +53,7 @@ class Router {
         app.post('/crowd', this.crowdHandler.handleCreateCrowdRequest);
         app.post('/crowd/ping', this.crowdHandler.handlePingedCrowdRequest);
         app.post('/aggregationsteps', this.aggregationHandler.handlePostStepsResult);
-        app.post('/aggregationwalk', this.aggregationHandler.handlePostWalkResult);
+        app.post('/aggregationactivity', this.aggregationHandler.handlePostWalkResult);
         app.post('/aggregationlocation', this.aggregationHandler.handlePostLocationResult);
         app.post('/aggregationpresence', this.aggregationHandler.handlePostPresenceResult);
         app.post('/aggregationRequest', this.aggregationHandler.handleAggregationRequest);
