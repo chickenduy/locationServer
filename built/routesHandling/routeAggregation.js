@@ -182,7 +182,7 @@ class RouteAggregation {
          * @param req
          * @param res
          */
-        this.handlePostWalkResult = (req, res) => {
+        this.handlePostActivityResult = (req, res) => {
             console.log(req.body.data.raw);
             let raw = req.body.data.raw;
             let id = req.body.requestHeader.id;

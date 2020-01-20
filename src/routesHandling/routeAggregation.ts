@@ -176,7 +176,7 @@ export default class RouteAggregation {
      * @param req 
      * @param res 
      */
-    handlePostWalkResult = (req, res) => {
+    handlePostActivityResult = (req, res) => {
         console.log(req.body.data.raw)
         let raw: any[] = req.body.data.raw
         let id = req.body.requestHeader.id
