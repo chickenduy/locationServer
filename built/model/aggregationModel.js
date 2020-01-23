@@ -6,6 +6,7 @@ class AggreagationModel {
         this.numberOfGroups = 0;
         this.collectedGroups = 0;
         this.anonymity = 2;
+        this.n = 0;
     }
 }
 exports.default = AggreagationModel;

@@ -131,6 +131,7 @@ export default class RouteAggregation {
             this.aggregationObjects[id].raw.push(element)
         });
         this.aggregationObjects[id].collectedGroups++
+        this.aggregationObjects[id].n += req.body.data.n
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
             let response = {
                 "status": "success",
@@ -146,6 +147,7 @@ export default class RouteAggregation {
                 end: Date.now(),
                 average_steps: sum / req.body.data.n,
                 raw: this.aggregationObjects[id].raw,
+                n: this.aggregationObjects[id].n,
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
@@ -186,6 +188,7 @@ export default class RouteAggregation {
             this.aggregationObjects[id].raw.push(element)
         });
         this.aggregationObjects[id].collectedGroups++
+        this.aggregationObjects[id].n += req.body.data.n
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
             let response = {
                 "status": "success",
@@ -201,6 +204,7 @@ export default class RouteAggregation {
                 end: Date.now(),
                 average: sum / req.body.data.n,
                 raw: this.aggregationObjects[id].raw,
+                n: this.aggregationObjects[id].n,
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
@@ -239,6 +243,7 @@ export default class RouteAggregation {
             this.aggregationObjects[id].raw.push(element)
         });
         this.aggregationObjects[id].collectedGroups++
+        this.aggregationObjects[id].n += req.body.data.n
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
             let response = {
                 "status": "success",
@@ -253,11 +258,12 @@ export default class RouteAggregation {
                 start: req.body.requestHeader.start,
                 end: Date.now(),
                 raw: supressed,
+                n: this.aggregationObjects[id].n,
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
                 .then((result) => {
-                    
+
                 })
                 .catch((err) => {
                     let response = {
@@ -294,6 +300,7 @@ export default class RouteAggregation {
             this.aggregationObjects[id].raw.push(element)
         });
         this.aggregationObjects[id].collectedGroups++
+        this.aggregationObjects[id].n += req.body.data.n
         if (this.aggregationObjects[id].collectedGroups == this.aggregationObjects[id].numberOfGroups) {
             let response = {
                 "status": "success",
@@ -309,11 +316,12 @@ export default class RouteAggregation {
                 end: Date.now(),
                 visits: sum,
                 raw: this.aggregationObjects[id].raw,
+                n: this.aggregationObjects[id].n,
                 options: req.body.requestData
             }
             createAggregationResultPromise(result)
                 .then((result) => {
-                    
+
                 })
                 .catch((err) => {
                     let response = {
