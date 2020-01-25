@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const request_promise_1 = __importDefault(require("request-promise"));
 class Communication {
     constructor() {
-        this.api_key = "cfd5f664afd97266ed8ec89ac697b9dcded0afced39635320fc5bfb7a950c705";
+        this.api_key = "aebd6c142e4a6753634265eab8d76ed4d2928fd84969ebebc1092e6c7ccf9192";
         this.fake_api_key = "testtesttesttest";
         this.address = "https://api.pushy.me";
     }
