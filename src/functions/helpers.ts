@@ -50,6 +50,11 @@ let suppressLocations = (k: number, array: Array<any>) => {
     return result
 }
 
+let calculateGroupSizes = (n: number) => {
+    
+    return 
+}
+
 export {
     shuffleFisherYates,
     suppressSingles,
