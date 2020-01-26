@@ -67,6 +67,10 @@ export default class RouteAggregation {
                                     groups[counter] = onlineCrowdDetailed.splice(0, newGroupSize)
                                     counter++
                                 }
+                                let json = {
+                                    groups: groups
+                                }
+                                res.status(200).json(json).send()
                                 let uniqueId = uniqid()
                                 this.aggregationObjects[uniqueId] = new AggreagationModel()
                                 this.aggregationObjects[uniqueId].numberOfGroups = groups.length
