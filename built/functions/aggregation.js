@@ -4,7 +4,7 @@ const dbconnector_1 = require("../dbconnector");
 const COLLECTION_RESULT = "aggregation";
 let createAggregationResultPromise = (result) => {
     return new Promise((resolve, reject) => {
-        if (result.raw.length == 0) {
+        if (result.raw.length == 0 || result.raw.n == 0) {
             reject("There is no raw data to save");
         }
         dbconnector_1.getDb()
