@@ -5,7 +5,27 @@ const COLLECTION_RESULT = "aggregation"
 let createAggregationResultPromise = (result) => {
     return new Promise((resolve, reject) => {
         if (result.raw.length == 0 || result.raw.n == 0) {
-            reject("There is no raw data to save")
+            getDb()
+            .then((db) => {
+                let message = {
+                    id: result.id,
+                    type: result.type,
+                    start: result.start,
+                    end: result.end,
+                    message: "no results",
+                    options: result.options
+                }
+                db.collection(COLLECTION_RESULT).insertOne(message)
+                    .then(() => {
+                        resolve("saved aggregation")
+                    })
+                    .catch((err) => {
+                        reject(err)
+                    })
+            })
+            .catch((err) => {
+                reject(err)
+            })
         }
         getDb()
             .then((db) => {
