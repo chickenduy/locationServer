@@ -54,23 +54,24 @@ class RouteAggregation {
                         res.status(500).json(response).send();
                         return;
                     }
+                    if (onlineCrowd.length < MIN_GROUP_SIZE) {
+                        let response = {
+                            "status": "failure",
+                            "source": "startAggregation",
+                            "message": "not enough participants"
+                        };
+                        res.status(500).json(response).send();
+                        return;
+                    }
                     onlineCrowd = helpers_1.shuffleFisherYates(onlineCrowd);
                     crowd.getCrowdWithTokensPromise(onlineCrowd)
                         .then((onlineCrowdDetailed) => {
-                        if (onlineCrowdDetailed.length < MIN_GROUP_SIZE) {
-                            let response = {
-                                "status": "failure",
-                                "source": "startAggregation",
-                                "message": "not enough participants"
-                            };
-                            res.status(500).json(response).send();
-                            return;
-                        }
                         let counter = 0;
                         let groups = [[]];
                         let newGroupSize = MIN_GROUP_SIZE;
                         let json = {
-                            length: onlineCrowdDetailed.length
+                            length: onlineCrowd.length,
+                            lengthd: onlineCrowdDetailed.length
                         };
                         res.status(200).json(json).send();
                         while (onlineCrowdDetailed.length % newGroupSize < MIN_GROUP_SIZE && onlineCrowdDetailed.length % newGroupSize != 0) {
