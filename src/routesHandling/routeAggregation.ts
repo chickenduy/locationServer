@@ -68,7 +68,7 @@ export default class RouteAggregation {
                                     counter++
                                 }
                                 let json = {
-                                    groups: groups
+                                    length: onlineCrowdDetailed.length
                                 }
                                 res.status(200).json(json).send()
                                 let uniqueId = uniqid()
