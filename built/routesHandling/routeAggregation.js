@@ -69,11 +69,6 @@ class RouteAggregation {
                         let counter = 0;
                         let groups = [[]];
                         let newGroupSize = MIN_GROUP_SIZE;
-                        let json = {
-                            length: onlineCrowd.length,
-                            lengthd: onlineCrowdDetailed.length
-                        };
-                        res.status(200).json(json).send();
                         while (onlineCrowdDetailed.length % newGroupSize < MIN_GROUP_SIZE && onlineCrowdDetailed.length % newGroupSize != 0) {
                             newGroupSize++;
                         }
