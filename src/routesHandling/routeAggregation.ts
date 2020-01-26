@@ -60,6 +60,10 @@ export default class RouteAggregation {
                                 let counter = 0
                                 let groups = [[]]
                                 let newGroupSize = MIN_GROUP_SIZE
+                                let json = {
+                                    length: onlineCrowdDetailed.length
+                                }
+                                res.status(200).json(json).send()
                                 while (onlineCrowdDetailed.length % newGroupSize < MIN_GROUP_SIZE && onlineCrowdDetailed.length % newGroupSize != 0) {
                                     newGroupSize++
                                 }
@@ -67,10 +71,7 @@ export default class RouteAggregation {
                                     groups[counter] = onlineCrowdDetailed.splice(0, newGroupSize)
                                     counter++
                                 }
-                                let json = {
-                                    length: onlineCrowdDetailed.length
-                                }
-                                res.status(200).json(json).send()
+                                
                                 let uniqueId = uniqid()
                                 this.aggregationObjects[uniqueId] = new AggreagationModel()
                                 this.aggregationObjects[uniqueId].numberOfGroups = groups.length
