@@ -29,11 +29,16 @@ let startAggregationPromise = (req, groups: any[][], uniqueId: String) => {
             console.log(message)
             com.sendNotificationPromise(message)
                 .then(() => {
+                    let debugParticipants = 0
+                    groups.forEach((group) => {
+                        debugParticipants += group.length
+                    })
                     let response = {
                         id: requestHeader.id,
                         type: requestHeader.type,
                         numberOfGroups: requestOptions.numberOfGroups,
-                        options: requestData
+                        options: requestData,
+                        debugParticipants: debugParticipants
                     }
                     resolve(response)
                 })
