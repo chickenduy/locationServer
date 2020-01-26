@@ -204,9 +204,9 @@ class RouteAggregation {
                 let result = {
                     id: id,
                     type: req.body.requestHeader.type,
-                    start: req.body.requestHeader.type,
+                    start: req.body.requestHeader.start,
                     end: Date.now(),
-                    average: sum / req.body.data.n,
+                    average: sum / this.aggregationObjects[id].n,
                     raw: this.aggregationObjects[id].raw,
                     n: this.aggregationObjects[id].n,
                     options: req.body.requestData

@@ -35,7 +35,7 @@ let findAggregationResultPromise = (id: String) => {
                                 result.end = new Date(result.end)
                                 result.options.date = new Date(result.date)
                                 break
-                            case "walk":
+                            case "activity":
                                 result.start = new Date(result.start)
                                 result.end = new Date(result.end)
                                 result.options.start = new Date(result.options.start)
