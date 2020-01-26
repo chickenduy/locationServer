@@ -7,8 +7,7 @@ import { startAggregationPromise } from '../functions/request';
 import { createAggregationResultPromise, findAggregationResultPromise } from '../functions/aggregation'
 import AggreagationModel from "../model/aggregationModel";
 
-const GROUP_SIZE = 1
-const MIN_GROUP_SIZE = 1
+const MIN_GROUP_SIZE = 3
 const MIN_ANON = 1
 
 export default class RouteAggregation {
@@ -60,7 +59,7 @@ export default class RouteAggregation {
                                 }
                                 let counter = 0
                                 let groups = [[]]
-                                let newGroupSize = GROUP_SIZE
+                                let newGroupSize = MIN_GROUP_SIZE
                                 while (onlineCrowdDetailed.length % newGroupSize < MIN_GROUP_SIZE && onlineCrowdDetailed.length % newGroupSize != 0) {
                                     newGroupSize++
                                 }

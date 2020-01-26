@@ -17,8 +17,7 @@ const crowd = __importStar(require("../model/crowd"));
 const request_1 = require("../functions/request");
 const aggregation_1 = require("../functions/aggregation");
 const aggregationModel_1 = __importDefault(require("../model/aggregationModel"));
-const GROUP_SIZE = 1;
-const MIN_GROUP_SIZE = 1;
+const MIN_GROUP_SIZE = 3;
 const MIN_ANON = 1;
 class RouteAggregation {
     constructor() {
@@ -69,7 +68,7 @@ class RouteAggregation {
                         }
                         let counter = 0;
                         let groups = [[]];
-                        let newGroupSize = GROUP_SIZE;
+                        let newGroupSize = MIN_GROUP_SIZE;
                         while (onlineCrowdDetailed.length % newGroupSize < MIN_GROUP_SIZE && onlineCrowdDetailed.length % newGroupSize != 0) {
                             newGroupSize++;
                         }
