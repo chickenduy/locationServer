@@ -1,26 +1,44 @@
 ## locationServer
 
-Basic Web project with ExpressJS on NodeJS
+Basic Web project with ExpressJS on NodeJS with Typescript and Pushy
 
 [![](https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg)](https://bluemix.net)
 ![Platform](https://img.shields.io/badge/platform-NODE-lightgrey.svg?style=flat)
 
-### Table of Contents
+## Table of Contents
 * [Requirements](#requirements)
+### [Local](#local)
+* [Requirements](#requirements)
+### [IBM](#enablement)
 * [Configuration](#configuration)
 * [Run](#run)
 * [Debug](#debug)
-
-
-
-<a name="enablement"></a>
-### IBM Cloud Enablement
 
 <a name="requirements"></a>
 ### Requirements
 #### Local Development Tools Setup (optional)
 
 - Install the latest [NodeJS](https://nodejs.org/en/download/) 6+ LTS version.
+- Create a [Pushy](https://pushy.me/) account and copy the Secret API Key.
+- Insert into TODO: Insert Secret API Key
+
+<a name="local"></a>
+### Local Deployment
+
+- Install all dependencies
+
+```bash
+npm install
+```
+
+- Transpile Typescript code and run server
+
+```bash
+npm run-script run-local
+```
+
+<a name="enablement"></a>
+### IBM Cloud Enablement
 
 #### IBM Cloud development tools setup (optional)
 

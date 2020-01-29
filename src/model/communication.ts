@@ -1,8 +1,8 @@
 import request from 'request-promise'
 
 export default class Communication {
+    // TODO: Insert Secret API Key
     api_key = "aebd6c142e4a6753634265eab8d76ed4d2928fd84969ebebc1092e6c7ccf9192"
-    fake_api_key = "testtesttesttest"
     address = "https://api.pushy.me"
 
     /**

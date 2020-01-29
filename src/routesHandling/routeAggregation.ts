@@ -8,7 +8,7 @@ import { createAggregationResultPromise, findAggregationResultPromise } from '..
 import AggreagationModel from "../model/aggregationModel";
 
 const MIN_GROUP_SIZE = 3
-const MIN_ANON = 1
+const MIN_ANON = 2
 
 export default class RouteAggregation {
     aggregationObjects: { [id: string]: AggreagationModel; } = {};
