@@ -144,7 +144,7 @@ export default class RouteAggregation {
                 type: req.body.requestHeader.type,
                 start: req.body.requestHeader.start,
                 end: Date.now(),
-                average_steps: sum / req.body.data.n,
+                average_steps: sum / this.aggregationObjects[id].n,
                 raw: this.aggregationObjects[id].raw,
                 n: this.aggregationObjects[id].n,
                 options: req.body.requestData
