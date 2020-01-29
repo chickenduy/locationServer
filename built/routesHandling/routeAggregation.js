@@ -18,7 +18,7 @@ const request_1 = require("../functions/request");
 const aggregation_1 = require("../functions/aggregation");
 const aggregationModel_1 = __importDefault(require("../model/aggregationModel"));
 const MIN_GROUP_SIZE = 3;
-const MIN_ANON = 1;
+const MIN_ANON = 2;
 class RouteAggregation {
     constructor() {
         this.aggregationObjects = {};
@@ -151,7 +151,7 @@ class RouteAggregation {
                     type: req.body.requestHeader.type,
                     start: req.body.requestHeader.start,
                     end: Date.now(),
-                    average_steps: sum / req.body.data.n,
+                    average_steps: sum / this.aggregationObjects[id].n,
                     raw: this.aggregationObjects[id].raw,
                     n: this.aggregationObjects[id].n,
                     options: req.body.requestData
