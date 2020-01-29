@@ -51,25 +51,25 @@ let findAggregationResultPromise = (id: String) => {
                     .then((result) => {
                         switch (result.type) {
                             case "steps":
-                                result.start = new Date(result.start)
-                                result.end = new Date(result.end)
+                                result.start = result.start
+                                result.end = result.end
                                 result.options.date = new Date(result.date)
                                 break
                             case "activity":
-                                result.start = new Date(result.start)
-                                result.end = new Date(result.end)
+                                result.start = result.start
+                                result.end = result.end
                                 result.options.start = new Date(result.options.start)
                                 result.options.end = new Date(result.options.end)
                                 break
                             case "location":
 
-                                result.start = new Date(result.start)
-                                result.end = new Date(result.end)
+                                result.start = result.start
+                                result.end = result.end
                                 result.options.date = new Date(result.options.date)
                                 break
                             case "presence":
-                                result.start = new Date(result.start)
-                                result.end = new Date(result.end)
+                                result.start = result.start
+                                result.end = result.end
                                 result.options.start = new Date(result.options.start)
                                 result.options.end = new Date(result.options.end)
                                 break
