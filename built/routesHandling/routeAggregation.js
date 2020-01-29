@@ -149,8 +149,8 @@ class RouteAggregation {
                 let result = {
                     id: id,
                     type: req.body.requestHeader.type,
-                    start: req.body.requestHeader.start,
-                    end: Date.now(),
+                    start: new Date(req.body.requestHeader.start),
+                    end: new Date(),
                     average_steps: sum / this.aggregationObjects[id].n,
                     raw: this.aggregationObjects[id].raw,
                     n: this.aggregationObjects[id].n,
@@ -204,8 +204,8 @@ class RouteAggregation {
                 let result = {
                     id: id,
                     type: req.body.requestHeader.type,
-                    start: req.body.requestHeader.start,
-                    end: Date.now(),
+                    start: new Date(req.body.requestHeader.start),
+                    end: new Date,
                     average: sum / this.aggregationObjects[id].n,
                     raw: this.aggregationObjects[id].raw,
                     n: this.aggregationObjects[id].n,
@@ -258,8 +258,8 @@ class RouteAggregation {
                 let result = {
                     id: id,
                     type: req.body.requestHeader.type,
-                    start: req.body.requestHeader.start,
-                    end: Date.now(),
+                    start: new Date(req.body.requestHeader.start),
+                    end: new Date(),
                     raw: supressed,
                     n: this.aggregationObjects[id].n,
                     options: req.body.requestData
@@ -312,8 +312,8 @@ class RouteAggregation {
                 let result = {
                     id: id,
                     type: req.body.requestHeader.type,
-                    start: req.body.requestHeader.start,
-                    end: Date.now(),
+                    start: new Date(req.body.requestHeader.start),
+                    end: new Date,
                     visits: sum,
                     raw: this.aggregationObjects[id].raw,
                     n: this.aggregationObjects[id].n,
