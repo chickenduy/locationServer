@@ -150,7 +150,7 @@ class RouteAggregation {
                     id: id,
                     type: req.body.requestHeader.type,
                     start: new Date(req.body.requestHeader.start),
-                    end: new Date(),
+                    end: new Date,
                     average_steps: sum / this.aggregationObjects[id].n,
                     raw: this.aggregationObjects[id].raw,
                     n: this.aggregationObjects[id].n,
@@ -259,7 +259,7 @@ class RouteAggregation {
                     id: id,
                     type: req.body.requestHeader.type,
                     start: new Date(req.body.requestHeader.start),
-                    end: new Date(),
+                    end: new Date,
                     raw: supressed,
                     n: this.aggregationObjects[id].n,
                     options: req.body.requestData

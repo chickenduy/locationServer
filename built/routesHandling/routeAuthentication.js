@@ -33,6 +33,7 @@ class RouteAuthentication {
                 password = req.body.password;
             }
             if (!id || !password) {
+                console.log("Missing parameters");
                 let result = {
                     "status": "failure",
                     "source": "authenticateUser",
@@ -46,6 +47,7 @@ class RouteAuthentication {
                 next();
             })
                 .catch((err) => {
+                console.log(err);
                 let result = {
                     "status": "failure",
                     "source": "authenticateCrowdPromise",

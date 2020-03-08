@@ -1,0 +1,614 @@
+[
+    {
+        "_id": {
+            "$oid": "5e3b16436d4c56007e79988b"
+        },
+        "id": "d03ik69p9vln",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930622781"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930627533"
+            }
+        },
+        "average": {
+            "$numberInt": "11009541"
+        },
+        "raw": [
+            {
+                "$numberInt": "11009541"
+            }
+        ],
+        "n": {
+            "$numberInt": "1"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580223600000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580137200000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3b16586d4c56007e79988c"
+        },
+        "id": "d03ik69pad9n",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930645675"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930648510"
+            }
+        },
+        "average": {
+            "$numberDouble": "34622410.5"
+        },
+        "raw": [
+            {
+                "$numberInt": "14777858"
+            },
+            {
+                "$numberInt": "72865982"
+            },
+            {
+                "$numberInt": "49189749"
+            },
+            {
+                "$numberInt": "1656053"
+            }
+        ],
+        "n": {
+            "$numberInt": "4"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580310000000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580223600000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3b16706d4c56007e79988d"
+        },
+        "id": "d03ik69paw3d",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930670073"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930672137"
+            }
+        },
+        "average": {
+            "$numberDouble": "66377880.5"
+        },
+        "raw": [
+            {
+                "$numberInt": "65971371"
+            },
+            {
+                "$numberInt": "71162837"
+            },
+            {
+                "$numberInt": "78060374"
+            },
+            {
+                "$numberInt": "50316940"
+            }
+        ],
+        "n": {
+            "$numberInt": "4"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580396400000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580310000000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3b16886d4c56007e79988e"
+        },
+        "id": "d03ik69pbegk",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930693877"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930696411"
+            }
+        },
+        "average": {
+            "$numberInt": "53574979"
+        },
+        "raw": [
+            {
+                "$numberInt": "0"
+            },
+            {
+                "$numberInt": "61340947"
+            },
+            {
+                "$numberInt": "73816697"
+            },
+            {
+                "$numberInt": "79142272"
+            }
+        ],
+        "n": {
+            "$numberInt": "4"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580482800000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580396400000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3b16946d4c56007e79988f"
+        },
+        "id": "d03ik69pbnal",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930705325"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930708288"
+            }
+        },
+        "average": {
+            "$numberInt": "55600818"
+        },
+        "raw": [
+            {
+                "$numberInt": "65121418"
+            },
+            {
+                "$numberInt": "78697942"
+            },
+            {
+                "$numberInt": "78583912"
+            },
+            {
+                "$numberInt": "0"
+            }
+        ],
+        "n": {
+            "$numberInt": "4"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580569200000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580482800000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3b16a56d4c56007e799890"
+        },
+        "id": "d03ik69pc0sz",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930722836"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930725902"
+            }
+        },
+        "average": {
+            "$numberDouble": "47557141.25"
+        },
+        "raw": [
+            {
+                "$numberInt": "15816701"
+            },
+            {
+                "$numberInt": "22734743"
+            },
+            {
+                "$numberInt": "79535518"
+            },
+            {
+                "$numberInt": "72141603"
+            }
+        ],
+        "n": {
+            "$numberInt": "4"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580655600000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580569200000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3b16b86d4c56007e799891"
+        },
+        "id": "d03ik69pcfn6",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930742066"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930744127"
+            }
+        },
+        "average": {
+            "$numberInt": "48526525"
+        },
+        "raw": [
+            {
+                "$numberInt": "50112356"
+            },
+            {
+                "$numberInt": "55503957"
+            },
+            {
+                "$numberInt": "58906080"
+            },
+            {
+                "$numberInt": "29583707"
+            }
+        ],
+        "n": {
+            "$numberInt": "4"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580742000000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580655600000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3b16c76d4c56007e799892"
+        },
+        "id": "d03ik69pcovw",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930754044"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930759105"
+            }
+        },
+        "average": {
+            "$numberDouble": "48420612.25"
+        },
+        "raw": [
+            {
+                "$numberInt": "950766"
+            },
+            {
+                "$numberInt": "57962472"
+            },
+            {
+                "$numberInt": "55751780"
+            },
+            {
+                "$numberInt": "79017431"
+            }
+        ],
+        "n": {
+            "$numberInt": "4"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580828400000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580742000000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3b17076d4c56007e799893"
+        },
+        "id": "d03ik69pe2i9",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580930818354"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580930823165"
+            }
+        },
+        "average": {
+            "$numberDouble": "525160616.75"
+        },
+        "raw": [
+            {
+                "$numberInt": "478766747"
+            },
+            {
+                "$numberInt": "575273176"
+            },
+            {
+                "$numberInt": "561089194"
+            },
+            {
+                "$numberInt": "485513350"
+            }
+        ],
+        "n": {
+            "$numberInt": "4"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580828400000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580137200000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3ba8566d4c56007e7998a3"
+        },
+        "id": "d03ik6abjcwl",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580968016661"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580968022261"
+            }
+        },
+        "average": {
+            "$numberInt": "539322512"
+        },
+        "raw": [
+            {
+                "$numberInt": "626093954"
+            },
+            {
+                "$numberInt": "425299506"
+            },
+            {
+                "$numberInt": "566574076"
+            }
+        ],
+        "n": {
+            "$numberInt": "3"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580914800000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580137200000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e3ba86a6d4c56007e7998a4"
+        },
+        "id": "d03ik6abjun5",
+        "type": "activity",
+        "start": {
+            "$date": {
+                "$numberLong": "1580968039650"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1580968042283"
+            }
+        },
+        "average": {
+            "$numberInt": "55265333"
+        },
+        "raw": [
+            {
+                "$numberInt": "64250936"
+            },
+            {
+                "$numberInt": "38580163"
+            },
+            {
+                "$numberInt": "62964900"
+            }
+        ],
+        "n": {
+            "$numberInt": "3"
+        },
+        "options": {
+            "end": {
+                "$numberLong": "1580914800000"
+            },
+            "lat": {
+                "$numberDouble": "35.535805"
+            },
+            "lon": {
+                "$numberDouble": "139.629409"
+            },
+            "radius": {
+                "$numberInt": "50000"
+            },
+            "start": {
+                "$numberLong": "1580828400000"
+            },
+            "type": {
+                "$numberInt": "3"
+            }
+        }
+    }
+]

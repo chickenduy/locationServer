@@ -1,0 +1,1022 @@
+[
+    {
+        "_id": {
+            "$oid": "5e5493ad26503308598b0105"
+        },
+        "id": "618k1ndk71buof9",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601131557"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601133859"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.64499968836486"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.64499968836486"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595640000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e5493ba26503308598b0106"
+        },
+        "id": "618k1ndk71buyem",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601144495"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601146692"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595700000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e5493c826503308598b0107"
+        },
+        "id": "618k1ndk71bv7ud",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601156726"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601160485"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595760000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e5493d726503308598b0108"
+        },
+        "id": "618k1ndk71bvkp6",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601173386"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601175625"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595820000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e5493e626503308598b0109"
+        },
+        "id": "618k1ndk71bvw1h",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601188085"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601190344"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595880000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e5493f426503308598b010a"
+        },
+        "id": "618k1ndk71bw5u6",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601200782"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601204106"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595940000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e5493ff26503308598b010b"
+        },
+        "id": "618k1ndk71bwfmg",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601213464"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601215518"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582596000000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54940a26503308598b010c"
+        },
+        "id": "618k1ndk71bwnw2",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601224178"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601226245"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582596060000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54941926503308598b010d"
+        },
+        "id": "618k1ndk71bwzp9",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601239486"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601241570"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582596120000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54942426503308598b010e"
+        },
+        "id": "618k1ndk71bx84d",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601250397"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601252449"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.535000103183386"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968836484"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.54500010319573"
+                },
+                "lon": {
+                    "$numberDouble": "139.63499968824985"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "2"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582596180000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    }
+]

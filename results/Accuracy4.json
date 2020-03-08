@@ -1,0 +1,402 @@
+[
+    {
+        "_id": {
+            "$oid": "5e54944626503308598b010f"
+        },
+        "id": "618k1ndk71bxyd4",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601284408"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601286530"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595640000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54945c26503308598b0111"
+        },
+        "id": "618k1ndk71byffh",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601306525"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601308705"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595700000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },  
+    {
+        "_id": {
+            "$oid": "5e54946526503308598b0113"
+        },
+        "id": "618k1ndk71bylh5",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601314361"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601317435"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595760000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54946e26503308598b0115"
+        },
+        "id": "618k1ndk71byt4k",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601324276"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601326522"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595820000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54947a26503308598b0117"
+        },
+        "id": "618k1ndk71bz22k",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601335870"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601338494"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595880000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54948326503308598b0119"
+        },
+        "id": "618k1ndk71bz90s",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601344876"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601347368"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582595940000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54948b26503308598b011b"
+        },
+        "id": "618k1ndk71bzfol",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601353509"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601355744"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582596000000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e54949626503308598b011d"
+        },
+        "id": "618k1ndk71bzo9s",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601364640"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601366625"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582596060000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e5494a026503308598b011f"
+        },
+        "id": "618k1ndk71bzvng",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601374205"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601376245"
+            }
+        },
+        "message": "no results",
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582596120000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    },
+    {
+        "_id": {
+            "$oid": "5e5494ac26503308598b0121"
+        },
+        "id": "618k1ndk71c04rt",
+        "type": "location",
+        "start": {
+            "$date": {
+                "$numberLong": "1582601386025"
+            }
+        },
+        "end": {
+            "$date": {
+                "$numberLong": "1582601388157"
+            }
+        },
+        "raw": [
+            {
+                "lat": {
+                    "$numberDouble": "35.53725000001032"
+                },
+                "lon": {
+                    "$numberDouble": "139.63364999996884"
+                }
+            },
+            {
+                "lat": {
+                    "$numberDouble": "35.53725000001032"
+                },
+                "lon": {
+                    "$numberDouble": "139.63364999996884"
+                }
+            }
+        ],
+        "n": {
+            "$numberInt": "10"
+        },
+        "options": {
+            "accuracy": {
+                "$numberInt": "4"
+            },
+            "anonymity": {
+                "$numberInt": "2"
+            },
+            "date": {
+                "$numberLong": "1582596180000"
+            },
+            "lat": {
+                "$numberDouble": "35.535751"
+            },
+            "lon": {
+                "$numberDouble": "139.629355"
+            },
+            "radius": {
+                "$numberInt": "10"
+            }
+        }
+    }
+]

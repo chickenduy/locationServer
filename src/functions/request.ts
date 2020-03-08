@@ -26,7 +26,7 @@ let startAggregationPromise = (req, groups: any[][], uniqueId: String) => {
                     break
             }
             let message = requestModel.messageModel(group[0].id, requestHeader, requestOptions, requestData, data)
-            console.log(message)
+            //console.log(message)
             com.sendNotificationPromise(message)
                 .then(() => {
                     let debugParticipants = 0
