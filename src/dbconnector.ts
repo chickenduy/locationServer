@@ -2,7 +2,10 @@ import mongo, { MongoClient } from 'mongodb';
 
 const mongoClient = mongo.MongoClient
 
-const uri = "mongodb+srv://chickenduy:LeAnh2000!@locationstorage-mlqqq.mongodb.net/test?retryWrites=true&w=majority";
+/**
+ * TODO: Add MongoDB connector
+ */
+const uri = "";
 const DB = "data"
 
 let conn = null
